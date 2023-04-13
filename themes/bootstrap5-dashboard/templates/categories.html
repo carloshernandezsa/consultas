@@ -1,0 +1,13 @@
+{% extends "index.html" %}
+
+{% block title %}Categorías - {{ SITENAME }}{% endblock %}
+
+{% block header_title %}Categorías{% endblock %}
+
+{% block content %}
+<ul>
+    {% for category, articles in categories|sort %}
+    <li><a href="/{{ category.url }}">{{ category }}</a> ({{ articles|count }})</li>
+    {% endfor %}
+</ul>
+{% endblock %}
