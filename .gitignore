@@ -1,0 +1,8 @@
+.bashrc
+.directory
+.DS_Store
+.venv/
+*.pyc
+__pycache__
+output/
+poetry.lock
