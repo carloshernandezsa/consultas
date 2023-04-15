@@ -1,5 +1,5 @@
 body {
-  font-family: 'Noto Sans', sans-serif; font-size: 12pt;
+  font-family: 'Roboto', sans-serif; font-size: 12pt;
   font-size: 0.875rem;
 }
 
@@ -29,7 +29,7 @@ body {
 
 @media (max-width: 767.98px) {
   .sidebar {
-    top: 5rem;
+    top: 0rem;
   }
 }
 
