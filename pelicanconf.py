@@ -1,40 +1,43 @@
 """
-Pelican configuration file
+Pelican development configuration file
 """
 
-# Theme
-THEME = "themes/bootstrap5-dashboard"
+# Tema
+THEME = "themes/bootstrap4.6"
 
-# Site
+# Sitio
 SITENAME = "Justicia Digital"
 SITEURL = "http://localhost:8000"
 
-# Static paths will be copied under the same name
-STATIC_PATHS = [
-    "favicon.ico",
-    "robots.txt",
-]
+# Autor por defecto
+AUTHOR = "Direccion de Informatica"
 
-# Categories
+# Paginas atemporales, que no son articulos
+PAGE_PATHS = ["consultas"]
+
+# Rutas y archivos con contenidos estaticos que deben ser copiados
+STATIC_PATHS = ["favicon.ico", "robots.txt"]
+
+# Al colocar un articulo, la cetegoria se toma del nombre de la carpeta
 USE_FOLDER_AS_CATEGORY = True
 DEFAULT_CATEGORY = "consultas"
 
-# Timezone
+# Zona horaria
 TIMEZONE = "America/Mexico_City"
 
-# Feed generation is usually not desired when developing
+# La generacion de fuentes RSS y Atom esta deshabilitada
 FEED_ALL_ATOM = None
 CATEGORY_FEED_ATOM = None
 AUTHOR_FEED_ATOM = None
 AUTHOR_FEED_RSS = None
 
-# Sitemap
+# Mapa del sitio
 SITEMAP = {
     "format": "xml",
     "priorities": {"articles": 0.5, "indexes": 0.5, "pages": 0.5},
     "changefreqs": {"articles": "monthly", "indexes": "daily", "pages": "monthly"},
 }
 
-# Plugins
-PLUGIN_PATHS = ['plugins']
+# Plugins, se usa pelican_javascript para incluir archivos JavaScript en las consultas
+PLUGIN_PATHS = ["plugins"]
 PLUGINS = ["pelican_javascript"]

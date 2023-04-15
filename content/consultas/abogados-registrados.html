@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Abogados registrados</title>
+    <meta name="slug" content="abogados-registrados" />
+    <meta name="summary" content="Consulta de abogados registrados." />
+    <meta name="javascripts" content="consultas-abogados-registrados.js" />
+    <meta name="save_as" content="consultas/abogados-registrados.html" />
+  </head>
+  <body>
+    <form id="abogadosForm" onsubmit="return false;">
+      <div class="form-group">
+        <label for="nombreInput">Nombre</label>
+        <input type="text" class="form-control" id="nombreInput" placeholder="Por lo menos cuatro caracteres" />
+      </div>
+      <div class="form-group">
+        <label for="anioDesdeSelect">Año de registro, desde</label>
+        <select id="anioDesdeSelect" class="form-control"></select>
+      </div>
+      <div class="form-group">
+        <label for="anioHastaSelect">Año de registro, hasta</label>
+        <select id="anioHastaSelect" class="form-control"></select>
+      </div>
+      <button id="consultarButton" class="btn btn-primary">Consultar</button>
+    </form>
+    <table id="abogadosRegistradosTable" class="table table-striped" style="width: 100%">
+      <thead>
+        <tr>
+          <th>Fecha</th>
+          <th>Libro</th>
+          <th>Numero</th>
+          <th>Nombre</th>
+        </tr>
+      </thead>
+    </table>
+  </body>
+</html>
