@@ -43,9 +43,9 @@ $(document).ready(function () {
     $("#edictosTable").DataTable({
       data: data.data,
       columns: [
-        { data: "fecha", width: "20%" },
-        { data: "descripcion", width: "40%" },
-        { data: "archivo", width: "40%" },
+        { data: "fecha" },
+        { data: "descripcion" },
+        { data: "archivo" },
       ],
       pageLength: 10,
       language: {

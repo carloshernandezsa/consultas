@@ -16,39 +16,56 @@ $(document).ready(function () {
       var url = "https://api.justiciadigital.gob.mx/v3";
   }
 
+  // Obtener la autoridad por los parámetros de la URL
+  var urlParams = new URLSearchParams(window.location.search);
+  var autoridad_clave = urlParams.get("autoridad_clave");
+
+  // Si no se especificó la autoridad
+  if (autoridad_clave == null) {
+    $("#audienciasFormCard").show(); // Mostrar el formulario
+    $("#spinnerCard").hide(); // Ocultar el spinner
+  } else {
+    // Esperar 2 segundos
+    setTimeout(function () {
+      consultarAudiencias(autoridad_clave); // Consultar las audiencias desde la API
+      $("#audienciasTableCard").show(); // Mostrar la tabla
+      $("#spinnerCard").hide(); // Ocultar el spinner
+    }, 2000);
+  }
+
   // Al dar click en el botón de consultar
   $("#consultarButton").click(function () {
-    // Consultar las audiencias desde la API
-    $.ajax({
-      url: url + "/audiencias/datatable",
-      type: "GET",
-      dataType: "json",
-      success: function (data) {
-        alRecibirResultados(data);
-      },
-    });
+    // Recargar esta página con el parametro de la autoridad
+    autoridad_clave = "SLT-J1-CIV";
+    window.location.href = window.location.href + "?autoridad_clave=" + autoridad_clave;
   });
 
   // Al recibir los resultados de la consulta
-  function alRecibirResultados(data) {
+  function consultarAudiencias(autoridad_clave) {
     // Si tiene datos, limpiar la tabla
     if ($("#audienciasTable").length > 0) {
       $("#audienciasTable").DataTable().clear().destroy();
     }
 
-    // Mostrar en la consola
-    console.log(data.success, data.error, data.data);
-
     // Cargar los datos en la tabla
     $("#audienciasTable").DataTable({
-      data: data.data,
+      lengthChange: false,
+      ordering: false,
+      searching: false,
+      scrollX: true,
+      serverSide: true,
+      ajax: {
+        url: url + "/audiencias/datatable",
+        data: { autoridad_clave: autoridad_clave },
+        type: "GET",
+        dataType: "json",
+      },
       columns: [
-        { data: "tiempo", width: "20%" },
-        { data: "sala", width: "20%" },
-        { data: "tipo_audiencia", width: "20%" },
-        { data: "expediente", width: "40%" },
+        { data: "tiempo" },
+        { data: "sala" },
+        { data: "tipo_audiencia" },
+        { data: "expediente" },
       ],
-      pageLength: 10,
       language: {
         lengthMenu: "Mostrar _MENU_",
         search: "Filtrar:",

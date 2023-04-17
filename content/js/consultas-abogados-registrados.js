@@ -62,10 +62,10 @@ $(document).ready(function () {
         dataType: "json",
       },
       columns: [
-        { data: "fecha", width: "20%" },
-        { data: "libro", width: "20%" },
-        { data: "numero", width: "20%" },
-        { data: "nombre", width: "40%" },
+        { data: "fecha" },
+        { data: "libro" },
+        { data: "numero" },
+        { data: "nombre" },
       ],
       language: {
         lengthMenu: "Mostrar _MENU_",
