@@ -16,39 +16,57 @@ $(document).ready(function () {
       var url = "https://api.justiciadigital.gob.mx/v3";
   }
 
+  // Obtener el nombre por los parámetros de la URL
+  var urlParams = new URLSearchParams(window.location.search);
+  var nombre = urlParams.get("nombre");
+
+  // Si no se especificó el nombre
+  if (nombre == null) {
+    consultarAbogadosRegistrados(); // Consultar los abogados registrados desde la API
+    $("#abogadosRegistradosFormCard").show(); // Mostrar el formulario
+    $("#spinnerCard").hide(); // Ocultar el spinner
+  } else {
+    // Esperar 2 segundos
+    setTimeout(function () {
+      consultarAbogadosRegistrados(nombre); // Consultar los abogados registrados desde la API
+      $("#abogadosRegistradosTableCard").show(); // Mostrar la tabla
+      $("#spinnerCard").hide(); // Ocultar el spinner
+    }, 2000);
+  }
+
   // Al dar click en el botón de consultar
   $("#consultarButton").click(function () {
-    // Consultar los abogados desde la API
-    $.ajax({
-      url: url + "/abogados/datatable",
-      type: "GET",
-      dataType: "json",
-      success: function (data) {
-        alRecibirResultados(data);
-      },
-    });
+    // Recargar esta página con el parametro del nombre
+    nombre = "gonzalez"
+    window.location.href = window.location.href + "?nombre=" + nombre;
   });
 
   // Al recibir los resultados de la consulta
-  function alRecibirResultados(data) {
+  function consultarAbogadosRegistrados(nombre) {
     // Si tiene datos, limpiar la tabla
     if ($("#abogadosRegistradosTable").length > 0) {
       $("#abogadosRegistradosTable").DataTable().clear().destroy();
     }
 
-    // Mostrar en la consola
-    console.log(data.success, data.error, data.data);
-
     // Cargar los datos en la tabla
     $("#abogadosRegistradosTable").DataTable({
-      data: data.data,
+      lengthChange: false,
+      ordering: false,
+      searching: false,
+      scrollX: true,
+      serverSide: true,
+      ajax: {
+        url: url + "/abogados/datatable",
+        data: { nombre: nombre },
+        type: "GET",
+        dataType: "json",
+      },
       columns: [
         { data: "fecha", width: "20%" },
         { data: "libro", width: "20%" },
         { data: "numero", width: "20%" },
         { data: "nombre", width: "40%" },
       ],
-      pageLength: 10,
       language: {
         lengthMenu: "Mostrar _MENU_",
         search: "Filtrar:",

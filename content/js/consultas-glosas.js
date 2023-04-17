@@ -27,7 +27,7 @@ $(document).ready(function () {
 } else {
     // Esperar 2 segundos
     setTimeout(function () {
-      consultarGlosas(); // Consultar las glosas desde la API
+      consultarGlosas(autoridad_clave); // Consultar las glosas desde la API
       $("#glosasTableCard").show(); // Mostrar la tabla
       $("#spinnerCard").hide(); // Ocultar el spinner
     }, 2000);
@@ -41,7 +41,7 @@ $(document).ready(function () {
   });
 
   // Al recibir los resultados de la consulta
-  function consultarGlosas() {
+  function consultarGlosas(autoridad_clave) {
     // Si tiene datos, limpiar la tabla
     if ($("#glosasTable").length > 0) {
       $("#glosasTable").DataTable().clear().destroy();

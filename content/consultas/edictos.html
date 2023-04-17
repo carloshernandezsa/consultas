@@ -8,14 +8,19 @@
     <meta name="save_as" content="consultas/edictos.html" />
   </head>
   <body>
-    <div class="card my-2">
+    <div id="spinnerCard" class="text-center">
+      <div class="spinner-border" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+    </div>
+    <div id=edictossFormCard" class="card my-2" style="display: none;">
       <div class="card-body">
         <form id="audienciasForm" onsubmit="return false;">
           <button id="consultarButton" class="btn btn-primary">Consultar</button>
         </form>
       </div>
     </div>
-    <div class="card my-2">
+    <div id="edictosTableCard" class="card my-2" style="display: none;">
       <div class="card-body">
         <table id="edictosTable" class="table table-striped" style="width: 100%">
           <thead>
