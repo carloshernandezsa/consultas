@@ -18,7 +18,7 @@ $(document).ready(function () {
 
   // Al dar click en el botón de consultar
   $("#consultarButton").click(function () {
-    // Consultar los abogados registrados desde la API
+    // Consultar los abogados desde la API
     $.ajax({
       url: url + "/abogados/datatable",
       type: "GET",

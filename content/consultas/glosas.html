@@ -8,6 +8,31 @@
     <meta name="save_as" content="consultas/glosas.html" />
   </head>
   <body>
-    This is the content of my super blog post.
+    <div id="spinnerCard" class="text-center">
+      <div class="spinner-border" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+    </div>
+    <div id="glosasFormCard" class="card my-2" style="display: none;">
+      <div class="card-body">
+        <form id="glosasForm" onsubmit="return false;">
+          <button id="consultarButton" class="btn btn-primary">Consultar</button>
+        </form>
+      </div>
+    </div>
+    <div id="glosasTableCard" class="card my-2" style="display: none;">
+      <div class="card-body">
+        <table id="glosasTable" class="table table-striped" style="width: 100%">
+          <thead>
+            <tr>
+              <th>Fecha</th>
+              <th>Expediente</th>
+              <th>Tipo de Juicio</th>
+              <th>Archivo</th>
+            </tr>
+          </thead>
+        </table>
+      </div>
+    </div>
   </body>
 </html>

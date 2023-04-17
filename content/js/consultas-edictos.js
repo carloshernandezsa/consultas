@@ -18,7 +18,7 @@ $(document).ready(function () {
 
   // Al dar click en el botón de consultar
   $("#consultarButton").click(function () {
-    // Consultar las audiencias desde la API
+    // Consultar los edictos desde la API
     $.ajax({
       url: url + "/edictos/datatable",
       type: "GET",
