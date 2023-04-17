@@ -22,13 +22,12 @@ $(document).ready(function () {
 
   // Si no se especificó el nombre
   if (nombre == null) {
-    consultarAbogadosRegistrados(); // Consultar los abogados registrados desde la API
     $("#abogadosRegistradosFormCard").show(); // Mostrar el formulario
     $("#spinnerCard").hide(); // Ocultar el spinner
   } else {
     // Esperar 2 segundos
     setTimeout(function () {
-      consultarAbogadosRegistrados(nombre); // Consultar los abogados registrados desde la API
+      consultarAbogadosRegistrados(nombre); // Consultar los abogados registrados
       $("#abogadosRegistradosTableCard").show(); // Mostrar la tabla
       $("#spinnerCard").hide(); // Ocultar el spinner
     }, 2000);
@@ -37,11 +36,11 @@ $(document).ready(function () {
   // Al dar click en el botón de consultar
   $("#consultarButton").click(function () {
     // Recargar esta página con el parametro del nombre
-    nombre = "gonzalez"
+    nombre = "gonzalez";
     window.location.href = window.location.href + "?nombre=" + nombre;
   });
 
-  // Al recibir los resultados de la consulta
+  // Consultar abogados registrados
   function consultarAbogadosRegistrados(nombre) {
     // Si tiene datos, limpiar la tabla
     if ($("#abogadosRegistradosTable").length > 0) {
@@ -61,12 +60,7 @@ $(document).ready(function () {
         type: "GET",
         dataType: "json",
       },
-      columns: [
-        { data: "fecha" },
-        { data: "libro" },
-        { data: "numero" },
-        { data: "nombre" },
-      ],
+      columns: [{ data: "fecha" }, { data: "libro" }, { data: "numero" }, { data: "nombre" }],
       language: {
         lengthMenu: "Mostrar _MENU_",
         search: "Filtrar:",

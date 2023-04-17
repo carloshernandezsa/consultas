@@ -24,10 +24,10 @@ $(document).ready(function () {
   if (autoridad_clave == null) {
     $("#glosasFormCard").show(); // Mostrar el formulario
     $("#spinnerCard").hide(); // Ocultar el spinner
-} else {
+  } else {
     // Esperar 2 segundos
     setTimeout(function () {
-      consultarGlosas(autoridad_clave); // Consultar las glosas desde la API
+      consultarGlosas(autoridad_clave); // Consultar las glosas
       $("#glosasTableCard").show(); // Mostrar la tabla
       $("#spinnerCard").hide(); // Ocultar el spinner
     }, 2000);
@@ -36,11 +36,11 @@ $(document).ready(function () {
   // Al dar click en el botón de consultar
   $("#consultarButton").click(function () {
     // Recargar esta página con el parametro de la autoridad
-    autoridad_clave = "PTC"
+    autoridad_clave = "PTC";
     window.location.href = window.location.href + "?autoridad_clave=" + autoridad_clave;
   });
 
-  // Al recibir los resultados de la consulta
+  // Consular las glosas
   function consultarGlosas(autoridad_clave) {
     // Si tiene datos, limpiar la tabla
     if ($("#glosasTable").length > 0) {
@@ -60,12 +60,7 @@ $(document).ready(function () {
         type: "GET",
         dataType: "json",
       },
-      columns: [
-        { data: "fecha" },
-        { data: "expediente" },
-        { data: "tipo_juicio" },
-        { data: "archivo" },
-      ],
+      columns: [{ data: "fecha" }, { data: "expediente" }, { data: "tipo_juicio" }, { data: "archivo" }],
       language: {
         lengthMenu: "Mostrar _MENU_",
         search: "Filtrar:",

@@ -27,7 +27,7 @@ $(document).ready(function () {
   } else {
     // Esperar 2 segundos
     setTimeout(function () {
-      consultarAudiencias(autoridad_clave); // Consultar las audiencias desde la API
+      consultarAudiencias(autoridad_clave); // Consultar las audiencias
       $("#audienciasTableCard").show(); // Mostrar la tabla
       $("#spinnerCard").hide(); // Ocultar el spinner
     }, 2000);
@@ -40,7 +40,7 @@ $(document).ready(function () {
     window.location.href = window.location.href + "?autoridad_clave=" + autoridad_clave;
   });
 
-  // Al recibir los resultados de la consulta
+  // Consultar las audiencias
   function consultarAudiencias(autoridad_clave) {
     // Si tiene datos, limpiar la tabla
     if ($("#audienciasTable").length > 0) {
@@ -60,12 +60,7 @@ $(document).ready(function () {
         type: "GET",
         dataType: "json",
       },
-      columns: [
-        { data: "tiempo" },
-        { data: "sala" },
-        { data: "tipo_audiencia" },
-        { data: "expediente" },
-      ],
+      columns: [{ data: "tiempo" }, { data: "sala" }, { data: "tipo_audiencia" }, { data: "expediente" }],
       language: {
         lengthMenu: "Mostrar _MENU_",
         search: "Filtrar:",
