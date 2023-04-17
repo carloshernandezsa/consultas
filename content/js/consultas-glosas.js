@@ -22,25 +22,12 @@ $(document).ready(function () {
 
   // Si no se especificó la autoridad
   if (autoridad_clave == null) {
+    $("#glosasFormCard").show(); // Mostrar el formulario
+    $("#spinnerCard").hide(); // Ocultar el spinner
+} else {
     // Esperar 2 segundos
     setTimeout(function () {
-      console.log("No se especificó la autoridad. Esperando 2 segundos...");
-      $("#glosasFormCard").show(); // Mostrar el formulario
-      $("#spinnerCard").hide(); // Ocultar el spinner
-    }, 2000);
-  } else {
-    // Esperar 2 segundos
-    setTimeout(function () {
-      // Consultar las glosas desde la API
-      $.ajax({
-        url: url + "/glosas/datatable",
-        data: { autoridad_clave: autoridad_clave },
-        type: "GET",
-        dataType: "json",
-        success: function (data) {
-          alRecibirResultados(data);
-        },
-      });
+      consultarGlosas(); // Consultar las glosas desde la API
       $("#glosasTableCard").show(); // Mostrar la tabla
       $("#spinnerCard").hide(); // Ocultar el spinner
     }, 2000);
@@ -54,25 +41,31 @@ $(document).ready(function () {
   });
 
   // Al recibir los resultados de la consulta
-  function alRecibirResultados(data) {
+  function consultarGlosas() {
     // Si tiene datos, limpiar la tabla
     if ($("#glosasTable").length > 0) {
       $("#glosasTable").DataTable().clear().destroy();
     }
 
-    // Mostrar en la consola
-    console.log(data.success, data.error, data.data);
-
     // Cargar los datos en la tabla
     $("#glosasTable").DataTable({
-      data: data.data,
+      lengthChange: false,
+      ordering: false,
+      searching: false,
+      scrollX: true,
+      serverSide: true,
+      ajax: {
+        url: url + "/glosas/datatable",
+        data: { autoridad_clave: autoridad_clave },
+        type: "GET",
+        dataType: "json",
+      },
       columns: [
-        { data: "fecha", width: "20%" },
-        { data: "expediente", width: "20%" },
-        { data: "tipo_juicio", width: "20%" },
-        { data: "archivo", width: "40%" },
+        { data: "fecha" },
+        { data: "expediente" },
+        { data: "tipo_juicio" },
+        { data: "archivo" },
       ],
-      pageLength: 10,
       language: {
         lengthMenu: "Mostrar _MENU_",
         search: "Filtrar:",
