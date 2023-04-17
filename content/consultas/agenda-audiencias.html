@@ -8,6 +8,26 @@
     <meta name="save_as" content="consultas/agenda-audiencias.html" />
   </head>
   <body>
-    This is the content of my super blog post.
+    <div class="card my-2">
+      <div class="card-body">
+        <form id="audienciasForm" onsubmit="return false;">
+          <button id="consultarButton" class="btn btn-primary">Consultar</button>
+        </form>
+      </div>
+    </div>
+    <div class="card my-2">
+      <div class="card-body">
+        <table id="audienciasTable" class="table table-striped" style="width: 100%">
+          <thead>
+            <tr>
+              <th>Fecha</th>
+              <th>Sala</th>
+              <th>Tipo</th>
+              <th>Expediente</th>
+            </tr>
+          </thead>
+        </table>
+      </div>
+    </div>
   </body>
 </html>
