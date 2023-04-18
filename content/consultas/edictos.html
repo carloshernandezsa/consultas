@@ -16,6 +16,14 @@
     <div id="edictosFormCard" class="card my-2" style="display: none">
       <div class="card-body">
         <form id="edictosForm" onsubmit="return false;">
+          <div class="form-group">
+            <label for="distritoSelect">Elija el Distrito/Grupo</label>
+            <select name="distritoId" id="distritoSelect" class="form-control"></select>
+          </div>
+          <div class="form-group">
+            <label for="autoridadSelect">Elija el Juzgado/Autoridad</label>
+            <select name="autoridadId" id="autoridadSelect" class="form-control" size="4"></select>
+          </div>
           <button id="consultarButton" class="btn btn-primary">Consultar</button>
         </form>
       </div>
