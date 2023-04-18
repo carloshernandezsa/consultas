@@ -20,9 +20,11 @@ var autoridad_clave = urlParams.get("autoridad_clave");
 
 // Si no se especificó la autoridad
 if (autoridad_clave == null) {
-  consultarDistritos(); // Consultar los distritos para poner opciones en el select
-  $("#edictosFormCard").show(); // Mostrar el formulario
-  $("#spinnerCard").hide(); // Ocultar el spinner
+  setTimeout(function () {
+    consultarDistritos(); // Consultar los distritos para poner opciones en el select
+    $("#edictosFormCard").show(); // Mostrar el formulario
+    $("#spinnerCard").hide(); // Ocultar el spinner
+  }, 2000);
 } else {
   // Esperar 2 segundos
   setTimeout(function () {
