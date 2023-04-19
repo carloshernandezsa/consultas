@@ -89,7 +89,29 @@ function consultarEdictos(autoridad_clave) {
       type: "GET",
       dataType: "json",
     },
-    columns: [{ data: "fecha" }, { data: "descripcion" }, { data: "archivo" }],
+    columns: [
+      { data: "fecha", width: "10%" },
+      { data: "descripcion", width: "60%" },
+      { data: "expediente", width: "10%" },
+      { data: "numero", width: "10%" },
+      { data: "url", width: "10%" },
+    ],
+    columnDefs: [
+      {
+        targets: 0,
+        data: null,
+        render: function (data, type, row) {
+          return moment(data).format("DD/MMM/YYYY");
+        },
+      },
+      {
+        targets: 4,
+        data: null,
+        render: function (data, type, row) {
+          return '<a href="' + url + '" target="_blank">PDF</a>';
+        },
+      },
+    ],
     language: {
       lengthMenu: "Mostrar _MENU_",
       search: "Filtrar:",

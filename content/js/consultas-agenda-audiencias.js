@@ -89,7 +89,21 @@ function consultarAudiencias(autoridad_clave) {
       type: "GET",
       dataType: "json",
     },
-    columns: [{ data: "tiempo" }, { data: "sala" }, { data: "tipo_audiencia" }, { data: "expediente" }],
+    columns: [
+      { data: "tiempo", width: "20%" },
+      { data: "sala", width: "20%" },
+      { data: "tipo_audiencia", width: "40%" },
+      { data: "expediente", width: "20%" },
+    ],
+    columnDefs: [
+      {
+        targets: 0,
+        data: null,
+        render: function (data, type, row) {
+          return moment(data).format("DD/MMM/YYYY HH:mm");
+        },
+      },
+    ],
     language: {
       lengthMenu: "Mostrar _MENU_",
       search: "Filtrar:",
