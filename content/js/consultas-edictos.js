@@ -24,27 +24,20 @@ if (autoridad_clave == null) {
     consultarDistritos(); // Consultar los distritos para poner opciones en el select
     $("#edictosFormCard").show(); // Mostrar el formulario
     $("#spinnerCard").hide(); // Ocultar el spinner
-  }, 2000);
+  }, 1000);
 } else {
   // Esperar 2 segundos
   setTimeout(function () {
     consultarEdictos(autoridad_clave); // Consultar los edictos
     $("#edictosTableCard").show(); // Mostrar la tabla
     $("#spinnerCard").hide(); // Ocultar el spinner
-  }, 2000);
+  }, 1000);
 }
-
-// Al dar click en el botón de consultar
-$("#consultarButton").click(function () {
-  // Recargar esta página con el parametro de la autoridad
-  autoridad_clave = "TRC-J2-FAM";
-  window.location.href = window.location.href + "?autoridad_clave=" + autoridad_clave;
-});
 
 // Consultar los distritos para poner opciones en el select
 function consultarDistritos() {
   // Consultar los distritos con es_jurisdiccional en verdadero
-  fetch(url + "/distritos?es_jurisdiccional=true")
+  fetch(url + "/distritos?es_jurisdiccional=true&limit=100")
     .then((response) => response.json())
     .then((data) => {
       // Si la respuesta es exitosa
@@ -52,36 +45,37 @@ function consultarDistritos() {
         // Recorrer los distritos
         data.result.items.forEach((item) => {
           // Agregar el distrito al select
-          $("#distritoSelect").append($("<option onclick='consultarAutoridades(this.value)'></option>").attr("value", item.id).text(item.nombre_corto));
+          $("#distritoSelect").append($("<option onclick='consultarAutoridades(this.value)'></option>").attr("value", item.clave).text(item.nombre_corto));
         });
-        // Cambiar el size del select al total
-        $("#distritoSelect").attr("size", data.result.total);
       }
     })
     .catch((error) => console.log(error));
 }
 
 // Consultar las autoridades para poner opciones en el select
-function consultarAutoridades(distrito_id) {
-  console.log(distrito_id);
-  // Consultar las autoridades con el distrito_id
-  fetch(url + "/autoridades?distrito_id=" + distrito_id)
+function consultarAutoridades(distrito_clave) {
+  // Consultar las autoridades con el distrito_clave
+  fetch(url + "/autoridades?distrito_clave=" + distrito_clave + "&es_jurisdiccional=true&es_notaria=false&limit=100")
     .then((response) => response.json())
     .then((data) => {
       // Si la respuesta es exitosa
       if (data.success === true) {
+        console.log(distrito_clave);
         // Limpiar el select
         $("#autoridadSelect").empty();
         // Recorrer las autoridades
         data.result.items.forEach((item) => {
           // Agregar la autoridad al select
-          $("#autoridadSelect").append($("<option></option>").attr("value", item.clave).text(item.descripcion));
+          $("#autoridadSelect").append($("<option onclick='recargarPagina(this.value)'></option>").attr("value", item.clave).text(item.descripcion_corta));
         });
-        // Cambiar el size del select al total
-        $("#autoridadSelect").attr("size", data.result.total);
       }
     })
     .catch((error) => console.log(error));
+}
+
+// Recargar la página al dar click en la autoridad agregando la clave de la autoridad en el URL
+function recargarPagina(autoridad_clave) {
+  window.location.href = window.location.href + "?autoridad_clave=" + autoridad_clave;
 }
 
 // Consultar los edictos
@@ -120,4 +114,16 @@ function consultarEdictos(autoridad_clave) {
       },
     },
   });
+
+  // Consultar la autoridad para poner la descripcion en el encabezado del card
+  fetch(url + "/autoridades/" + autoridad_clave)
+    .then((response) => response.json())
+    .then((data) => {
+      // Si la respuesta es exitosa
+      if (data.success === true) {
+        // Poner la descripcion de la autoridad como encabezado del card
+        $("#edictosTableHeader").text(data.descripcion);
+      }
+    })
+    .catch((error) => console.log(error));
 }

@@ -13,28 +13,28 @@
         <span class="sr-only">Loading...</span>
       </div>
     </div>
-    <div id="edictosFormCard" class="card my-2" style="display: none">
+    <div id="edictosFormCard" class="card" style="display: none">
       <div class="card-body">
-        <div class="row">
-          <div class="col-sm-6">
-            <div class="form-group">
-              <label for="distritoSelect">Elija el Distrito/Grupo</label>
-              <select name="distritoId" id="distritoSelect" class="form-control"></select>
-            </div>
-          </div>
-          <div class="col-sm-6">
-            <div class="form-group">
-              <label for="autoridadSelect">Elija el Juzgado/Autoridad</label>
-              <select name="autoridadId" id="autoridadSelect" class="form-control" size="4"></select>
-            </div>
-          </div>
-        </div>
         <form id="edictosForm" onsubmit="return false;">
-          <button id="consultarButton" class="btn btn-primary">Consultar</button>
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label for="distritoSelect">Elija el Distrito/Grupo</label>
+                <select name="distritoId" id="distritoSelect" class="form-control" size="20"></select>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label for="autoridadSelect">Elija el Juzgado/Autoridad</label>
+                <select name="autoridadId" id="autoridadSelect" class="form-control" size="20"></select>
+              </div>
+            </div>
+          </div>
         </form>
       </div>
     </div>
-    <div id="edictosTableCard" class="card my-2" style="display: none">
+    <div id="edictosTableCard" class="card" style="display: none">
+      <div id="edictosTableHeader" class="card-header">Autoridad</div>
       <div class="card-body">
         <table id="edictosTable" class="table table-striped" style="width: 100%">
           <thead>
