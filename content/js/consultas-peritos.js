@@ -26,7 +26,7 @@ if (nombre == null) {
   }, 1000); // Esperar un segundo
 } else {
   setTimeout(function () {
-    consultarPeritos(nombre, anio_desde, anio_hasta); // Consultar los peritos
+    consultarPeritos(nombre); // Consultar los peritos
     $("#peritosTableCard").show(); // Mostrar la tabla
     $("#spinnerCard").hide(); // Ocultar el spinner
   }, 1000); // Esperar un segundo
@@ -55,23 +55,21 @@ function consultarPeritos(nombre) {
     scrollX: true,
     serverSide: true,
     ajax: {
-      url: url + "/peritos",
+      url: url + "/peritos/datatable",
       type: "GET",
       data: {
         nombre: nombre,
       },
       dataType: "json",
-      dataSrc: function (data) {
-        return data.data;
-      },
     },
     columns: [
+      { data: "perito_tipo_nombre", width: "20%" },
       { data: "nombre", width: "20%" },
       { data: "domicilio", width: "20%" },
       { data: "telefono_fijo", width: "10%" },
       { data: "telefono_celular", width: "10%" },
-      { data: "email", width: "20%" },
-      { data: "notas", width: "20%" },
+      { data: "email", width: "10%" },
+      { data: "notas", width: "10%" },
     ],
     language: {
       lengthMenu: "Mostrar _MENU_",
