@@ -42,7 +42,7 @@ $("#consultarButton").click(function () {
   window.location.href = window.location.href + "?nombre=" + nombre + "&distrito_clave=" + distrito_clave;
 });
 
-// Consultar redam
+// Consultar REDAM
 function consultarREDAM(distrito_clave, nombre) {
   // Si tiene datos, limpiar la tabla
   if ($("#redamTable").length > 0) {
@@ -57,7 +57,7 @@ function consultarREDAM(distrito_clave, nombre) {
     scrollX: true,
     serverSide: true,
     ajax: {
-      url: url + "/redams/datatable",
+      url: url + "/redam/datatable",
       type: "GET",
       data: {
         nombre: nombre,
