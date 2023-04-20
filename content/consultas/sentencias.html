@@ -8,6 +8,49 @@
     <meta name="save_as" content="consultas/sentencias.html" />
   </head>
   <body>
-    This is the content of my super blog post.
+    <!-- Spinner -->
+    <div id="spinnerCard" class="text-center">
+      <div class="spinner-border" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+    </div>
+    <!-- Formulario -->
+    <div id="sentenciasFormCard" class="card" style="display: none">
+      <div class="card-body">
+        <form id="sentenciasForm" onsubmit="return false;">
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label for="distritoSelect">Elija el Distrito/Grupo</label>
+                <select name="distritoId" id="distritoSelect" class="form-control" size="20"></select>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label for="autoridadSelect">Elija el Juzgado/Autoridad</label>
+                <select name="autoridadId" id="autoridadSelect" class="form-control" size="20"></select>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <!-- Tabla -->
+    <div id="sentenciasTableCard" class="card" style="display: none">
+      <div id="sentenciasTableHeader" class="card-header">Autoridad</div>
+      <div class="card-body">
+        <table id="sentenciasTable" class="table table-striped" style="width: 100%">
+          <thead>
+            <tr>
+              <th>Fecha</th>
+              <th>Sentencia</th>
+              <th>Expediente</th>
+              <th>P. de Género</th>
+              <th>Archivo</th>
+            </tr>
+          </thead>
+        </table>
+      </div>
+    </div>
   </body>
 </html>
