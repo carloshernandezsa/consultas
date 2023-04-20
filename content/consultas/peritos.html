@@ -8,6 +8,40 @@
     <meta name="save_as" content="consultas/peritos.html" />
   </head>
   <body>
-    This is the content of my super blog post.
+    <!-- Spinner -->
+    <div id="spinnerCard" class="text-center">
+      <div class="spinner-border" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+    </div>
+    <!-- Formulario -->
+    <div id="abogadosRegistradosFormCard" class="card my-2" style="display: none">
+      <div class="card-body">
+        <form id="abogadosRegistradosForm" onsubmit="return false;">
+          <div class="form-group">
+            <label for="nombre">Nombre</label>
+            <input type="text" class="form-control" id="nombre" placeholder="Por lo menos cuatro caracteres" />
+          </div>
+          <button id="consultarButton" class="btn btn-primary">Consultar</button>
+        </form>
+      </div>
+    </div>
+    <!-- Tabla -->
+    <div id="abogadosRegistradosTableCard" class="card my-2" style="display: none">
+      <div class="card-body">
+        <table id="abogadosRegistradosTable" class="table table-striped" style="width: 100%">
+          <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>Domicilio</th>
+              <th>Tel. fijo</th>
+              <th>Tel. celular</th>
+              <th>Correo electrónico</th>
+              <th>Notas</th>
+            </tr>
+          </thead>
+        </table>
+      </div>
+    </div>
   </body>
 </html>

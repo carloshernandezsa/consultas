@@ -8,19 +8,36 @@
     <meta name="save_as" content="consultas/glosas.html" />
   </head>
   <body>
+    <!-- Spinner -->
     <div id="spinnerCard" class="text-center">
       <div class="spinner-border" role="status">
         <span class="sr-only">Loading...</span>
       </div>
     </div>
+    <!-- Formulario -->
     <div id="glosasFormCard" class="card my-2" style="display: none">
       <div class="card-body">
         <form id="glosasForm" onsubmit="return false;">
-          <button id="consultarButton" class="btn btn-primary">Consultar</button>
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label for="distritoSelect">Elija el Distrito/Grupo</label>
+                <select name="distritoId" id="distritoSelect" class="form-control" size="20"></select>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label for="autoridadSelect">Elija el Juzgado/Autoridad</label>
+                <select name="autoridadId" id="autoridadSelect" class="form-control" size="20"></select>
+              </div>
+            </div>
+          </div>
         </form>
       </div>
     </div>
+    <!-- Tabla -->
     <div id="glosasTableCard" class="card my-2" style="display: none">
+      <div id="glosasTableHeader" class="card-header">Autoridad</div>
       <div class="card-body">
         <table id="glosasTable" class="table table-striped" style="width: 100%">
           <thead>
