@@ -32,7 +32,7 @@
     />
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{{ SITEURL }}/theme/css/dashboard.css" />
-    {% if page %} {% if page.stylesheets %} {% for stylesheet in page.stylesheets %} {{ stylesheet }} {% endfor %} {% endif %} {% endif %}
+    {% if page %}{% if page.stylesheets %}{% for stylesheet in page.stylesheets %}{{ stylesheet }}{% endfor %}{% endif %}{% endif %}
   </head>
   <body>
     <!-- Topbar -->
@@ -77,6 +77,6 @@
     <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.2.9/js/responsive.bootstrap4.js"></script>
     <!-- Custom JS -->
-    {% if page %} {% if page.javascripts %} {% for javascript in page.javascripts %} {{ javascript }} {% endfor %} {% endif %} {% endif %}
+    {% if page %}{% if page.javascripts %}{% for javascript in page.javascripts %}{{ javascript }}{% endfor %}{% endif %}{% endif %}
   </body>
 </html>
