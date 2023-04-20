@@ -57,7 +57,7 @@ function consultarREDAM(distrito_clave, nombre) {
     scrollX: true,
     serverSide: true,
     ajax: {
-      url: url + "/redam/datatable",
+      url: url + "/redams/datatable",
       type: "GET",
       data: {
         nombre: nombre,
