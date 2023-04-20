@@ -1,13 +1,46 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>REDAM</title>
+    <title>Registro Estatal de Deudores Alimentarios Morosos (REDAM)</title>
     <meta name="slug" content="redam" />
     <meta name="summary" content="" />
     <meta name="javascripts" content="consultas-redam.js" />
     <meta name="save_as" content="consultas/redam.html" />
   </head>
   <body>
-    This is the content of my super blog post.
+    <!-- Spinner -->
+    <div id="spinnerCard" class="text-center">
+      <div class="spinner-border" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+    </div>
+    <!-- Formulario -->
+    <div id="redamFormCard" class="card my-2" style="display: none">
+      <div class="card-body">
+        <form id="redamForm" onsubmit="return false;">
+          <div class="form-group">
+            <label for="nombre">Nombre</label>
+            <input type="text" class="form-control" id="nombre" placeholder="Por lo menos cuatro caracteres" />
+          </div>
+          <button id="consultarButton" class="btn btn-primary">Consultar</button>
+        </form>
+      </div>
+    </div>
+    <!-- Tabla -->
+    <div id="redamTableCard" class="card my-2" style="display: none">
+      <div class="card-body">
+        <table id="redamTable" class="table table-striped" style="width: 100%">
+          <thead>
+            <tr>
+              <th>Fecha</th>
+              <th>Nombre</th>
+              <th>Distrito</th>
+              <th>Juzgado</th>
+              <th>Expediente</th>
+            </tr>
+          </thead>
+        </table>
+      </div>
+    </div>
   </body>
 </html>
