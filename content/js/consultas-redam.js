@@ -22,14 +22,14 @@ var nombre = urlParams.get("nombre");
 // Si no se especificó el distrito ni el nombre
 if (distrito_clave == null && nombre == null) {
   setTimeout(function () {
-    $("#redamFormCard").show(); // Mostrar el formulario
-    $("#spinnerCard").hide(); // Ocultar el spinner
+    $("#redamFormCard").show();
+    $("#spinnerCard").hide();
   }, 1000); // Esperar un segundo
 } else {
   setTimeout(function () {
-    consultarREDAM(distrito_clave, nombre); // Consultar los redam
-    $("#redamTableCard").show(); // Mostrar la tabla
-    $("#spinnerCard").hide(); // Ocultar el spinner
+    consultarREDAM(distrito_clave, nombre);
+    $("#redamTableCard").show();
+    $("#spinnerCard").hide();
   }, 1000); // Esperar un segundo
 }
 
@@ -38,8 +38,10 @@ $("#consultarButton").click(function () {
   // Tomar los valores del formulario
   distrito_clave = $("#distritoSelect").val();
   nombre = $("#nombre").val();
-  // Recargar esta página con los parámetros
-  window.location.href = window.location.href + "?nombre=" + nombre + "&distrito_clave=" + distrito_clave;
+  // Obtener la url actual sin parámetros
+  var actualUrl = window.location.href.split("?")[0];
+  // Recargar esta página con los parámetros del formulario
+  window.location.href = actualUrl + "?distrito_clave=" + distrito_clave + "&nombre=" + nombre;
 });
 
 // Consultar REDAM

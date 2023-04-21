@@ -23,25 +23,27 @@ var anio_hasta = urlParams.get("anio_hasta");
 // Si no se especificó el nombre
 if (nombre == null && anio_desde == null && anio_hasta == null) {
   setTimeout(function () {
-    $("#abogadosRegistradosFormCard").show(); // Mostrar el formulario
-    $("#spinnerCard").hide(); // Ocultar el spinner
+    $("#abogadosRegistradosFormCard").show();
+    $("#spinnerCard").hide();
   }, 1000); // Esperar un segundo
 } else {
   setTimeout(function () {
-    consultarAbogadosRegistrados(nombre, anio_desde, anio_hasta); // Consultar los abogados registrados
-    $("#abogadosRegistradosTableCard").show(); // Mostrar la tabla
-    $("#spinnerCard").hide(); // Ocultar el spinner
+    consultarAbogadosRegistrados(nombre, anio_desde, anio_hasta);
+    $("#abogadosRegistradosTableCard").show();
+    $("#spinnerCard").hide();
   }, 1000); // Esperar un segundo
 }
 
-// Al dar click en el botón de consultar
+// Al dar click en el botón de consultar se recarga la página
 $("#consultarButton").click(function () {
   // Tomar los valores del formulario
   nombre = $("#nombre").val();
   anio_desde = $("#anioDesde").val();
   anio_hasta = $("#anioHasta").val();
-  // Recargar esta página con los parámetros
-  window.location.href = window.location.href + "?nombre=" + nombre + "&anio_desde=" + anio_desde + "&anio_hasta=" + anio_hasta;
+  // Obtener la url actual sin parámetros
+  var actualUrl = window.location.href.split("?")[0];
+  // Recargar esta página con los parámetros del formulario
+  window.location.href = actualUrl + "?nombre=" + nombre + "&anio_desde=" + anio_desde + "&anio_hasta=" + anio_hasta;
 });
 
 // Consultar abogados registrados

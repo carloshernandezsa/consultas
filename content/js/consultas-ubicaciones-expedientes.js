@@ -20,21 +20,21 @@ var autoridad_clave = urlParams.get("autoridad_clave");
 
 // Si no se especificó la autoridad
 if (autoridad_clave == null) {
-  setTimeout(function () {
-    consultarDistritos(); // Consultar los distritos para poner opciones en el select
-    $("#ubicacionesExpedientesFormCard").show(); // Mostrar el formulario
-    $("#spinnerCard").hide(); // Ocultar el spinner
-  }, 1000); // Esperar un segundo
+  // Consultar los distritos para poner opciones en el select
+  consultarDistritos();
+  $("#ubicacionesExpedientesFormCard").show();
+  $("#spinnerCard").hide();
 } else {
-  setTimeout(function () {
-    consultarUbicacionesExpedientes(autoridad_clave); // Consultar las ubicaciones de expedientes
-    $("#ubicacionesExpedientesTableCard").show(); // Mostrar la tabla
-    $("#spinnerCard").hide(); // Ocultar el spinner
-  }, 1000); // Esperar un segundo
+  // Viene la autoridad_clave, entonces consultar las audiencias
+  consultarUbicacionesExpedientes(autoridad_clave);
+  $("#ubicacionesExpedientesTableCard").show();
+  $("#spinnerCard").hide();
 }
 
 // Consultar los distritos para poner opciones en el select
 function consultarDistritos() {
+  $("#distritoSpinner").show();
+  $("#distritoFormGroup").hide();
   fetch(url + "/distritos?es_jurisdiccional=true&limit=100")
     .then((response) => response.json())
     .then((data) => {
@@ -43,6 +43,8 @@ function consultarDistritos() {
         data.result.items.forEach((item) => {
           $("#distritoSelect").append($("<option onclick='consultarAutoridades(this.value)'></option>").attr("value", item.clave).text(item.nombre_corto));
         });
+        $("#distritoSpinner").hide();
+        $("#distritoFormGroup").show();
       }
     })
     .catch((error) => console.log(error));
@@ -50,6 +52,8 @@ function consultarDistritos() {
 
 // Consultar las autoridades para poner opciones en el select
 function consultarAutoridades(distrito_clave) {
+  $("#autoridadSpinner").show();
+  $("#autoridadFormGroup").hide();
   fetch(url + "/autoridades?distrito_clave=" + distrito_clave + "&es_jurisdiccional=true&es_notaria=false&limit=100")
     .then((response) => response.json())
     .then((data) => {
@@ -59,14 +63,19 @@ function consultarAutoridades(distrito_clave) {
         data.result.items.forEach((item) => {
           $("#autoridadSelect").append($("<option onclick='recargarPagina(this.value)'></option>").attr("value", item.clave).text(item.descripcion_corta));
         });
+        $("#autoridadSpinner").hide();
+        $("#autoridadFormGroup").show();
       }
     })
     .catch((error) => console.log(error));
 }
 
-// Recargar la página al dar click en la autoridad agregando la clave en el URL
+// Recargar la página
 function recargarPagina(autoridad_clave) {
-  window.location.href = window.location.href + "?autoridad_clave=" + autoridad_clave;
+  // Obtener la url actual sin parámetros
+  var actualUrl = window.location.href.split("?")[0];
+  // Recargar esta página con la clave de la autoridad
+  window.location.href = actualUrl + "?autoridad_clave=" + autoridad_clave;
 }
 
 // Consultar las ubicaciones de los expedientes
@@ -117,7 +126,7 @@ function consultarUbicacionesExpedientes(autoridad_clave) {
     .then((data) => {
       // Si la respuesta es exitosa, poner la descripcion de la autoridad
       if (data.success === true) {
-        $("#ubicacionesExpedientesTableHeader").text(data.descripcion);
+        $("#ubicacionesExpedientesTableHeader").text(data.distrito_nombre + " > " + data.descripcion);
       }
     })
     .catch((error) => console.log(error));
