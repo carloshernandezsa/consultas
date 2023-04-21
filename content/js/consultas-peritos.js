@@ -21,14 +21,14 @@ var nombre = urlParams.get("nombre");
 // Si no se especificó el nombre
 if (nombre == null) {
   setTimeout(function () {
-    $("#peritosFormCard").show(); // Mostrar el formulario
-    $("#spinnerCard").hide(); // Ocultar el spinner
+    $("#peritosFormCard").show();
+    $("#spinnerCard").hide();
   }, 1000); // Esperar un segundo
 } else {
   setTimeout(function () {
-    consultarPeritos(nombre); // Consultar los peritos
-    $("#peritosTableCard").show(); // Mostrar la tabla
-    $("#spinnerCard").hide(); // Ocultar el spinner
+    consultarPeritos(nombre);
+    $("#peritosTableCard").show();
+    $("#spinnerCard").hide();
   }, 1000); // Esperar un segundo
 }
 
@@ -36,8 +36,10 @@ if (nombre == null) {
 $("#consultarButton").click(function () {
   // Tomar los valores del formulario
   nombre = $("#nombre").val();
-  // Recargar esta página con los parámetros
-  window.location.href = window.location.href + "?nombre=" + nombre;
+  // Obtener la url actual sin parámetros
+  var actualUrl = window.location.href.split("?")[0];
+  // Recargar esta página con los parámetros del formulario
+  window.location.href = actualUrl + "?nombre=" + nombre;
 });
 
 // Consultar peritos
