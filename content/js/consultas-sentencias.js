@@ -70,10 +70,11 @@ function consultarAutoridades(distrito_clave) {
     .catch((error) => console.log(error));
 }
 
+// Obtener la url actual sin parámetros
+var actualUrl = window.location.href.split("?")[0];
+
 // Recargar la página
 function recargarPagina(autoridad_clave) {
-  // Obtener la url actual sin parámetros
-  var actualUrl = window.location.href.split("?")[0];
   // Recargar esta página con la clave de la autoridad
   window.location.href = actualUrl + "?autoridad_clave=" + autoridad_clave;
 }
@@ -117,7 +118,7 @@ function consultarSentencias(autoridad_clave) {
         targets: 4,
         data: null,
         render: function (data, type, row) {
-          return '<a href="' + url + '" target="_blank">PDF</a>';
+          return '<a href="' + data + '" target="_blank"><i class="fa fa-file"></i> PDF</a>';
         },
       },
     ],
@@ -143,7 +144,9 @@ function consultarSentencias(autoridad_clave) {
     .then((data) => {
       // Si la respuesta es exitosa, poner la descripcion de la autoridad
       if (data.success === true) {
-        $("#sentenciasTableHeader").text(data.distrito_nombre + " > " + data.descripcion);
+        autoridad_distrito = data.descripcion + ", <strong>" + data.distrito_nombre + "</strong>";
+        cambiar_boton = "<a href='" + actualUrl + "' class='btn btn-outline-primary btn-sm mx-2'><i class='fa fa-eraser'></i> Cambiar</a>";
+        $("#sentenciasTableHeader").append(autoridad_distrito, cambiar_boton);
       }
     })
     .catch((error) => console.log(error));
