@@ -103,7 +103,7 @@ function consultarEdictos(autoridad_clave) {
       { data: "fecha", width: "10%" },
       { data: "descripcion", width: "60%" },
       { data: "expediente", width: "10%" },
-      { data: "numero", width: "10%" },
+      { data: "numero_publicacion", width: "10%" },
       { data: "url", width: "10%" },
     ],
     columnDefs: [

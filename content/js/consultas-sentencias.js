@@ -100,9 +100,10 @@ function consultarSentencias(autoridad_clave) {
       dataType: "json",
     },
     columns: [
-      { data: "fecha", width: "20%" },
-      { data: "sentencia", width: "40%" },
-      { data: "expediente", width: "20%" },
+      { data: "fecha", width: "15%" },
+      { data: "sentencia", width: "15%" },
+      { data: "expediente", width: "15%" },
+      { data: "materia_tipo_juicio_descripcion", width: "35%" },
       { data: "es_perspectiva_genero", width: "10%" },
       { data: "url", width: "10%" },
     ],
@@ -116,6 +117,17 @@ function consultarSentencias(autoridad_clave) {
       },
       {
         targets: 4,
+        data: null,
+        render: function (data, type, row) {
+          if (data == true) {
+            return '<i class="fa fa-check"></i>';
+          } else {
+            return '<i class="fa fa-times"></i>';
+          }
+        },
+      },
+      {
+        targets: 5,
         data: null,
         render: function (data, type, row) {
           return '<a href="' + data + '" target="_blank"><i class="fa fa-file"></i> PDF</a>';
