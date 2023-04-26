@@ -2,6 +2,52 @@
 // Consultas Edictos
 //
 
+// Obtener la url actual sin parámetros
+var actualUrl = window.location.href.split("?")[0];
+
+// Obtener la autoridad por los parámetros de la URL
+var urlParams = new URLSearchParams(window.location.search);
+var autoridad_clave = urlParams.get("autoridad_clave");
+var fecha_desde = urlParams.get("fecha_desde");
+var fecha_hasta = urlParams.get("fecha_hasta");
+
+//
+// Filtrar por fechas
+//
+
+// Formulario con bootstrap-datepicker
+$("#fechasRango").datepicker({
+  format: "yyyy-mm-dd",
+  todayBtn: true,
+});
+
+// Si viene la fecha_desde, ponerla en el formulario
+if (fecha_desde != null) {
+  $("#fechaDesde").val(fecha_desde);
+}
+
+// Si viene la fecha_hasta, ponerla en el formulario
+if (fecha_hasta != null) {
+  $("#fechaHasta").val(fecha_hasta);
+}
+
+// Al dar click en el botón Filtrar se recarga la página
+$("#filtrarButton").click(function () {
+  // Tomar los valores del formulario
+  fecha_desde = $("#fechaDesde").val();
+  fecha_hasta = $("#fechaHasta").val();
+  // Recargar esta página con los parámetros del formulario y la clave de la autoridad si está definida
+  if (autoridad_clave == null) {
+    window.location.href = actualUrl + "?fecha_desde=" + fecha_desde + "&fecha_hasta=" + fecha_hasta;
+  } else {
+    window.location.href = actualUrl + "?fecha_desde=" + fecha_desde + "&fecha_hasta=" + fecha_hasta + "&autoridad_clave=" + autoridad_clave;
+  }
+});
+
+//
+// Consultar a la API
+//
+
 // Determinar la URL de la API segun sea el ambiente de desarrollo o de producción
 switch (window.location.hostname) {
   case "localhost":
@@ -14,10 +60,6 @@ switch (window.location.hostname) {
     var url = "https://api.justiciadigital.gob.mx/v3";
 }
 
-// Obtener la autoridad por los parámetros de la URL
-var urlParams = new URLSearchParams(window.location.search);
-var autoridad_clave = urlParams.get("autoridad_clave");
-
 // Si no se especificó la autoridad
 if (autoridad_clave == null) {
   // Consultar los distritos para poner opciones en el select
@@ -26,7 +68,7 @@ if (autoridad_clave == null) {
   $("#spinnerCard").hide();
 } else {
   // Viene la autoridad_clave, entonces consultar las audiencias
-  consultarEdictos(autoridad_clave);
+  consultarEdictos(autoridad_clave, fecha_desde, fecha_hasta);
   $("#edictosTableCard").show();
   $("#spinnerCard").hide();
 }
@@ -70,9 +112,6 @@ function consultarAutoridades(distrito_clave) {
     .catch((error) => console.log(error));
 }
 
-// Obtener la url actual sin parámetros
-var actualUrl = window.location.href.split("?")[0];
-
 // Recargar la página
 function recargarPagina(autoridad_clave) {
   // Recargar esta página con la clave de la autoridad
@@ -95,7 +134,7 @@ function consultarEdictos(autoridad_clave) {
     serverSide: true,
     ajax: {
       url: url + "/edictos/datatable",
-      data: { autoridad_clave: autoridad_clave },
+      data: { autoridad_clave: autoridad_clave, fecha_desde: fecha_desde, fecha_hasta: fecha_hasta },
       type: "GET",
       dataType: "json",
     },
@@ -111,7 +150,7 @@ function consultarEdictos(autoridad_clave) {
         targets: 0,
         data: null,
         render: function (data, type, row) {
-          return moment(data).format("DD/MMM/YYYY");
+          return moment(data).format("DD/MM/YYYY");
         },
       },
       {
@@ -144,9 +183,9 @@ function consultarEdictos(autoridad_clave) {
     .then((data) => {
       // Si la respuesta es exitosa, poner la descripcion de la autoridad
       if (data.success === true) {
-        autoridad_distrito = data.descripcion + ", <strong>" + data.distrito_nombre + "</strong>";
+        autoridad_distrito = "<strong>" + data.distrito_nombre + "</strong><br>" + data.descripcion;
         cambiar_boton = "<a href='" + actualUrl + "' class='btn btn-outline-primary btn-sm mx-2'><i class='fa fa-eraser'></i> Cambiar</a>";
-        $("#edictosTableHeader").append(autoridad_distrito, cambiar_boton);
+        $("#edictosTableTitle").append(autoridad_distrito, cambiar_boton);
       }
     })
     .catch((error) => console.log(error));
