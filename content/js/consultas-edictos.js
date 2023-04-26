@@ -5,7 +5,7 @@
 // Obtener la url actual sin parámetros
 var actualUrl = window.location.href.split("?")[0];
 
-// Obtener la autoridad por los parámetros de la URL
+// Obtener los parámetros de la URL
 var urlParams = new URLSearchParams(window.location.search);
 var autoridad_clave = urlParams.get("autoridad_clave");
 var fecha_desde = urlParams.get("fecha_desde");
@@ -119,7 +119,7 @@ function recargarPagina(autoridad_clave) {
 }
 
 // Consultar los edictos
-function consultarEdictos(autoridad_clave) {
+function consultarEdictos(autoridad_clave, fecha_desde, fecha_hasta) {
   // Si tiene datos, limpiar la tabla
   if ($("#edictosTable").length > 0) {
     $("#edictosTable").DataTable().clear().destroy();
