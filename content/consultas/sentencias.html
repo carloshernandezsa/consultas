@@ -14,7 +14,7 @@
         <span class="sr-only">Loading...</span>
       </div>
     </div>
-    <!-- Formulario -->
+    <!-- Formulario Distrito-Autoridad -->
     <div id="sentenciasFormCard" class="card" style="display: none">
       <div class="card-body">
         <form id="sentenciasForm" onsubmit="return false;">
@@ -47,8 +47,30 @@
     </div>
     <!-- Tabla -->
     <div id="sentenciasTableCard" class="card" style="display: none">
-      <div id="sentenciasTableHeader" class="card-header"></div>
+      <div id="sentenciasTableHeader" class="card-header">
+        <div class="row">
+          <!-- Titulo -->
+          <div id="edictosTableTitle" class="col-6"></div>
+          <!-- Formulario Rango de Fechas -->
+          <div class="col-6">
+            <div class="float-right">
+              <form class="form-inline" onsubmit="return false;">
+                <div class="form-group">
+                  <div id="fechasRango" class="input-daterange">
+                    <span class="input-group-addon">De</span>
+                    <input type="text" class="form-control" name="fechaDesde" size="12" id="fechaDesde" />
+                    <span class="input-group-addon">a</span>
+                    <input type="text" class="form-control" name="fechaHasta" size="12" id="fechaHasta" />
+                    <button class="btn btn-outline-primary btn-sm" id="filtrarButton"><i class="fa fa-filter"></i> Filtrar</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
       <div class="card-body">
+        <!-- DataTable -->
         <table id="sentenciasTable" class="table table-striped" style="width: 100%">
           <thead>
             <tr>
