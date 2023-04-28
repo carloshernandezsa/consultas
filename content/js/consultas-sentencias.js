@@ -68,7 +68,7 @@ if (autoridad_clave == null) {
   $("#spinnerCard").hide();
 } else {
   // Viene la autoridad_clave, entonces consultar las audiencias
-  consultarSentencias(autoridad_clave, fecha_desde, fecha_hasta);
+  consultarSentencias();
   $("#sentenciasTableCard").show();
   $("#spinnerCard").hide();
 }
@@ -119,7 +119,20 @@ function recargarPagina(autoridad_clave) {
 }
 
 // Consultar las sentencias
-function consultarSentencias(autoridad_clave, fecha_desde, fecha_hasta) {
+function consultarSentencias() {
+  // Consultar la autoridad para poner el encabezado del card
+  fetch(url + "/autoridades/" + autoridad_clave)
+    .then((response) => response.json())
+    .then((data) => {
+      // Si la respuesta es exitosa, poner la descripcion de la autoridad
+      if (data.success === true) {
+        autoridad_distrito = "<strong>" + data.distrito_nombre + "</strong><br>" + data.descripcion;
+        cambiar_boton = "<a href='" + actualUrl + "' class='btn btn-outline-primary btn-sm mx-2'><i class='fa fa-eraser'></i> Cambiar</a>";
+        $("#sentenciasTableHeader").append(autoridad_distrito, cambiar_boton);
+      }
+    })
+    .catch((error) => console.log(error));
+
   // Si tiene datos, limpiar la tabla
   if ($("#sentenciasTable").length > 0) {
     $("#sentenciasTable").DataTable().clear().destroy();
@@ -134,7 +147,11 @@ function consultarSentencias(autoridad_clave, fecha_desde, fecha_hasta) {
     serverSide: true,
     ajax: {
       url: url + "/sentencias/datatable",
-      data: { autoridad_clave: autoridad_clave, fecha_desde: fecha_desde, fecha_hasta: fecha_hasta },
+      data: {
+        autoridad_clave: autoridad_clave,
+        fecha_desde: fecha_desde != null ? fecha_desde : "1900-01-01",
+        fecha_hasta: fecha_hasta != null ? fecha_hasta : "2100-01-01",
+      },
       type: "GET",
       dataType: "json",
     },
@@ -188,17 +205,4 @@ function consultarSentencias(autoridad_clave, fecha_desde, fecha_hasta) {
       },
     },
   });
-
-  // Consultar la autoridad para poner la descripcion en el encabezado del card
-  fetch(url + "/autoridades/" + autoridad_clave)
-    .then((response) => response.json())
-    .then((data) => {
-      // Si la respuesta es exitosa, poner la descripcion de la autoridad
-      if (data.success === true) {
-        autoridad_distrito = "<strong>" + data.distrito_nombre + "</strong><br>" + data.descripcion;
-        cambiar_boton = "<a href='" + actualUrl + "' class='btn btn-outline-primary btn-sm mx-2'><i class='fa fa-eraser'></i> Cambiar</a>";
-        $("#sentenciasTableHeader").append(autoridad_distrito, cambiar_boton);
-      }
-    })
-    .catch((error) => console.log(error));
 }
