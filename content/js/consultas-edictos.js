@@ -18,7 +18,7 @@ var fecha_hasta = urlParams.get("fecha_hasta");
 // Formulario con bootstrap-datepicker
 $("#fechasRango").datepicker({
   format: "yyyy-mm-dd",
-  todayBtn: true,
+  language: "es",
 });
 
 // Si viene la fecha_desde, ponerla en el formulario
@@ -29,6 +29,11 @@ if (fecha_desde != null) {
 // Si viene la fecha_hasta, ponerla en el formulario
 if (fecha_hasta != null) {
   $("#fechaHasta").val(fecha_hasta);
+}
+
+// Si viene la fecha_desde o la fecha_hasta, mostrar el boton para limpiar
+if (fecha_desde != null || fecha_hasta != null) {
+  $("#limpiarFiltroButton").show();
 }
 
 // Al dar click en el botón Filtrar se recarga la página
@@ -42,6 +47,18 @@ $("#filtrarButton").click(function () {
   } else {
     window.location.href = actualUrl + "?fecha_desde=" + fecha_desde + "&fecha_hasta=" + fecha_hasta + "&autoridad_clave=" + autoridad_clave;
   }
+});
+
+// Recargar la página
+function recargarPagina(clave) {
+  if (clave != null) {
+    window.location.href = actualUrl + "?autoridad_clave=" + clave;
+  }
+}
+
+// Al dar clic en el botón Limpiar se recarga la página con la autoridad_clave
+$("#limpiarFiltroButton").click(function () {
+  recargarPagina(autoridad_clave);
 });
 
 //
@@ -112,21 +129,15 @@ function consultarAutoridades(distrito_clave) {
     .catch((error) => console.log(error));
 }
 
-// Recargar la página
-function recargarPagina(autoridad_clave) {
-  // Recargar esta página con la clave de la autoridad
-  window.location.href = actualUrl + "?autoridad_clave=" + autoridad_clave;
-}
-
 // Consultar los edictos
 function consultarEdictos() {
-  // Consultar la autoridad para poner en el encabezado del card
+  // Consultar la autoridad para cambiar edictosTableTitle
   fetch(url + "/autoridades/" + autoridad_clave)
     .then((response) => response.json())
     .then((data) => {
       if (data.success === true) {
         autoridad_distrito = "<strong>" + data.distrito_nombre + "</strong><br>" + data.descripcion;
-        cambiar_boton = "<a href='" + actualUrl + "' class='btn btn-outline-primary btn-sm mx-2'><i class='fa fa-eraser'></i> Cambiar</a>";
+        cambiar_boton = "<a href='" + actualUrl + "' class='btn btn-warning btn-sm mx-2'><i class='fa fa-eraser'></i> Cambiar</a>";
         $("#edictosTableTitle").append(autoridad_distrito, cambiar_boton);
       }
     })
@@ -180,7 +191,7 @@ function consultarEdictos() {
     language: {
       lengthMenu: "Mostrar _MENU_",
       search: "Filtrar:",
-      zeroRecords: "No hay información.",
+      zeroRecords: "No hay registros.",
       info: "Página _PAGE_ de _PAGES_",
       infoEmpty: "No hay registros",
       infoFiltered: "(filtrados desde _MAX_ registros totales)",

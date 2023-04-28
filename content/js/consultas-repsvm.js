@@ -80,7 +80,7 @@ function consultarREPSVM(distrito_clave, nombre) {
     language: {
       lengthMenu: "Mostrar _MENU_",
       search: "Filtrar:",
-      zeroRecords: "No hay información.",
+      zeroRecords: "No hay registros.",
       info: "Página _PAGE_ de _PAGES_",
       infoEmpty: "No hay registros",
       infoFiltered: "(filtrados desde _MAX_ registros totales)",
