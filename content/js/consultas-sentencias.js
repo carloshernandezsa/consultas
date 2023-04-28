@@ -18,7 +18,7 @@ var fecha_hasta = urlParams.get("fecha_hasta");
 // Formulario con bootstrap-datepicker
 $("#fechasRango").datepicker({
   format: "yyyy-mm-dd",
-  todayBtn: true,
+  language: "es",
 });
 
 // Si viene la fecha_desde, ponerla en el formulario
@@ -29,6 +29,11 @@ if (fecha_desde != null) {
 // Si viene la fecha_hasta, ponerla en el formulario
 if (fecha_hasta != null) {
   $("#fechaHasta").val(fecha_hasta);
+}
+
+// Si viene la fecha_desde o la fecha_hasta, mostrar el boton para limpiar
+if (fecha_desde != null || fecha_hasta != null) {
+  $("#limpiarFiltroButton").show();
 }
 
 // Al dar click en el botón Filtrar se recarga la página
@@ -42,6 +47,18 @@ $("#filtrarButton").click(function () {
   } else {
     window.location.href = actualUrl + "?fecha_desde=" + fecha_desde + "&fecha_hasta=" + fecha_hasta + "&autoridad_clave=" + autoridad_clave;
   }
+});
+
+// Recargar la página
+function recargarPagina(clave) {
+  if (clave != null) {
+    window.location.href = actualUrl + "?autoridad_clave=" + clave;
+  }
+}
+
+// Al dar clic en el botón Limpiar se recarga la página con la autoridad_clave
+$("#limpiarFiltroButton").click(function () {
+  recargarPagina(autoridad_clave);
 });
 
 //
@@ -68,7 +85,7 @@ if (autoridad_clave == null) {
   $("#spinnerCard").hide();
 } else {
   // Viene la autoridad_clave, entonces consultar las audiencias
-  consultarSentencias(autoridad_clave, fecha_desde, fecha_hasta);
+  consultarSentencias();
   $("#sentenciasTableCard").show();
   $("#spinnerCard").hide();
 }
@@ -112,14 +129,21 @@ function consultarAutoridades(distrito_clave) {
     .catch((error) => console.log(error));
 }
 
-// Recargar la página
-function recargarPagina(autoridad_clave) {
-  // Recargar esta página con la clave de la autoridad
-  window.location.href = actualUrl + "?autoridad_clave=" + autoridad_clave;
-}
-
 // Consultar las sentencias
-function consultarSentencias(autoridad_clave, fecha_desde, fecha_hasta) {
+function consultarSentencias() {
+  // Consultar la autoridad para cambiar sentenciasTableTitle
+  fetch(url + "/autoridades/" + autoridad_clave)
+    .then((response) => response.json())
+    .then((data) => {
+      // Si la respuesta es exitosa, poner la descripcion de la autoridad
+      if (data.success === true) {
+        autoridad_distrito = "<strong>" + data.distrito_nombre + "</strong><br>" + data.descripcion;
+        cambiar_boton = "<a href='" + actualUrl + "' class='btn btn-warning btn-sm mx-2'><i class='fa fa-eraser'></i> Cambiar</a>";
+        $("#sentenciasTableTitle").append(autoridad_distrito, cambiar_boton);
+      }
+    })
+    .catch((error) => console.log(error));
+
   // Si tiene datos, limpiar la tabla
   if ($("#sentenciasTable").length > 0) {
     $("#sentenciasTable").DataTable().clear().destroy();
@@ -134,7 +158,11 @@ function consultarSentencias(autoridad_clave, fecha_desde, fecha_hasta) {
     serverSide: true,
     ajax: {
       url: url + "/sentencias/datatable",
-      data: { autoridad_clave: autoridad_clave, fecha_desde: fecha_desde, fecha_hasta: fecha_hasta },
+      data: {
+        autoridad_clave: autoridad_clave,
+        fecha_desde: fecha_desde != null ? fecha_desde : "1900-01-01",
+        fecha_hasta: fecha_hasta != null ? fecha_hasta : "2100-01-01",
+      },
       type: "GET",
       dataType: "json",
     },
@@ -176,7 +204,7 @@ function consultarSentencias(autoridad_clave, fecha_desde, fecha_hasta) {
     language: {
       lengthMenu: "Mostrar _MENU_",
       search: "Filtrar:",
-      zeroRecords: "No hay información.",
+      zeroRecords: "No hay registros.",
       info: "Página _PAGE_ de _PAGES_",
       infoEmpty: "No hay registros",
       infoFiltered: "(filtrados desde _MAX_ registros totales)",
@@ -188,17 +216,4 @@ function consultarSentencias(autoridad_clave, fecha_desde, fecha_hasta) {
       },
     },
   });
-
-  // Consultar la autoridad para poner la descripcion en el encabezado del card
-  fetch(url + "/autoridades/" + autoridad_clave)
-    .then((response) => response.json())
-    .then((data) => {
-      // Si la respuesta es exitosa, poner la descripcion de la autoridad
-      if (data.success === true) {
-        autoridad_distrito = "<strong>" + data.distrito_nombre + "</strong><br>" + data.descripcion;
-        cambiar_boton = "<a href='" + actualUrl + "' class='btn btn-outline-primary btn-sm mx-2'><i class='fa fa-eraser'></i> Cambiar</a>";
-        $("#sentenciasTableHeader").append(autoridad_distrito, cambiar_boton);
-      }
-    })
-    .catch((error) => console.log(error));
 }
