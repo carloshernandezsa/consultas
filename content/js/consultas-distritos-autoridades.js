@@ -21,13 +21,15 @@ const autoridadesSelect = document.getElementById("autoridadesSelect");
 
 // Definir elementos del DOM del encabezado donde se muestra el distrito y la autoridad seleccionados
 const encabezadoSpinner = document.getElementById("encabezadoSpinner");
+const encabezadoDiv = document.getElementById("encabezadoDiv");
 const distritoTitle = document.getElementById("distritoTitle");
 const autoridadTitle = document.getElementById("autoridadTitle");
-const cambiarDistritoAutoridadButton = document.getElementById("cambiarDistritoAutoridadButton");
+const rangoFechasSpinner = document.getElementById("rangoFechasSpinner");
+const rangoFechasDiv = document.getElementById("rangoFechasDiv");
 
 // Recargar la pagina con la clave de la autoridad
-function recargarConAutoridadClave(clave) {
-  window.location.href = actualUrl + "?autoridad_clave=" + clave;
+function recargarConAutoridadClave(autoridadClave) {
+  window.location.href = actualUrl + "?autoridad_clave=" + autoridadClave;
 }
 
 // Recargar la pagina esta página sin parámetros
@@ -96,18 +98,19 @@ function consultarAutoridad() {
     console.log("Falta la clave de la autoridad");
     return;
   }
+  encabezadoSpinner.style.display = "block";
+  encabezadoDiv.style.display = "none";
   fetch(apiUrl + "/autoridades/" + autoridadClave)
     .then((response) => response.json())
     .then((data) => {
-      // Si la respuesta es exitosa, mostrar el distrito y la autoridad seleccionados
+      // Si la respuesta es exitosa, mostrar el distrito y la autoridad seleccionados, asi como el rango de fechas
       if (data.success === true) {
         distritoTitle.innerText = data.distrito_nombre;
         autoridadTitle.innerText = data.descripcion;
-        // cambiarDistritoAutoridadButton;
         encabezadoSpinner.style.display = "none";
-        distritoTitle.style.display = "block";
-        autoridadTitle.style.display = "block";
-        cambiarDistritoAutoridadButton.style.display = "block";
+        encabezadoDiv.style.display = "block";
+        rangoFechasSpinner.style.display = "none";
+        rangoFechasDiv.style.display = "block";
       }
     })
     .catch((error) => console.log(error));

@@ -16,7 +16,7 @@
             <div class="col-sm-6">
               <div id="distritosSpinner" class="text-center">
                 <div class="spinner-border" role="status">
-                  <span class="sr-only">Loading...</span>
+                  <span class="sr-only">Cargando...</span>
                 </div>
               </div>
               <div id="distritosFormGroup" class="form-group" style="display: none">
@@ -27,7 +27,7 @@
             <div class="col-sm-6">
               <div id="autoridadesSpinner" class="text-center" style="display: none">
                 <div class="spinner-border" role="status">
-                  <span class="sr-only">Loading...</span>
+                  <span class="sr-only">Cargando...</span>
                 </div>
               </div>
               <div id="autoridadesFormGroup" class="form-group" style="display: none">
@@ -41,36 +41,38 @@
     </div>
     <!-- Tabla -->
     <div id="edictosTableCard" class="card">
-      <div id="edictosTableHeader" class="card-header">
+      <div class="card-header">
         <div class="row">
           <!-- Titulo -->
           <div class="col-6">
             <div id="encabezadoSpinner" class="text-center">
               <div class="spinner-border" role="status">
-                <span class="sr-only">Loading...</span>
+                <span class="sr-only">Cargando...</span>
               </div>
             </div>
-            <p id="distritoTitle" class="mb-1" style="display: none"></p>
-            <h5 id="autoridadTitle" class="mb-2" style="display: none"></h5>
-            <button id="cambiarDistritoAutoridadButton" class="btn btn-warning btn-sm" onclick="recargarSinParametros();" style="display: none"><i class="fa fa-list"></i> Cambiar</button>
+            <div id="encabezadoDiv" style="display: none">
+              <p id="distritoTitle" class="mb-1"></p>
+              <h5 id="autoridadTitle" class="mb-2"></h5>
+              <button id="cambiarDistritoAutoridadButton" class="btn btn-warning btn-sm" onclick="recargarSinParametros();"><i class="fa fa-list"></i> Cambiar</button>
+            </div>
           </div>
-          <!-- Formulario Rango de Fechas -->
+          <!-- Rango de Fechas -->
           <div class="col-6">
-            <div class="text-center">
+            <div id="rangoFechasSpinner" class="text-center">
               <div class="spinner-border" role="status">
-                <span class="sr-only">Loading...</span>
+                <span class="sr-only">Cargando...</span>
               </div>
             </div>
-            <div class="float-right" style="display: none">
+            <div id="rangoFechasDiv" class="float-right" style="display: none">
               <form class="form-inline" onsubmit="return false;">
                 <div class="form-group">
-                  <div id="fechasRango" class="input-daterange">
+                  <div id="rangoFechas" class="input-daterange">
                     <span class="input-group-addon">De</span>
                     <input type="text" class="form-control" name="fechaDesde" size="12" id="fechaDesde" />
                     <span class="input-group-addon">a</span>
                     <input type="text" class="form-control" name="fechaHasta" size="12" id="fechaHasta" />
-                    <button id="filtrarButton" class="btn btn-primary btn-sm"><i class="fa fa-filter"></i> Filtrar</button>
-                    <button id="limpiarFiltroButton" class="btn btn-warning btn-sm" style="display: none"><i class="fa fa-eraser"></i> Limpiar</button>
+                    <button id="rangoFechasFiltrarButton" class="btn btn-primary btn-sm"><i class="fa fa-filter"></i> Filtrar</button>
+                    <button id="rangoFechasLimpiarButton" class="btn btn-warning btn-sm" style="display: none"><i class="fa fa-eraser"></i> Limpiar</button>
                   </div>
                 </div>
               </form>
@@ -80,12 +82,12 @@
       </div>
       <div class="card-body">
         <!-- DataTable -->
-        <div id="datatableSpinner" class="text-center">
+        <div id="edictosTableSpinner" class="text-center">
           <div class="spinner-border" role="status">
-            <span class="sr-only">Loading...</span>
+            <span class="sr-only">Cargando...</span>
           </div>
         </div>
-        <table id="edictosTable" class="table table-striped" style="width: 100%; display: none">
+        <table id="edictosTable" class="table table-striped" style="width: 100%">
           <thead>
             <tr>
               <th>Fecha</th>
