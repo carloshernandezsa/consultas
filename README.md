@@ -1,3 +1,5 @@
 # pjecz-justicia-digital-bootstrap
 
-Sitio web para consultar información hecho con bootstrap y datatables.
+Este es el sucesor de la rama consultas del sitio web.
+
+Usa las mismas dependencias del sitio que son bootstrap y datatables.
