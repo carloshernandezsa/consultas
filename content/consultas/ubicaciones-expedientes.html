@@ -4,41 +4,35 @@
     <title>Ubicaciones de Expedientes</title>
     <meta name="slug" content="ubicaciones-expedientes" />
     <meta name="summary" content="" />
-    <meta name="javascripts" content="consultas-ubicaciones-expedientes.js" />
+    <meta name="javascripts" content="consultas-api-url.js,consultas-distritos-autoridades.js,consultas-ubicaciones-expedientes.js" />
     <meta name="save_as" content="consultas/ubicaciones-expedientes.html" />
   </head>
   <body>
-    <!-- Spinner -->
-    <div id="spinnerCard" class="text-center">
-      <div class="spinner-border" role="status">
-        <span class="sr-only">Loading...</span>
-      </div>
-    </div>
-    <!-- Formulario -->
-    <div id="ubicacionesExpedientesFormCard" class="card" style="display: none">
+    <!-- Formulario Distrito-Autoridad -->
+    <div id="ubicacionesExpedientesFormCard" class="card">
       <div class="card-body">
         <form id="ubicacionesExpedientesForm" onsubmit="return false;">
           <div class="row">
             <div class="col-sm-6">
-              <div id="distritoSpinner" class="text-center">
+              <div id="distritosSpinner" class="text-center">
                 <div class="spinner-border" role="status">
-                  <span class="sr-only">Loading...</span>
+                  <span class="sr-only">Cargando...</span>
                 </div>
               </div>
-              <div id="distritoFormGroup" class="form-group" style="display: none">
-                <label for="distritoSelect">Elija el Distrito/Grupo</label>
-                <select name="distritoId" id="distritoSelect" class="form-control" size="20"></select>
+              <div id="distritosFormGroup" class="form-group" style="display: none">
+                <label for="distritosSelect">Elija el Distrito/Grupo</label>
+                <select id="distritosSelect" name="distritoId" class="form-control" size="20"></select>
               </div>
             </div>
             <div class="col-sm-6">
-              <div id="autoridadSpinner" class="text-center" style="display: none">
+              <div id="autoridadesSpinner" class="text-center" style="display: none">
                 <div class="spinner-border" role="status">
-                  <span class="sr-only">Loading...</span>
+                  <span class="sr-only">Cargando...</span>
                 </div>
               </div>
-              <div id="autoridadFormGroup" class="form-group" style="display: none">
-                <label for="autoridadSelect">Elija el Juzgado/Autoridad</label>
-                <select name="autoridadId" id="autoridadSelect" class="form-control" size="20"></select>
+              <div id="autoridadesFormGroup" class="form-group" style="display: none">
+                <label for="autoridadesSelect">Elija el Juzgado/Autoridad</label>
+                <select id="autoridadesSelect" name="autoridadClave" class="form-control" size="20"></select>
               </div>
             </div>
           </div>
@@ -46,9 +40,27 @@
       </div>
     </div>
     <!-- Tabla -->
-    <div id="ubicacionesExpedientesTableCard" class="card" style="display: none">
-      <div id="ubicacionesExpedientesTableHeader" class="card-header">Autoridad</div>
+    <div id="ubicacionesExpedientesTableCard" class="card">
+      <div class="card-header">
+        <!-- Titulo -->
+        <div id="encabezadoSpinner" class="text-center">
+          <div class="spinner-border" role="status">
+            <span class="sr-only">Cargando...</span>
+          </div>
+        </div>
+        <div id="encabezadoDiv" style="display: none">
+          <p id="distritoTitle" class="mb-1"></p>
+          <h5 id="autoridadTitle" class="mb-2"></h5>
+          <button id="cambiarDistritoAutoridadButton" class="btn btn-warning btn-sm"><i class="fa fa-list"></i> Cambiar</button>
+        </div>
+      </div>
       <div class="card-body">
+        <!-- DataTable -->
+        <div id="ubicacionesExpedientesTableSpinner" class="text-center">
+          <div class="spinner-border" role="status">
+            <span class="sr-only">Cargando...</span>
+          </div>
+        </div>
         <table id="ubicacionesExpedientesTable" class="table table-striped" style="width: 100%">
           <thead>
             <tr>

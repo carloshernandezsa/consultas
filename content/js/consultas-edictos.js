@@ -79,14 +79,14 @@ const fechaHasta = urlParams.get("fecha_hasta");
 
 // Si viene la clave de la autoridad
 if (autoridadClave != null) {
-  // Mostrar el card con resultados
+  // Mostrar el card con la tabla DataTable
   edictosFormCard.style.display = "none";
   edictosTableCard.style.display = "block";
   consultarAutoridad(autoridadClave);
   inicializarRangoFechas(autoridadClave, fechaDesde, fechaHasta);
   consultarEdictos(autoridadClave, fechaDesde, fechaHasta);
 } else {
-  // Mostrar el card para elegir la autoridad
+  // Mostrar el card con el formulario para elegir el distrito y la autoridad
   edictosFormCard.style.display = "block";
   edictosTableCard.style.display = "none";
   consultarDistritos();

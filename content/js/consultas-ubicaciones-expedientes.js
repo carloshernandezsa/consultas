@@ -2,90 +2,14 @@
 // Consultas Ubicaciones de Expedientes
 //
 
-// Determinar la URL de la API segun sea el ambiente de desarrollo o de producción
-switch (window.location.hostname) {
-  case "localhost":
-    var url = "http://localhost:8001/v3";
-    break;
-  case "127.0.0.1":
-    var url = "http://127.0.0.1:8001/v3";
-    break;
-  default:
-    var url = "https://api.justiciadigital.gob.mx/v3";
-}
+// Definir elementos del DOM
+const ubicacionesExpedientesFormCard = document.getElementById("ubicacionesExpedientesFormCard");
+const ubicacionesExpedientesTableCard = document.getElementById("ubicacionesExpedientesTableCard");
+const ubicacionesExpedientesTableSpinner = document.getElementById("ubicacionesExpedientesTableSpinner");
 
-// Obtener la autoridad por los parámetros de la URL
-var urlParams = new URLSearchParams(window.location.search);
-var autoridad_clave = urlParams.get("autoridad_clave");
-
-// Si no se especificó la autoridad
-if (autoridad_clave == null) {
-  // Consultar los distritos para poner opciones en el select
-  consultarDistritos();
-  $("#ubicacionesExpedientesFormCard").show();
-  $("#spinnerCard").hide();
-} else {
-  // Viene la autoridad_clave, entonces consultar las audiencias
-  consultarUbicacionesExpedientes(autoridad_clave);
-  $("#ubicacionesExpedientesTableCard").show();
-  $("#spinnerCard").hide();
-}
-
-// Consultar los distritos para poner opciones en el select
-function consultarDistritos() {
-  $("#distritoSpinner").show();
-  $("#distritoFormGroup").hide();
-  fetch(url + "/distritos?es_jurisdiccional=true&limit=100")
-    .then((response) => response.json())
-    .then((data) => {
-      // Si la respuesta es exitosa, recorrerlos y agregarlos al select
-      if (data.success === true) {
-        data.result.items.forEach((item) => {
-          $("#distritoSelect").append($("<option onclick='consultarAutoridades(this.value)'></option>").attr("value", item.clave).text(item.nombre_corto));
-        });
-        $("#distritoSpinner").hide();
-        $("#distritoFormGroup").show();
-      }
-    })
-    .catch((error) => console.log(error));
-}
-
-// Consultar las autoridades para poner opciones en el select
-function consultarAutoridades(distrito_clave) {
-  $("#autoridadSpinner").show();
-  $("#autoridadFormGroup").hide();
-  fetch(url + "/autoridades?distrito_clave=" + distrito_clave + "&es_jurisdiccional=true&es_notaria=false&limit=100")
-    .then((response) => response.json())
-    .then((data) => {
-      // Si la respuesta es exitosa, recorrelos y agregarlos al select
-      if (data.success === true) {
-        $("#autoridadSelect").empty(); // Limpiar el select
-        data.result.items.forEach((item) => {
-          $("#autoridadSelect").append($("<option onclick='recargarPagina(this.value)'></option>").attr("value", item.clave).text(item.descripcion_corta));
-        });
-        $("#autoridadSpinner").hide();
-        $("#autoridadFormGroup").show();
-      }
-    })
-    .catch((error) => console.log(error));
-}
-
-// Recargar la página
-function recargarPagina(autoridad_clave) {
-  // Obtener la url actual sin parámetros
-  var actualUrl = window.location.href.split("?")[0];
-  // Recargar esta página con la clave de la autoridad
-  window.location.href = actualUrl + "?autoridad_clave=" + autoridad_clave;
-}
-
-// Consultar las ubicaciones de los expedientes
-function consultarUbicacionesExpedientes(autoridad_clave) {
-  // Si tiene datos, limpiar la tabla
-  if ($("#ubicacionesExpedientesTable").length > 0) {
-    $("#ubicacionesExpedientesTable").DataTable().clear().destroy();
-  }
-
-  // Cargar los datos en la tabla
+// Consultar las ubicaciones de expedientes para llenar la tabla
+function consultarUbicacionesExpedientes(autoridadClave) {
+  ubicacionesExpedientesTableSpinner.style.display = "block";
   $("#ubicacionesExpedientesTable").DataTable({
     lengthChange: false,
     ordering: false,
@@ -93,8 +17,8 @@ function consultarUbicacionesExpedientes(autoridad_clave) {
     scrollX: true,
     serverSide: true,
     ajax: {
-      url: url + "/ubicaciones_expedientes/datatable",
-      data: { autoridad_clave: autoridad_clave },
+      url: apiUrl + "/ubicaciones_expedientes/datatable",
+      data: { autoridad_clave: autoridadClave },
       type: "GET",
       dataType: "json",
     },
@@ -119,15 +43,27 @@ function consultarUbicacionesExpedientes(autoridad_clave) {
       },
     },
   });
+  ubicacionesExpedientesTableSpinner.style.display = "none";
+}
 
-  // Consultar la autoridad para poner la descripcion en el encabezado del card
-  fetch(url + "/autoridades/" + autoridad_clave)
-    .then((response) => response.json())
-    .then((data) => {
-      // Si la respuesta es exitosa, poner la descripcion de la autoridad
-      if (data.success === true) {
-        $("#ubicacionesExpedientesTableHeader").text(data.distrito_nombre + " > " + data.descripcion);
-      }
-    })
-    .catch((error) => console.log(error));
+//
+// Proceso inicial
+//
+
+// Obtener los parametros de la URL
+const urlParams = new URLSearchParams(window.location.search);
+const autoridadClave = urlParams.get("autoridad_clave");
+
+// Si viene la clave de la autoridad
+if (autoridadClave != null) {
+  // Mostrar el card con la tabla DataTable
+  ubicacionesExpedientesFormCard.style.display = "none";
+  ubicacionesExpedientesTableCard.style.display = "block";
+  consultarAutoridad(autoridadClave);
+  consultarUbicacionesExpedientes(autoridadClave);
+} else {
+  // Mostrar el card con el formulario para elegir el distrito y la autoridad
+  ubicacionesExpedientesFormCard.style.display = "block";
+  ubicacionesExpedientesTableCard.style.display = "none";
+  consultarDistritos();
 }
