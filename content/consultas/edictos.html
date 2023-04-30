@@ -4,7 +4,7 @@
     <title>Edictos</title>
     <meta name="slug" content="edictos" />
     <meta name="summary" content="" />
-    <meta name="javascripts" content="consultas-apiurl.js,consultas-distritos-autoridades.js,consultas-edictos.js" />
+    <meta name="javascripts" content="consultas-api-url.js,consultas-distritos-autoridades.js,consultas-rangos-fechas.js,consultas-edictos.js" />
     <meta name="save_as" content="consultas/edictos.html" />
   </head>
   <body>
@@ -53,7 +53,7 @@
             <div id="encabezadoDiv" style="display: none">
               <p id="distritoTitle" class="mb-1"></p>
               <h5 id="autoridadTitle" class="mb-2"></h5>
-              <button id="cambiarDistritoAutoridadButton" class="btn btn-warning btn-sm" onclick="recargarSinParametros();"><i class="fa fa-list"></i> Cambiar</button>
+              <button id="cambiarDistritoAutoridadButton" class="btn btn-warning btn-sm"><i class="fa fa-list"></i> Cambiar</button>
             </div>
           </div>
           <!-- Rango de Fechas -->
@@ -72,7 +72,7 @@
                     <span class="input-group-addon">a</span>
                     <input type="text" class="form-control" name="fechaHasta" size="12" id="fechaHasta" />
                     <button id="rangoFechasFiltrarButton" class="btn btn-primary btn-sm"><i class="fa fa-filter"></i> Filtrar</button>
-                    <button id="rangoFechasLimpiarButton" class="btn btn-warning btn-sm" style="display: none"><i class="fa fa-eraser"></i> Limpiar</button>
+                    <button id="rangoFechasLimpiarButton" class="btn btn-warning btn-sm"><i class="fa fa-eraser"></i> Limpiar</button>
                   </div>
                 </div>
               </form>

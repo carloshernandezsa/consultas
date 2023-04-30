@@ -5,10 +5,6 @@
 // Definir URL sin parámetros
 const actualUrl = window.location.href.split("?")[0];
 
-// Obtener los parametros de la URL
-const urlParams = new URLSearchParams(window.location.search);
-const autoridadClave = urlParams.get("autoridad_clave");
-
 // Definir elementos del DOM del select distritos
 const distritosSpinner = document.getElementById("distritosSpinner");
 const distritosFormGroup = document.getElementById("distritosFormGroup");
@@ -24,17 +20,23 @@ const encabezadoSpinner = document.getElementById("encabezadoSpinner");
 const encabezadoDiv = document.getElementById("encabezadoDiv");
 const distritoTitle = document.getElementById("distritoTitle");
 const autoridadTitle = document.getElementById("autoridadTitle");
+const cambiarDistritoAutoridadButton = document.getElementById("cambiarDistritoAutoridadButton");
 const rangoFechasSpinner = document.getElementById("rangoFechasSpinner");
 const rangoFechasDiv = document.getElementById("rangoFechasDiv");
+
+// Recargar la pagina esta página sin parámetros
+function recargarSinParametros() {
+  window.location.href = actualUrl;
+}
 
 // Recargar la pagina con la clave de la autoridad
 function recargarConAutoridadClave(autoridadClave) {
   window.location.href = actualUrl + "?autoridad_clave=" + autoridadClave;
 }
 
-// Recargar la pagina esta página sin parámetros
-function recargarSinParametros() {
-  window.location.href = actualUrl;
+// Recargar la pagina con la clave de la autoridad y el rango de fechas
+function recargarConRangoFechas(autoridadClave, fechaDesde, fechaHasta) {
+  window.location.href = actualUrl + "?autoridad_clave=" + autoridadClave + "&fecha_desde=" + fechaDesde + "&fecha_hasta=" + fechaHasta;
 }
 
 // Consultar los distritos para llenar el select
@@ -93,7 +95,7 @@ function consultarAutoridades(distritoClave) {
 }
 
 // Consultar la autoridad para llenar el encabezado
-function consultarAutoridad() {
+function consultarAutoridad(autoridadClave) {
   if (autoridadClave == null) {
     console.log("Falta la clave de la autoridad");
     return;
@@ -107,6 +109,9 @@ function consultarAutoridad() {
       if (data.success === true) {
         distritoTitle.innerText = data.distrito_nombre;
         autoridadTitle.innerText = data.descripcion;
+        cambiarDistritoAutoridadButton.addEventListener("click", (thisEvent) => {
+          recargarSinParametros();
+        });
         encabezadoSpinner.style.display = "none";
         encabezadoDiv.style.display = "block";
         rangoFechasSpinner.style.display = "none";

@@ -8,7 +8,7 @@ const edictosTableCard = document.getElementById("edictosTableCard");
 const edictosTableSpinner = document.getElementById("edictosTableSpinner");
 
 // Consultar los edictos para llenar la tabla
-function consultarEdictos(autoridadClave) {
+function consultarEdictos(autoridadClave, fechaDesde, fechaHasta) {
   edictosTableSpinner.style.display = "block";
   $("#edictosTable").DataTable({
     lengthChange: false,
@@ -20,6 +20,8 @@ function consultarEdictos(autoridadClave) {
       url: apiUrl + "/edictos/datatable",
       data: {
         autoridad_clave: autoridadClave,
+        fecha_desde: fechaDesde != null ? fechaDesde : "1900-01-01",
+        fecha_hasta: fechaHasta != null ? fechaHasta : "2100-01-01",
       },
       type: "GET",
       dataType: "json",
@@ -69,13 +71,22 @@ function consultarEdictos(autoridadClave) {
 // Proceso inicial
 //
 
+// Obtener los parametros de la URL
+const urlParams = new URLSearchParams(window.location.search);
+const autoridadClave = urlParams.get("autoridad_clave");
+const fechaDesde = urlParams.get("fecha_desde");
+const fechaHasta = urlParams.get("fecha_hasta");
+
 // Si viene la clave de la autoridad
 if (autoridadClave != null) {
+  // Mostrar el card con resultados
   edictosFormCard.style.display = "none";
   edictosTableCard.style.display = "block";
   consultarAutoridad(autoridadClave);
-  consultarEdictos(autoridadClave);
+  inicializarRangoFechas(autoridadClave, fechaDesde, fechaHasta);
+  consultarEdictos(autoridadClave, fechaDesde, fechaHasta);
 } else {
+  // Mostrar el card para elegir la autoridad
   edictosFormCard.style.display = "block";
   edictosTableCard.style.display = "none";
   consultarDistritos();
