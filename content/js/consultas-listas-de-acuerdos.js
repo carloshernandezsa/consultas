@@ -1,6 +1,10 @@
 //
 // Consultas Listas de Acuerdos
 //
+// Cargar previemante
+// - consultas-api-url.js
+// - consultas-distritos-autoridades.js
+//
 
 // Definir elementos del DOM
 const listasDeAcuerdosFormCard = document.getElementById("listasDeAcuerdosFormCard");

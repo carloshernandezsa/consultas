@@ -1,59 +1,34 @@
 //
 // Consultas Abogados Registrados
 //
+// Cargar previemante
+// - consultas-api-url.js
+//
 
-// Determinar la URL de la API segun sea el ambiente de desarrollo o de producción
-switch (window.location.hostname) {
-  case "localhost":
-    var url = "http://localhost:8001/v3";
-    break;
-  case "127.0.0.1":
-    var url = "http://127.0.0.1:8001/v3";
-    break;
-  default:
-    var url = "https://api.justiciadigital.gob.mx/v3";
-}
+// Definir elementos del DOM
+const abogadosRegistradosFormCard = document.getElementById("abogadosRegistradosFormCard");
+const abogadosRegistradosFormSpinner = document.getElementById("abogadosRegistradosFormSpinner");
+const abogadosRegistradosForm = document.getElementById("abogadosRegistradosForm");
+const abogadosRegistradosTableCard = document.getElementById("abogadosRegistradosTableCard");
+const abogadosRegistradosTableSpinner = document.getElementById("abogadosRegistradosTableSpinner");
+const abogadosRegistradosTable = document.getElementById("abogadosRegistradosTable");
+const nombreInput = document.getElementById("nombreInput");
+const anioDesdeInput = document.getElementById("anioDesdeInput");
+const anioHastaInput = document.getElementById("anioHastaInput");
+const consultarButton = document.getElementById("consultarButton");
 
-// Obtener el nombre, año desde y año hasta por los parámetros de la URL
-var urlParams = new URLSearchParams(window.location.search);
-var nombre = urlParams.get("nombre");
-var anio_desde = urlParams.get("anio_desde");
-var anio_hasta = urlParams.get("anio_hasta");
-
-// Si no se especificó el nombre
-if (nombre == null && anio_desde == null && anio_hasta == null) {
-  setTimeout(function () {
-    $("#abogadosRegistradosFormCard").show();
-    $("#spinnerCard").hide();
-  }, 1000); // Esperar un segundo
-} else {
-  setTimeout(function () {
-    consultarAbogadosRegistrados(nombre, anio_desde, anio_hasta);
-    $("#abogadosRegistradosTableCard").show();
-    $("#spinnerCard").hide();
-  }, 1000); // Esperar un segundo
-}
-
-// Al dar click en el botón de consultar se recarga la página
-$("#consultarButton").click(function () {
-  // Tomar los valores del formulario
-  nombre = $("#nombre").val();
-  anio_desde = $("#anioDesde").val();
-  anio_hasta = $("#anioHasta").val();
-  // Obtener la url actual sin parámetros
-  var actualUrl = window.location.href.split("?")[0];
-  // Recargar esta página con los parámetros del formulario
-  window.location.href = actualUrl + "?nombre=" + nombre + "&anio_desde=" + anio_desde + "&anio_hasta=" + anio_hasta;
-});
-
-// Consultar abogados registrados
-function consultarAbogadosRegistrados(nombre, anio_desde, anio_hasta) {
-  // Si tiene datos, limpiar la tabla
-  if ($("#abogadosRegistradosTable").length > 0) {
-    $("#abogadosRegistradosTable").DataTable().clear().destroy();
+// Consultar los abogados registrados para llenar la tabla
+function consultarAbogadosRegistrados(nombre, anioDesde, anioHasta) {
+  abogadosRegistradosTableSpinner.style.display = "block";
+  if (nombre == null) {
+    nombre = "";
   }
-
-  // Cargar los datos en la tabla
+  if (anioDesde == null || anioDesde == "") {
+    anioDesde = "1925";
+  }
+  if (anioHasta == null || anioHasta == "") {
+    anioHasta = new Date().getFullYear();
+  }
   $("#abogadosRegistradosTable").DataTable({
     lengthChange: false,
     ordering: false,
@@ -61,8 +36,12 @@ function consultarAbogadosRegistrados(nombre, anio_desde, anio_hasta) {
     scrollX: true,
     serverSide: true,
     ajax: {
-      url: url + "/abogados/datatable",
-      data: { nombre: nombre }, // anio_desde: anio_desde, anio_hasta: anio_hasta
+      url: apiUrl + "/abogados/datatable",
+      data: {
+        nombre: nombre,
+        anio_desde: anioDesde,
+        anio_hasta: anioHasta,
+      },
       type: "GET",
       dataType: "json",
     },
@@ -95,5 +74,42 @@ function consultarAbogadosRegistrados(nombre, anio_desde, anio_hasta) {
         sPrevious: "Anterior",
       },
     },
+  });
+  abogadosRegistradosTableSpinner.style.display = "none";
+}
+
+// Recargar la pagina con los parametros del formulario
+function recargarConParametros() {
+  const actualUrl = window.location.href.split("?")[0];
+  const elNombre = nombreInput.value;
+  const elAnioDesde = anioDesdeInput.value;
+  const elAnioHasta = anioHastaInput.value;
+  window.location.href = actualUrl + "?nombre=" + elNombre + "&anio_desde=" + elAnioDesde + "&anio_hasta=" + elAnioHasta;
+}
+
+//
+// Proceso inicial
+//
+
+// Obtener los parametros de la URL
+const urlParams = new URLSearchParams(window.location.search);
+var nombre = urlParams.get("nombre");
+var anioDesde = urlParams.get("anio_desde");
+var anioHasta = urlParams.get("anio_hasta");
+
+// Si se recibio por lo menos un parametro
+if (nombre != null || anioDesde != null || anioHasta != null) {
+  // Mostrar el card con la tabla DataTable
+  abogadosRegistradosFormCard.style.display = "none";
+  abogadosRegistradosTableCard.style.display = "block";
+  consultarAbogadosRegistrados(nombre, anioDesde, anioHasta);
+} else {
+  // Mostrar el card con el formulario para buscar por nombre y/o anio
+  abogadosRegistradosFormCard.style.display = "block";
+  abogadosRegistradosFormSpinner.style.display = "none";
+  abogadosRegistradosForm.style.display = "block";
+  abogadosRegistradosTableCard.style.display = "none";
+  consultarButton.addEventListener("click", (thisEvent) => {
+    recargarConParametros();
   });
 }

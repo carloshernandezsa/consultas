@@ -1,6 +1,10 @@
 //
 // Consultas Edictos
 //
+// Cargar previemante
+// - consultas-api-url.js
+// - consultas-distritos-autoridades.js
+//
 
 // Definir elementos del DOM
 const edictosFormCard = document.getElementById("edictosFormCard");
