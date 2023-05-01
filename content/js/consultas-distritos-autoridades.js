@@ -1,5 +1,10 @@
 //
-// Distritos-Autoridades
+// Consultas Distritos-Autoridades
+//
+// Sirve para el Formulario Distrito-Autoridad
+//
+// Cargar previemante
+// - consultas-api-url.js
 //
 
 // Definir URL sin parámetros

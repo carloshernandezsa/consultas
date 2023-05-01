@@ -4,39 +4,43 @@
     <title>Abogados Registrados</title>
     <meta name="slug" content="abogados-registrados" />
     <meta name="summary" content="" />
-    <meta name="javascripts" content="consultas-abogados-registrados.js" />
+    <meta name="javascripts" content="consultas-api-url.js,consultas-abogados-registrados.js" />
     <meta name="save_as" content="consultas/abogados-registrados.html" />
   </head>
   <body>
-    <!-- Spinner -->
-    <div id="spinnerCard" class="text-center">
-      <div class="spinner-border" role="status">
-        <span class="sr-only">Loading...</span>
-      </div>
-    </div>
     <!-- Formulario -->
-    <div id="abogadosRegistradosFormCard" class="card my-2" style="display: none">
+    <div id="abogadosRegistradosFormCard" class="card">
       <div class="card-body">
-        <form id="abogadosRegistradosForm" onsubmit="return false;">
+        <div id="abogadosRegistradosFormSpinner" class="text-center">
+          <div class="spinner-border" role="status">
+            <span class="sr-only">Cargando...</span>
+          </div>
+        </div>
+        <form id="abogadosRegistradosForm" onsubmit="return false;" style="display: none">
           <div class="form-group">
-            <label for="nombre">Nombre</label>
-            <input type="text" class="form-control" id="nombre" placeholder="Por lo menos cuatro caracteres" />
+            <label for="nombreInput">Nombre</label>
+            <input id="nombreInput" type="text" class="form-control" placeholder="Por lo menos cuatro caracteres" />
           </div>
           <div class="form-group">
-            <label for="anioDesde">Año de registro, desde</label>
-            <select id="anioDesde" class="form-control"></select>
+            <label for="anioDesdeInput">Año de registro, desde</label>
+            <input id="anioDesdeInput" class="form-control" placeholder="Desde 1925" />
           </div>
           <div class="form-group">
-            <label for="anioHasta">Año de registro, hasta</label>
-            <select id="anioHasta" class="form-control"></select>
+            <label for="anioHastaInput">Año de registro, hasta</label>
+            <input id="anioHastaInput" class="form-control" placeholder="Año del presente" />
           </div>
           <button id="consultarButton" class="btn btn-primary">Consultar</button>
         </form>
       </div>
     </div>
     <!-- Tabla -->
-    <div id="abogadosRegistradosTableCard" class="card my-2" style="display: none">
+    <div id="abogadosRegistradosTableCard" class="card">
       <div class="card-body">
+        <div id="abogadosRegistradosTableSpinner" class="text-center">
+          <div class="spinner-border" role="status">
+            <span class="sr-only">Cargando...</span>
+          </div>
+        </div>
         <table id="abogadosRegistradosTable" class="table table-striped" style="width: 100%">
           <thead>
             <tr>

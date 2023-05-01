@@ -1,6 +1,10 @@
 //
 // Consultas Sentencias
 //
+// Cargar previemante
+// - consultas-api-url.js
+// - consultas-distritos-autoridades.js
+//
 
 // Definir elementos del DOM
 const sentenciasFormCard = document.getElementById("sentenciasFormCard");

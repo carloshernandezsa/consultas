@@ -1,6 +1,10 @@
 //
 // Consultas Glosas
 //
+// Cargar previemante
+// - consultas-api-url.js
+// - consultas-distritos-autoridades.js // TODO: DEBE SER SOLO LAS AUTORIDADES QUE HAGAN GLOSAS
+//
 
 // Definir elementos del DOM
 const glosasFormCard = document.getElementById("glosasFormCard");

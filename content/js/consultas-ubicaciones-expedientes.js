@@ -1,6 +1,10 @@
 //
 // Consultas Ubicaciones de Expedientes
 //
+// Cargar previemante
+// - consultas-api-url.js
+// - consultas-distritos-autoridades.js
+//
 
 // Definir elementos del DOM
 const ubicacionesExpedientesFormCard = document.getElementById("ubicacionesExpedientesFormCard");
