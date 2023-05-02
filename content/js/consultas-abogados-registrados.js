@@ -10,6 +10,7 @@ const abogadosRegistradosFormCard = document.getElementById("abogadosRegistrados
 const abogadosRegistradosFormSpinner = document.getElementById("abogadosRegistradosFormSpinner");
 const abogadosRegistradosForm = document.getElementById("abogadosRegistradosForm");
 const abogadosRegistradosTableCard = document.getElementById("abogadosRegistradosTableCard");
+const abogadosRegistradosTableTitle = document.getElementById("abogadosRegistradosTableTitle");
 const abogadosRegistradosTableSpinner = document.getElementById("abogadosRegistradosTableSpinner");
 const abogadosRegistradosTable = document.getElementById("abogadosRegistradosTable");
 const nombreInput = document.getElementById("nombreInput");
@@ -29,6 +30,7 @@ function consultarAbogadosRegistrados(nombre, anioDesde, anioHasta) {
   if (anioHasta == null || anioHasta == "") {
     anioHasta = new Date().getFullYear();
   }
+  abogadosRegistradosTableTitle.innerHTML = "Con nombre " + nombre + " registrados entre " + anioDesde + " y " + anioHasta;
   $("#abogadosRegistradosTable").DataTable({
     lengthChange: false,
     ordering: false,
@@ -104,11 +106,10 @@ if (nombre != null || anioDesde != null || anioHasta != null) {
   abogadosRegistradosTableCard.style.display = "block";
   consultarAbogadosRegistrados(nombre, anioDesde, anioHasta);
 } else {
-  // Mostrar el card con el formulario para buscar por nombre y/o anio
+  // Mostrar el card con el formulario para consultar
   abogadosRegistradosFormCard.style.display = "block";
   abogadosRegistradosFormSpinner.style.display = "none";
   abogadosRegistradosForm.style.display = "block";
-  abogadosRegistradosTableCard.style.display = "none";
   consultarButton.addEventListener("click", (thisEvent) => {
     recargarConParametros();
   });

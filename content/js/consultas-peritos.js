@@ -1,55 +1,28 @@
 //
 // Consultas Peritos
 //
+// Cargar previemante
+// - consultas-api-url.js
+//
 
-// Determinar la URL de la API segun sea el ambiente de desarrollo o de producción
-switch (window.location.hostname) {
-  case "localhost":
-    var url = "http://localhost:8001/v3";
-    break;
-  case "127.0.0.1":
-    var url = "http://127.0.0.1:8001/v3";
-    break;
-  default:
-    var url = "https://api.justiciadigital.gob.mx/v3";
-}
+// Definir elementos del DOM
+const peritosFormCard = document.getElementById("peritosFormCard");
+const peritosFormSpinner = document.getElementById("peritosFormSpinner");
+const peritosForm = document.getElementById("peritosForm");
+const peritosTableCard = document.getElementById("peritosTableCard");
+const peritosTableTitle = document.getElementById("peritosTableTitle");
+const peritosTableSpinner = document.getElementById("peritosTableSpinner");
+const peritosTable = document.getElementById("peritosTable");
+const nombreInput = document.getElementById("nombreInput");
+const consultarButton = document.getElementById("consultarButton");
 
-// Obtener el nombre por los parámetros de la URL
-var urlParams = new URLSearchParams(window.location.search);
-var nombre = urlParams.get("nombre");
-
-// Si no se especificó el nombre
-if (nombre == null) {
-  setTimeout(function () {
-    $("#peritosFormCard").show();
-    $("#spinnerCard").hide();
-  }, 1000); // Esperar un segundo
-} else {
-  setTimeout(function () {
-    consultarPeritos(nombre);
-    $("#peritosTableCard").show();
-    $("#spinnerCard").hide();
-  }, 1000); // Esperar un segundo
-}
-
-// Al dar click en el botón de consultar
-$("#consultarButton").click(function () {
-  // Tomar los valores del formulario
-  nombre = $("#nombre").val();
-  // Obtener la url actual sin parámetros
-  var actualUrl = window.location.href.split("?")[0];
-  // Recargar esta página con los parámetros del formulario
-  window.location.href = actualUrl + "?nombre=" + nombre;
-});
-
-// Consultar peritos
+// Consultar los peritos para llenar la tabla
 function consultarPeritos(nombre) {
-  // Si tiene datos, limpiar la tabla
-  if ($("#peritosTable").length > 0) {
-    $("#peritosTable").DataTable().clear().destroy();
+  peritosTableSpinner.style.display = "block";
+  if (nombre == null) {
+    nombre = "";
   }
-
-  // Cargar los datos en la tabla
+  peritosTableTitle.innerHTML = "Con nombre " + nombre;
   $("#peritosTable").DataTable({
     lengthChange: false,
     ordering: false,
@@ -57,7 +30,7 @@ function consultarPeritos(nombre) {
     scrollX: true,
     serverSide: true,
     ajax: {
-      url: url + "/peritos/datatable",
+      url: apiUrl + "/peritos/datatable",
       type: "GET",
       data: {
         nombre: nombre,
@@ -70,8 +43,7 @@ function consultarPeritos(nombre) {
       { data: "domicilio", width: "20%" },
       { data: "telefono_fijo", width: "10%" },
       { data: "telefono_celular", width: "10%" },
-      { data: "email", width: "10%" },
-      { data: "notas", width: "10%" },
+      { data: "email", width: "20%" },
     ],
     language: {
       lengthMenu: "Mostrar _MENU_",
@@ -87,5 +59,37 @@ function consultarPeritos(nombre) {
         sPrevious: "Anterior",
       },
     },
+  });
+  peritosTableSpinner.style.display = "none";
+}
+
+// Recargar la pagina con los parametros del formulario
+function recargarConParametros() {
+  const actualUrl = window.location.href.split("?")[0];
+  const elNombre = nombreInput.value;
+  window.location.href = actualUrl + "?nombre=" + elNombre;
+}
+
+//
+// Proceso inicial
+//
+
+// Obtener los parametros de la URL
+const urlParams = new URLSearchParams(window.location.search);
+var nombre = urlParams.get("nombre");
+
+// Si se recibio el nombre
+if (nombre != null) {
+  // Mostrar el card con la tabla DataTable
+  peritosFormCard.style.display = "none";
+  peritosTableCard.style.display = "block";
+  consultarPeritos(nombre);
+} else {
+  // Mostrar el card con el formulario para consultar
+  peritosFormCard.style.display = "block";
+  peritosFormSpinner.style.display = "none";
+  peritosForm.style.display = "block";
+  consultarButton.addEventListener("click", (thisEvent) => {
+    recargarConParametros();
   });
 }
