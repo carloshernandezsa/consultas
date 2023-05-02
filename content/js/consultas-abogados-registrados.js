@@ -10,6 +10,7 @@ const abogadosRegistradosFormCard = document.getElementById("abogadosRegistrados
 const abogadosRegistradosFormSpinner = document.getElementById("abogadosRegistradosFormSpinner");
 const abogadosRegistradosForm = document.getElementById("abogadosRegistradosForm");
 const abogadosRegistradosTableCard = document.getElementById("abogadosRegistradosTableCard");
+const abogadosRegistradosTableTitle = document.getElementById("abogadosRegistradosTableTitle");
 const abogadosRegistradosTableSpinner = document.getElementById("abogadosRegistradosTableSpinner");
 const abogadosRegistradosTable = document.getElementById("abogadosRegistradosTable");
 const nombreInput = document.getElementById("nombreInput");
@@ -29,6 +30,7 @@ function consultarAbogadosRegistrados(nombre, anioDesde, anioHasta) {
   if (anioHasta == null || anioHasta == "") {
     anioHasta = new Date().getFullYear();
   }
+  abogadosRegistradosTableTitle.innerHTML = "Con nombre " + nombre + " registrados entre " + anioDesde + " y " + anioHasta;
   $("#abogadosRegistradosTable").DataTable({
     lengthChange: false,
     ordering: false,
