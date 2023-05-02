@@ -106,11 +106,10 @@ if (nombre != null || anioDesde != null || anioHasta != null) {
   abogadosRegistradosTableCard.style.display = "block";
   consultarAbogadosRegistrados(nombre, anioDesde, anioHasta);
 } else {
-  // Mostrar el card con el formulario para buscar por nombre y/o anio
+  // Mostrar el card con el formulario para consultar
   abogadosRegistradosFormCard.style.display = "block";
   abogadosRegistradosFormSpinner.style.display = "none";
   abogadosRegistradosForm.style.display = "block";
-  abogadosRegistradosTableCard.style.display = "none";
   consultarButton.addEventListener("click", (thisEvent) => {
     recargarConParametros();
   });

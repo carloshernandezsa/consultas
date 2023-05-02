@@ -1,57 +1,28 @@
 //
 // Consultas REDAM
 //
+// Cargar previemante
+// - consultas-api-url.js
+//
 
-// Determinar la URL de la API segun sea el ambiente de desarrollo o de producción
-switch (window.location.hostname) {
-  case "localhost":
-    var url = "http://localhost:8001/v3";
-    break;
-  case "127.0.0.1":
-    var url = "http://127.0.0.1:8001/v3";
-    break;
-  default:
-    var url = "https://api.justiciadigital.gob.mx/v3";
-}
+// Definir elementos del DOM
+const redamFormCard = document.getElementById("redamFormCard");
+const redamFormSpinner = document.getElementById("redamFormSpinner");
+const redamForm = document.getElementById("redamForm");
+const redamTableCard = document.getElementById("redamTableCard");
+const redamTableTitle = document.getElementById("redamTableTitle");
+const redamTableSpinner = document.getElementById("redamTableSpinner");
+const redamTable = document.getElementById("redamTable");
+const nombreInput = document.getElementById("nombreInput");
+const consultarButton = document.getElementById("consultarButton");
 
-// Obtener la clave del distrito y el nombre por los parámetros de la URL
-var urlParams = new URLSearchParams(window.location.search);
-var distrito_clave = urlParams.get("distrito_clave");
-var nombre = urlParams.get("nombre");
-
-// Si no se especificó el distrito ni el nombre
-if (distrito_clave == null && nombre == null) {
-  setTimeout(function () {
-    $("#redamFormCard").show();
-    $("#spinnerCard").hide();
-  }, 1000); // Esperar un segundo
-} else {
-  setTimeout(function () {
-    consultarREDAM(distrito_clave, nombre);
-    $("#redamTableCard").show();
-    $("#spinnerCard").hide();
-  }, 1000); // Esperar un segundo
-}
-
-// Al dar click en el botón de consultar
-$("#consultarButton").click(function () {
-  // Tomar los valores del formulario
-  distrito_clave = $("#distritoSelect").val();
-  nombre = $("#nombre").val();
-  // Obtener la url actual sin parámetros
-  var actualUrl = window.location.href.split("?")[0];
-  // Recargar esta página con los parámetros del formulario
-  window.location.href = actualUrl + "?distrito_clave=" + distrito_clave + "&nombre=" + nombre;
-});
-
-// Consultar REDAM
-function consultarREDAM(distrito_clave, nombre) {
-  // Si tiene datos, limpiar la tabla
-  if ($("#redamTable").length > 0) {
-    $("#redamTable").DataTable().clear().destroy();
+// Consultar el redam para llenar la tabla
+function consultarRedam(nombre) {
+  redamTableSpinner.style.display = "block";
+  if (nombre == null) {
+    nombre = "";
   }
-
-  // Cargar los datos en la tabla
+  redamTableTitle.innerHTML = "Con nombre " + nombre;
   $("#redamTable").DataTable({
     lengthChange: false,
     ordering: false,
@@ -59,7 +30,7 @@ function consultarREDAM(distrito_clave, nombre) {
     scrollX: true,
     serverSide: true,
     ajax: {
-      url: url + "/redam/datatable",
+      url: apiUrl + "/redam/datatable",
       type: "GET",
       data: {
         nombre: nombre,
@@ -87,5 +58,37 @@ function consultarREDAM(distrito_clave, nombre) {
         sPrevious: "Anterior",
       },
     },
+  });
+  redamTableSpinner.style.display = "none";
+}
+
+// Recargar la pagina con los parametros del formulario
+function recargarConParametros() {
+  const actualUrl = window.location.href.split("?")[0];
+  const elNombre = nombreInput.value;
+  window.location.href = actualUrl + "?nombre=" + elNombre;
+}
+
+//
+// Proceso inicial
+//
+
+// Obtener los parametros de la URL
+const urlParams = new URLSearchParams(window.location.search);
+var nombre = urlParams.get("nombre");
+
+// Si se recibio el nombre
+if (nombre != null) {
+  // Mostrar el card con la tabla DataTable
+  redamFormCard.style.display = "none";
+  redamTableCard.style.display = "block";
+  consultarRedam(nombre);
+} else {
+  // Mostrar el card con el formulario para consultar
+  redamFormCard.style.display = "block";
+  redamFormSpinner.style.display = "none";
+  redamForm.style.display = "block";
+  consultarButton.addEventListener("click", (thisEvent) => {
+    recargarConParametros();
   });
 }

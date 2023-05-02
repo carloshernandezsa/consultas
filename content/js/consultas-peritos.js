@@ -43,8 +43,7 @@ function consultarPeritos(nombre) {
       { data: "domicilio", width: "20%" },
       { data: "telefono_fijo", width: "10%" },
       { data: "telefono_celular", width: "10%" },
-      { data: "email", width: "10%" },
-      { data: "notas", width: "10%" },
+      { data: "email", width: "20%" },
     ],
     language: {
       lengthMenu: "Mostrar _MENU_",
@@ -86,11 +85,10 @@ if (nombre != null) {
   peritosTableCard.style.display = "block";
   consultarPeritos(nombre);
 } else {
-  // Mostrar el card con el formulario para buscar por nombre
+  // Mostrar el card con el formulario para consultar
   peritosFormCard.style.display = "block";
   peritosFormSpinner.style.display = "none";
   peritosForm.style.display = "block";
-  peritosTableCard.style.display = "none";
   consultarButton.addEventListener("click", (thisEvent) => {
     recargarConParametros();
   });
