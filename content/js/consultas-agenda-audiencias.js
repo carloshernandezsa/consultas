@@ -1,91 +1,21 @@
 //
 // Consultas Agendas de Audiencias
 //
+// Cargar previemante
+// - consultas-api-url.js
+// - consultas-distritos-autoridades.js
+//
 
-// Determinar la URL de la API segun sea el ambiente de desarrollo o de producción
-switch (window.location.hostname) {
-  case "localhost":
-    var url = "http://localhost:8001/v3";
-    break;
-  case "127.0.0.1":
-    var url = "http://127.0.0.1:8001/v3";
-    break;
-  default:
-    var url = "https://api.justiciadigital.gob.mx/v3";
-}
+// Definir elementos del DOM
+const audienciasFormCard = document.getElementById("audienciasFormCard");
+const audienciasTableCard = document.getElementById("audienciasTableCard");
+const audienciasTableSpinner = document.getElementById("audienciasTableSpinner");
 
-// Obtener la autoridad por los parámetros de la URL
-var urlParams = new URLSearchParams(window.location.search);
-var autoridad_clave = urlParams.get("autoridad_clave");
-
-// Si no se especificó la autoridad
-if (autoridad_clave == null) {
-  // Consultar los distritos para poner opciones en el select
-  consultarDistritos();
-  $("#spinnerCard").hide();
-  $("#audienciasFormCard").show();
-} else {
-  // Viene la autoridad_clave, entonces consultar las audiencias
-  consultarAudiencias(autoridad_clave);
-  $("#spinnerCard").hide();
-  $("#audienciasTableCard").show();
-}
-
-// Consultar los distritos para poner opciones en el select
-function consultarDistritos() {
-  $("#distritoSpinner").show();
-  $("#distritoFormGroup").hide();
-  fetch(url + "/distritos?es_jurisdiccional=true&limit=100")
-    .then((response) => response.json())
-    .then((data) => {
-      // Si la respuesta es exitosa, recorrerlos y agregarlos al select
-      if (data.success === true) {
-        data.result.items.forEach((item) => {
-          $("#distritoSelect").append($("<option onclick='consultarAutoridades(this.value)'></option>").attr("value", item.clave).text(item.nombre_corto));
-        });
-        $("#distritoSpinner").hide();
-        $("#distritoFormGroup").show();
-      }
-    })
-    .catch((error) => console.log(error));
-}
-
-// Consultar las autoridades para poner opciones en el select
-function consultarAutoridades(distrito_clave) {
-  $("#autoridadSpinner").show();
-  $("#autoridadFormGroup").hide();
-  fetch(url + "/autoridades?distrito_clave=" + distrito_clave + "&es_jurisdiccional=true&es_notaria=false&limit=100")
-    .then((response) => response.json())
-    .then((data) => {
-      // Si la respuesta es exitosa, recorrelos y agregarlos al select
-      if (data.success === true) {
-        $("#autoridadSelect").empty(); // Limpiar el select
-        data.result.items.forEach((item) => {
-          $("#autoridadSelect").append($("<option onclick='recargarPagina(this.value)'></option>").attr("value", item.clave).text(item.descripcion_corta));
-        });
-        $("#autoridadSpinner").hide();
-        $("#autoridadFormGroup").show();
-      }
-    })
-    .catch((error) => console.log(error));
-}
-
-// Recargar la página
-function recargarPagina(autoridad_clave) {
-  // Obtener la url actual sin parámetros
-  var actualUrl = window.location.href.split("?")[0];
-  // Recargar esta página con la clave de la autoridad
-  window.location.href = actualUrl + "?autoridad_clave=" + autoridad_clave;
-}
-
-// Consultar las audiencias
-function consultarAudiencias(autoridad_clave) {
-  // Si tiene datos, limpiar la tabla
-  if ($("#audienciasTable").length > 0) {
-    $("#audienciasTable").DataTable().clear().destroy();
-  }
-
-  // Cargar los datos en la tabla
+// Consultar las audiencias para llenar la tabla
+function consultarAudiencias(autoridadClave, fecha) {
+  audienciasTableSpinner.style.display = "block";
+  console.log("Clave de la autoridad: " + autoridadClave);
+  console.log("Fecha: " + fecha);
   $("#audienciasTable").DataTable({
     lengthChange: false,
     ordering: false,
@@ -93,8 +23,8 @@ function consultarAudiencias(autoridad_clave) {
     scrollX: true,
     serverSide: true,
     ajax: {
-      url: url + "/audiencias/datatable",
-      data: { autoridad_clave: autoridad_clave },
+      url: apiUrl + "/audiencias/datatable",
+      data: { autoridad_clave: autoridadClave },
       type: "GET",
       dataType: "json",
     },
@@ -128,15 +58,28 @@ function consultarAudiencias(autoridad_clave) {
       },
     },
   });
+  audienciasTableSpinner.style.display = "none";
+}
 
-  // Consultar la autoridad para poner la descripcion en el encabezado del card
-  fetch(url + "/autoridades/" + autoridad_clave)
-    .then((response) => response.json())
-    .then((data) => {
-      // Si la respuesta es exitosa, poner la descripcion de la autoridad
-      if (data.success === true) {
-        $("#audienciasTableHeader").text(data.distrito_nombre + " > " + data.descripcion);
-      }
-    })
-    .catch((error) => console.log(error));
+//
+// Proceso inicial
+//
+
+// Obtener los parametros de la URL
+const urlParams = new URLSearchParams(window.location.search);
+const autoridadClave = urlParams.get("autoridad_clave");
+const fecha = urlParams.get("fecha");
+
+// Si viene la clave de la autoridad
+if (autoridadClave != null) {
+  // Mostrar el card con la tabla DataTable
+  audienciasFormCard.style.display = "none";
+  audienciasTableCard.style.display = "block";
+  consultarAutoridad(autoridadClave);
+  consultarAudiencias(autoridadClave, fecha);
+} else {
+  // Mostrar el card con el formulario para elegir el distrito y la autoridad
+  audienciasFormCard.style.display = "block";
+  audienciasTableCard.style.display = "none";
+  consultarDistritos();
 }
