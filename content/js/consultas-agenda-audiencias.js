@@ -3,6 +3,7 @@
 //
 // Cargar previemante
 // - consultas-api-url.js
+// - consultas-fecha.js
 // - consultas-distritos-autoridades.js
 //
 
@@ -24,7 +25,10 @@ function consultarAudiencias(autoridadClave, fecha) {
     serverSide: true,
     ajax: {
       url: apiUrl + "/audiencias/datatable",
-      data: { autoridad_clave: autoridadClave },
+      data: {
+        autoridad_clave: autoridadClave,
+        fecha: fecha,
+      },
       type: "GET",
       dataType: "json",
     },
@@ -68,7 +72,12 @@ function consultarAudiencias(autoridadClave, fecha) {
 // Obtener los parametros de la URL
 const urlParams = new URLSearchParams(window.location.search);
 const autoridadClave = urlParams.get("autoridad_clave");
-const fecha = urlParams.get("fecha");
+let fecha = urlParams.get("fecha");
+
+// Si NO viene la fecha, se toma la fecha actual
+if (fecha == null) {
+  fecha = new Date().toISOString().slice(0, 10);
+}
 
 // Si viene la clave de la autoridad
 if (autoridadClave != null) {
@@ -76,6 +85,7 @@ if (autoridadClave != null) {
   audienciasFormCard.style.display = "none";
   audienciasTableCard.style.display = "block";
   consultarAutoridad(autoridadClave);
+  inicializarFecha(autoridadClave, fecha);
   consultarAudiencias(autoridadClave, fecha);
 } else {
   // Mostrar el card con el formulario para elegir el distrito y la autoridad

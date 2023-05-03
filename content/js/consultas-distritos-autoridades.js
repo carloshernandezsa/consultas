@@ -26,7 +26,6 @@ const encabezadoDiv = document.getElementById("encabezadoDiv");
 const distritoTitle = document.getElementById("distritoTitle");
 const autoridadTitle = document.getElementById("autoridadTitle");
 const cambiarDistritoAutoridadButton = document.getElementById("cambiarDistritoAutoridadButton");
-const rangoFechasSpinner = document.getElementById("rangoFechasSpinner");
 const rangoFechasDiv = document.getElementById("rangoFechasDiv");
 
 // Recargar la pagina esta página sin parámetros
@@ -37,6 +36,11 @@ function recargarSinParametros() {
 // Recargar la pagina con la clave de la autoridad
 function recargarConAutoridadClave(autoridadClave) {
   window.location.href = actualUrl + "?autoridad_clave=" + autoridadClave;
+}
+
+// Recargar la pagina con la clave de la autoridad y una fecha
+function recargarConFecha(autoridadClave, fecha) {
+  window.location.href = actualUrl + "?autoridad_clave=" + autoridadClave + "&fecha=" + fecha;
 }
 
 // Recargar la pagina con la clave de la autoridad y el rango de fechas
@@ -119,8 +123,6 @@ function consultarAutoridad(autoridadClave) {
         });
         encabezadoSpinner.style.display = "none";
         encabezadoDiv.style.display = "block";
-        rangoFechasSpinner.style.display = "none";
-        rangoFechasDiv.style.display = "block";
       }
     })
     .catch((error) => console.log(error));
