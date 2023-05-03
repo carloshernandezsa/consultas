@@ -1,6 +1,9 @@
 //
 // Rangos Fechas
 //
+// Cargar previemante
+// - consultas-distritos-autoridades.js
+//
 
 // Definir elementos del DOM
 const rangoFechasFiltrarButton = document.getElementById("rangoFechasFiltrarButton");
@@ -12,6 +15,7 @@ function inicializarRangoFechas(autoridadClave, fechaDesde, fechaHasta) {
   $("#rangoFechas").datepicker({
     format: "yyyy-mm-dd",
     language: "es",
+    weekStart: 0,
   });
 
   // Si viene la fecha_desde, ponerla en el formulario

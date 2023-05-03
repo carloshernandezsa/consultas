@@ -4,7 +4,7 @@
     <title>Agenda de Audiencias</title>
     <meta name="slug" content="agenda-audiencias" />
     <meta name="summary" content="" />
-    <meta name="javascripts" content="consultas-api-url.js,consultas-distritos-autoridades.js,consultas-agenda-audiencias.js" />
+    <meta name="javascripts" content="consultas-api-url.js,consultas-distritos-autoridades.js,consultas-fecha.js,consultas-agenda-audiencias.js" />
     <meta name="save_as" content="consultas/agenda-audiencias.html" />
   </head>
   <body>
@@ -59,12 +59,13 @@
           <!-- Fecha -->
           <div class="col-6">
             <div id="fechaDiv" class="float-right">
-              <div class="input-group date" data-provide="datepicker">
-                <input id="fechaInput" type="text" class="form-control" placeholder="Fecha" />
-                <div class="input-group-addon">
-                  <button id="fechaButton" class="btn btn-primary" type="button"><i class="fa fa-calendar"></i></button>
+              <form class="form-inline" onsubmit="return false;">
+                <div class="form-group">
+                  <span class="input-group-addon m-2">Fecha:</span>
+                  <input id="fechaInput" class="form-control" type="text" size="12" placeholder="Fecha" data-provide="datepicker" />
+                  <button id="fechaFiltrarButton" class="btn btn-primary btn-sm m-2"><i class="fa fa-calendar"></i> Ver</button>
                 </div>
-              </div>
+              </form>
             </div>
           </div>
         </div>
