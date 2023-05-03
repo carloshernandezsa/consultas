@@ -58,12 +58,14 @@
           </div>
           <!-- Fecha -->
           <div class="col-6">
-            <div id="fechaSpinner" class="text-center">
-              <div class="spinner-border" role="status">
-                <span class="sr-only">Cargando...</span>
+            <div id="fechaDiv" class="float-right">
+              <div class="input-group date" data-provide="datepicker">
+                <input id="fechaInput" type="text" class="form-control" placeholder="Fecha" />
+                <div class="input-group-addon">
+                  <button id="fechaButton" class="btn btn-primary" type="button"><i class="fa fa-calendar"></i></button>
+                </div>
               </div>
             </div>
-            <div id="fechaDiv" class="float-right" style="display: none">Fecha</div>
           </div>
         </div>
       </div>
