@@ -1,12 +1,30 @@
 {% extends "base.html" %}
 
-{% block title %}{{ SITENAME }}{% endblock %}
+{% block title %}{{ SITENAME }}{% endblock %} \
 
-{% block header %}
-<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-  <h1 class="h2">{% block header_title %}{% endblock %}</h1>
-</div>
-{% endblock %}
+{% block header %}{% endblock %}
 
 {% block content %}
+<section class="jumbotron my-3 text-center">
+  <div class="container">
+    <h1>Consultas</h1>
+    <p class="lead">Bienvenido a la plataforma para consultar la información pública del Poder Judicial del Estado de Coahuila de Zaragoza.</p>
+    <p class="text-muted">Elija una de las opciones del menú de la izquierda, del menú superior o uno de los accesos directos.</p>
+  </div>
+</section>
+<div class="row">
+  <div class="col-md-6">
+    <div class="card mb-4 shadow-sm">
+      <img src="/theme/images/imagen-plataforma-web.svg" alt="Plataforma Web" />
+      <div class="card-body">
+        <p class="card-text">Consulte y administre lo que se publica en pjecz.gob.mx. Para ingresar necesita una cuenta registrada en Google o Microsoft.</p>
+        <div class="d-flex justify-content-between align-items-center">
+          <div class="btn-group">
+            <button type="button" class="btn btn-sm btn-outline-secondary">Ir a Plataforma Web</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock %}
