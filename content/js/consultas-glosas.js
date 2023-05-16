@@ -3,7 +3,7 @@
 //
 // Cargar previemante
 // - consultas-api-url.js
-// - consultas-distritos-autoridades.js // TODO: DEBE SER SOLO LAS AUTORIDADES QUE HAGAN GLOSAS
+// - consultas-autoridades.js
 //
 
 // Definir elementos del DOM
@@ -89,8 +89,8 @@ if (autoridadClave != null) {
   inicializarRangoFechas(autoridadClave, fechaDesde, fechaHasta);
   consultarGlosas(autoridadClave, fechaDesde, fechaHasta);
 } else {
-  // Mostrar el card con el formulario para elegir el distrito y la autoridad
+  // Mostrar el card con el formulario para elegir la autoridad
   glosasFormCard.style.display = "block";
   glosasTableCard.style.display = "none";
-  consultarDistritos();
+  consultarAutoridades();
 }
