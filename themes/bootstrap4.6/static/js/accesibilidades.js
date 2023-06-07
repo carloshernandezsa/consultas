@@ -60,13 +60,9 @@ function increaseFontSize() {
   var newSize = currentSize + 1;
   document.body.style.fontSize = newSize + "px";
 
-  // Restablecer el tamaño de la fuente del header
-  var miencabezado = document.querySelector("header");
-  miencabezado.style.fontSize = "16px";
-
   // Guardar el tamaño de fuente en localStorage
   localStorage.setItem("bodyFontSize", document.body.style.fontSize);
-  localStorage.setItem("headerFontSize", miencabezado.style.fontSize);
+  console.log(document.body.style.fontSize);
 }
 
 // Función para disminuir la tipografía
@@ -75,19 +71,14 @@ function decreaseFontSize() {
   var newSize = currentSize - 1;
   document.body.style.fontSize = newSize + "px";
 
-  // Restablecer el tamaño de la fuente del header
-  var miencabezado = document.querySelector("header");
-  miencabezado.style.fontSize = "16px";
-
   // Guardar el tamaño de fuente en localStorage
   localStorage.setItem("bodyFontSize", document.body.style.fontSize);
-  localStorage.setItem("headerFontSize", miencabezado.style.fontSize);
+  console.log(document.body.style.fontSize);
 }
 
 // Restaurar el tamaño de fuente guardado al cargar la página
 function loadFontSize() {
   var savedBodyFontSize = localStorage.getItem("bodyFontSize");
-  var savedHeaderFontSize = localStorage.getItem("headerFontSize");
 
   // Restaurar el tamaño de fuente del cuerpo del documento
   if (savedBodyFontSize) {
@@ -96,14 +87,6 @@ function loadFontSize() {
     document.body.style.fontSize = "16px";
   }
 
-  // Restaurar el tamaño de fuente del encabezado
-  if (savedHeaderFontSize) {
-    var miencabezado = document.querySelector("header");
-    miencabezado.style.fontSize = savedHeaderFontSize;
-  } else {
-    var miencabezado = document.querySelector("header");
-    miencabezado.style.fontSize = "16px";
-  }
 }
 
 // Llamar a la función loadFontSize al cargar la página

@@ -124,6 +124,19 @@ body {
   color: #d1d0d0 !important;
 }
 
+.oscuro .sidebar-sticky{
+  background-color: #464646 !important;
+  color: #d1d0d0 !important;
+}
+
+.oscuro .card{
+  background-color: #565656 !important;
+  color: #d1d0d0 !important;
+}
+.oscuro .card-header{
+  background-color: #565656 !important;
+  color: #d1d0d0 !important;
+}
 /* Botones de accesibilidades */
 
 div.accessibility-bar {
