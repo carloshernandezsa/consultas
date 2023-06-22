@@ -49,7 +49,7 @@ function recargarConRangoFechas(autoridadClave, fechaDesde, fechaHasta) {
 }
 
 // Consultar los distritos para llenar el select
-function consultarDistritos() {
+function consultarDistritos(conNotarias = false) {
   distritosSpinner.style.display = "block";
   distritosFormGroup.style.display = "none";
   fetch(apiUrl + "/distritos?es_jurisdiccional=true&limit=100")
@@ -62,7 +62,7 @@ function consultarDistritos() {
           thisOption.value = item.clave;
           thisOption.text = item.nombre_corto;
           thisOption.addEventListener("click", (thisEvent) => {
-            consultarAutoridades(thisEvent.target.value);
+            consultarAutoridades(thisEvent.target.value, conNotarias);
           });
           distritosSelect.appendChild(thisOption);
         });
@@ -74,7 +74,7 @@ function consultarDistritos() {
 }
 
 // Consultar las autoridades para llenar el select
-function consultarAutoridades(distritoClave) {
+function consultarAutoridades(distritoClave, conNotarias = false) {
   if (distritoClave == null) {
     console.log("Falta la clave del distrito");
     return;
@@ -82,7 +82,12 @@ function consultarAutoridades(distritoClave) {
   autoridadesSpinner.style.display = "block";
   autoridadesFormGroup.style.display = "none";
   autoridadesSelect.innerHTML = ""; // Eliminar todas las opciones
-  fetch(apiUrl + "/autoridades?distrito_clave=" + distritoClave + "&es_jurisdiccional=true&es_notaria=false&limit=100")
+  if (conNotarias) {
+    fullApiUrl = apiUrl + "/autoridades?distrito_clave=" + distritoClave + "&es_jurisdiccional=true&limit=200"
+  } else {
+    fullApiUrl = apiUrl + "/autoridades?distrito_clave=" + distritoClave + "&es_jurisdiccional=true&es_notaria=false&limit=200"
+  }
+  fetch(fullApiUrl)
     .then((response) => response.json())
     .then((data) => {
       // Si la respuesta es exitosa, agregarlos como opciones al select
