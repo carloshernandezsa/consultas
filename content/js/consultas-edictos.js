@@ -93,5 +93,5 @@ if (autoridadClave != null) {
   // Mostrar el card con el formulario para elegir el distrito y la autoridad
   edictosFormCard.style.display = "block";
   edictosTableCard.style.display = "none";
-  consultarDistritos();
+  consultarDistritos(conNotarias = true);
 }
