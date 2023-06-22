@@ -6,7 +6,7 @@ Pelican development configuration file
 THEME = "themes/bootstrap4.6"
 
 # Sitio
-SITENAME = "Justicia Digital"
+SITENAME = "Consultas del PJECZ"
 SITEURL = "http://localhost:8000"
 
 # Autor por defecto
