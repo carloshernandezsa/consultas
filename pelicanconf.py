@@ -3,7 +3,8 @@ Pelican development configuration file
 """
 
 # Tema
-THEME = "themes/bootstrap4.6"
+# THEME = "themes/bootstrap4.6"
+THEME = "themes/pjecz-2020-10"
 
 # Sitio
 SITENAME = "Consultas del PJECZ"
@@ -16,7 +17,8 @@ AUTHOR = "Direccion de Informatica"
 PAGE_PATHS = ["consultas"]
 
 # Rutas y archivos con contenidos estaticos que deben ser copiados
-STATIC_PATHS = ["favicon.ico", "robots.txt"]
+# Agregue también los directorios que tienen archivos para artículos y páginas
+STATIC_PATHS = ["favicon.ico", "robots.txt", "consultas"]
 
 # Al colocar un articulo, la cetegoria se toma del nombre de la carpeta
 USE_FOLDER_AS_CATEGORY = True

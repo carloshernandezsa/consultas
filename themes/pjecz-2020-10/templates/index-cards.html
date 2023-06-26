@@ -1,0 +1,45 @@
+        <!-- Tarjetas a tres o dos columnas -->
+        <div class="row">
+            {% for article in articles_page.object_list %}
+            <div class="col-md-4 col-sm-6">
+                <div class="card my-2 mx-1">
+                    <a href="{{ SITEURL }}/{{ article.url }}">
+                    {% if article.preview %}
+                        <img class="card-img-top" src="{{ SITEURL }}/{{ article.url }}{{ article.preview }}" alt="Imagen previa">
+                    {% elif article.category == 'Pleno del Tribunal Superior de Justicia'  %}
+                        <img class="card-img-top" src="{{ SITEURL }}/theme/images/categoria-pleno-del-tribunal-superior-de-justicia.jpg" alt="Pleno del TSJ">
+                    {% elif article.category == 'Sala Civil y Familiar'  %}
+                        <img class="card-img-top" src="{{ SITEURL }}/theme/images/categoria-sala-civil-y-familiar.jpg" alt="Sala Civil y Familiar">
+                    {% elif article.category == 'Sala Penal'  %}
+                        <img class="card-img-top" src="{{ SITEURL }}/theme/images/categoria-sala-penal.jpg" alt="Sala Penal">
+                    {% elif article.category == 'Sala Regional'  %}
+                        <img class="card-img-top" src="{{ SITEURL }}/theme/images/categoria-sala-regional.jpg" alt="Sala Regional">
+                    {% elif article.category == 'Comunicados'  %}
+                        <img class="card-img-top" src="{{ SITEURL }}/theme/images/categoria-comunicados.jpg" alt="Comunicados">
+                    {% elif article.category == 'Noticias'  %}
+                        <img class="card-img-top" src="{{ SITEURL }}/theme/images/categoria-noticias.jpg" alt="Noticias">
+                    {% elif article.category == 'News Letters'  %}
+                        <img class="card-img-top" src="{{ SITEURL }}/theme/images/categoria-news-letters.jpg" alt="News Letters">
+                    {% else %}
+                        <img class="card-img-top" src="{{ SITEURL }}/theme/images/generic.jpg" alt="Imagen previa">
+                    {% endif %}
+                    </a>
+                    <div class="card-body">
+                        <div class="mb-2">
+                            {% for tag in article.tags %}
+                            <a href="{{ SITEURL }}/{{ tag.url }}"><span class="badge badge-pill badge-primary badge-{{ tag.slug }}">{{ tag.name }}</span></a>
+                            {% endfor %}
+                        </div>
+                        <p class="card-subtitle text-muted">{{ article.locale_date }}</p>
+                        <h3 class="card-title"><a href="{{ SITEURL }}/{{ article.url }}">{{ article.title }}</a></h3>
+                        {% if article.tags %}
+                        {% endif %}
+                        <p class="card-text">
+                            {{ article.summary | striptags }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
