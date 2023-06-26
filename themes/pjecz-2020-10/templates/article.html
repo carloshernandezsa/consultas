@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+
+{% block title %}{{ article.title }} - {{ SITENAME }}{% endblock %}
+
+{% block meta_tags %}
+    <meta name="description" content="{{ article.summary|striptags }}">
+    <meta name="author" content="{{ article.author.name }}">
+    <!-- Facebook open graph -->
+    <meta property="og:title" content="{{ article.title }}">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="{{ SITEURL }}/{{ article.url }}">
+{% if article.preview %}
+    <meta property="og:image" content="{{ SITEURL }}/{{ article.url }}{{ article.preview }}">
+{% else %}
+    <meta property="og:image" content="{{ SITEURL }}/{{ SITEPREVIEW }}">
+{% endif %}
+    <meta property="og:description" content="{{ article.summary|striptags }}">
+    <meta property="og:site_name" content="{{ SITENAME }}">
+    <!-- Twitter card -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="{{ SITETWITTER }}">
+    <meta name="twitter:title" content="{{ article.title }}">
+    <meta name="twitter:description" content="{{ article.summary|striptags }}">
+{% if article.preview %}
+    <meta name="twitter:image" content="{{ SITEURL }}/{{ article.url }}{{ article.preview }}">
+{% else %}
+    <meta name="twitter:image" content="{{ SITEURL }}/{{ SITEPREVIEW }}">
+{% endif %}
+{% endblock %}
+
+{% block header %}
+    <!-- Encabezado -->
+    <div class="py-2">
+        <div class="container h-100">
+            <div class="row h-100 align-items-center">
+                <div class="col-lg-12">
+                    <h1 class="display-4 mt-5 mb-2">{{ article.title }}</h1>
+{% if article.summary|striptags != '' %}
+                    <p class="lead mb-5">{{ article.summary|striptags }}</p>
+{% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+    <!-- Contenido -->
+    <article>
+        <script type="application/ld+json">
+            {
+                "@context": "http://schema.org",
+                "@type": "Article",
+                "publisher": {
+                    "@type": "Organization",
+                    "name": "{{ SITENAME }}",
+                    "logo": {
+                        "@type": "ImageObject",
+                        "url": "{{ SITEURL }}/{{ SITELOGO }}"
+                    },
+                    "url": "{{ SITEURL }}"
+                },
+                "author": "{{ article.author }}",
+                "name": "{{ article.title }}",
+                "headline": "{{ article.title }}",
+                "description": "{{ article.summary|striptags }}",
+                "dateCreated": "{{ article.date }}",
+                "datePublished": "{{ article.date }}",
+                "dateModified": "{{ article.modified }}",
+                "image": {% if article.preview %}"{{ SITEURL }}/{{ article.preview }}",{% else %}"{{ SITEURL }}/{{ SITEPREVIEW }}",{% endif %}
+                "url": "{{ SITEURL }}/{{ article.url }}"
+            }
+        </script>
+        <div class="container py-4">
+{{ article.content }}
+        </div>
+    </article>
+    <!-- Compartir en redes sociales -->
+    <div class="container py-4">
+        <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false">Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script><br>
+        <div class="fb-share-button" data-href="{{ SITEURL }}/{{ output_file }}" data-layout="button" data-size="small"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Compartir</a></div>
+        <div id="fb-root"></div>
+    </div>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/es_LA/sdk.js#xfbml=1&version=v6.0"></script>
+{% endblock %}

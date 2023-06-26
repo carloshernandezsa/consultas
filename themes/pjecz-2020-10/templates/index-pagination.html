@@ -1,0 +1,37 @@
+        <!-- Paginacion -->
+{%   if articles_page %}
+                        <nav>
+                            <ul class="pagination justify-content-center">
+{%     if articles_page.has_previous() %}
+                                <li class="page-item">
+{%       if articles_page.previous_page_number() == 1 %}
+                                    <a class="page-link" aria-label="Previous" href="/{{ page_name }}.html">
+                                        <span aria-hidden="true">&laquo;</span>
+                                        <span class="sr-only">Anterior</span>
+                                    </a>
+{%       else %}
+                                    <a class="page-link movimientolibre-page-link" aria-label="Previous" href="/{{ page_name }}{{ articles_page.previous_page_number() }}.html">
+                                        &#60;&#60;
+                                    </a>
+{%       endif %}
+                                </li>
+{%     endif %}
+{%     for page_number in range(1, 1 + articles_paginator.num_pages) %}
+{%       if (page_number - articles_page.number < 3) and (page_number - articles_page.number > -3) %}
+                                <li class="page-item">
+                                    <a class="page-link" href="/{{ page_name }}{{ page_number if page_number > 1 else '' }}.html">{{ page_number }}</a>
+                                </li>
+{%       endif %}
+{%     endfor %}
+{%     if articles_page.has_next() %}
+                                <li class="page-item">
+                                    <a class="page-link" aria-label="Next" href="/{{ page_name }}{{ articles_page.next_page_number() }}.html">
+                                        <span aria-hidden="true">&raquo;</span>
+                                        <span class="sr-only">Siguiente</span>
+                                    </a>
+                                </li>
+{%     endif %}
+                            </ul>
+                        </nav>
+{%   endif%}
+
