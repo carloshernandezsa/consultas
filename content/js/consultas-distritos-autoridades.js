@@ -52,7 +52,7 @@ function recargarConRangoFechas(autoridadClave, fechaDesde, fechaHasta) {
 function consultarDistritos(conNotarias = false) {
   distritosSpinner.style.display = "block";
   distritosFormGroup.style.display = "none";
-  fetch(apiUrl + "/distritos?es_jurisdiccional=true&limit=100")
+  fetch(apiUrl + "/distritos?es_jurisdiccional=true")
     .then((response) => response.json())
     .then((data) => {
       // Si la respuesta es exitosa, agregarlos como opciones al select
@@ -83,9 +83,9 @@ function consultarAutoridades(distritoClave, conNotarias = false) {
   autoridadesFormGroup.style.display = "none";
   autoridadesSelect.innerHTML = ""; // Eliminar todas las opciones
   if (conNotarias) {
-    fullApiUrl = apiUrl + "/autoridades?distrito_clave=" + distritoClave + "&es_jurisdiccional=true&limit=200"
+    fullApiUrl = apiUrl + "/autoridades?distrito_clave=" + distritoClave + "&es_jurisdiccional=true"
   } else {
-    fullApiUrl = apiUrl + "/autoridades?distrito_clave=" + distritoClave + "&es_jurisdiccional=true&es_notaria=false&limit=200"
+    fullApiUrl = apiUrl + "/autoridades?distrito_clave=" + distritoClave + "&es_jurisdiccional=true&es_notaria=false"
   }
   fetch(fullApiUrl)
     .then((response) => response.json())

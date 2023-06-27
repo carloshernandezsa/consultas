@@ -47,7 +47,7 @@ function consultarAutoridades() {
   autoridadesSpinner.style.display = "block";
   autoridadesFormGroup.style.display = "none";
   autoridadesSelect.innerHTML = ""; // Eliminar todas las opciones
-  fetch(apiUrl + "/autoridades?es_creador_glosas=true&es_notaria=false&limit=100") // TODO: Filtrar por creador de glosas
+  fetch(apiUrl + "/autoridades?es_creador_glosas=true&es_notaria=false")
     .then((response) => response.json())
     .then((data) => {
       // Si la respuesta es exitosa, agregarlos como opciones al select
