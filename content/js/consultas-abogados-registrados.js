@@ -30,7 +30,7 @@ function consultarAbogadosRegistrados(nombre, anioDesde, anioHasta) {
   if (anioHasta == null || anioHasta == "") {
     anioHasta = new Date().getFullYear();
   }
-  abogadosRegistradosTableTitle.innerHTML = "Con nombre " + nombre + " registrados entre " + anioDesde + " y " + anioHasta;
+  abogadosRegistradosTableTitle.innerHTML = "Resultados con nombre '" + nombre + "' entre " + anioDesde + " y " + anioHasta;
   $("#abogadosRegistradosTable").DataTable({
     lengthChange: false,
     ordering: false,
@@ -39,6 +39,7 @@ function consultarAbogadosRegistrados(nombre, anioDesde, anioHasta) {
     serverSide: true,
     ajax: {
       url: apiUrl + "/abogados/datatable",
+      headers: { "X-Api-Key": apiKey },
       data: {
         nombre: nombre,
         anio_desde: anioDesde,

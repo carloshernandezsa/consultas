@@ -31,6 +31,7 @@ function consultarRedam(nombre) {
     serverSide: true,
     ajax: {
       url: apiUrl + "/redam/datatable",
+      headers: { "X-Api-Key": apiKey },
       type: "GET",
       data: {
         nombre: nombre,

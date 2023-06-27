@@ -31,6 +31,7 @@ function consultarRepsvm(nombre) {
     serverSide: true,
     ajax: {
       url: apiUrl + "/repsvm_agresores/datatable",
+      headers: { "X-Api-Key": apiKey },
       type: "GET",
       data: {
         nombre: nombre,

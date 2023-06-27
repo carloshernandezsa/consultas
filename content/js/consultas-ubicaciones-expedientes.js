@@ -22,6 +22,7 @@ function consultarUbicacionesExpedientes(autoridadClave) {
     serverSide: true,
     ajax: {
       url: apiUrl + "/ubicaciones_expedientes/datatable",
+      headers: { "X-Api-Key": apiKey },
       data: { autoridad_clave: autoridadClave },
       type: "GET",
       dataType: "json",

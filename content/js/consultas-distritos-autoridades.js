@@ -52,7 +52,7 @@ function recargarConRangoFechas(autoridadClave, fechaDesde, fechaHasta) {
 function consultarDistritos(conNotarias = false) {
   distritosSpinner.style.display = "block";
   distritosFormGroup.style.display = "none";
-  fetch(apiUrl + "/distritos?es_jurisdiccional=true")
+  fetch(apiUrl + "/distritos?es_jurisdiccional=true&limit=100", { headers: { "X-Api-Key": apiKey } })
     .then((response) => response.json())
     .then((data) => {
       // Si la respuesta es exitosa, agregarlos como opciones al select
@@ -83,11 +83,11 @@ function consultarAutoridades(distritoClave, conNotarias = false) {
   autoridadesFormGroup.style.display = "none";
   autoridadesSelect.innerHTML = ""; // Eliminar todas las opciones
   if (conNotarias) {
-    fullApiUrl = apiUrl + "/autoridades?distrito_clave=" + distritoClave + "&es_jurisdiccional=true"
+    fullApiUrl = apiUrl + "/autoridades?distrito_clave=" + distritoClave + "&es_jurisdiccional=true&limit=100"
   } else {
-    fullApiUrl = apiUrl + "/autoridades?distrito_clave=" + distritoClave + "&es_jurisdiccional=true&es_notaria=false"
+    fullApiUrl = apiUrl + "/autoridades?distrito_clave=" + distritoClave + "&es_jurisdiccional=true&es_notaria=false&limit=100"
   }
-  fetch(fullApiUrl)
+  fetch(fullApiUrl, { headers: { "X-Api-Key": apiKey } })
     .then((response) => response.json())
     .then((data) => {
       // Si la respuesta es exitosa, agregarlos como opciones al select
@@ -116,7 +116,7 @@ function consultarAutoridad(autoridadClave) {
   }
   encabezadoSpinner.style.display = "block";
   encabezadoDiv.style.display = "none";
-  fetch(apiUrl + "/autoridades/" + autoridadClave)
+  fetch(apiUrl + "/autoridades/" + autoridadClave, { headers: { "X-Api-Key": apiKey } })
     .then((response) => response.json())
     .then((data) => {
       // Si la respuesta es exitosa, mostrar el distrito y la autoridad seleccionados, asi como el rango de fechas

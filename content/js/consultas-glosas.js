@@ -22,6 +22,7 @@ function consultarGlosas(autoridadClave, fechaDesde, fechaHasta) {
     serverSide: true,
     ajax: {
       url: apiUrl + "/glosas/datatable",
+      headers: { "X-Api-Key": apiKey },
       data: {
         autoridad_clave: autoridadClave,
         fecha_desde: fechaDesde != null ? fechaDesde : "1900-01-01",
