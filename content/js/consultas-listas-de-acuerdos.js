@@ -22,6 +22,7 @@ function consultarListasDeAcuerdos(autoridadClave, fechaDesde, fechaHasta) {
     serverSide: true,
     ajax: {
       url: apiUrl + "/listas_de_acuerdos/datatable",
+      headers: { "X-Api-Key": apiKey },
       data: {
         autoridad_clave: autoridadClave,
         fecha_desde: fechaDesde != null ? fechaDesde : "1900-01-01",

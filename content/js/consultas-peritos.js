@@ -31,6 +31,7 @@ function consultarPeritos(nombre) {
     serverSide: true,
     ajax: {
       url: apiUrl + "/peritos/datatable",
+      headers: { "X-Api-Key": apiKey },
       type: "GET",
       data: {
         nombre: nombre,
