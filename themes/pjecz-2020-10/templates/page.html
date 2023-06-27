@@ -101,8 +101,7 @@
                 "url": "{{ SITEURL }}/{{ page.url }}"
             }
         </script>
-    <p>MENU</p>
-    <div class="container py-4">
+        {% include 'menu.html' %}  
         {{ page.content }}
     </div>
 </article>
