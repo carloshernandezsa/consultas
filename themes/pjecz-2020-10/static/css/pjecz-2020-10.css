@@ -136,6 +136,9 @@ a.navegacion_icon:hover        { color: #a36e33; }
 #botones a.btn-primary:hover   { background-color: #006c9b; border-color: #006c9b; color: #ffffff; }
 #botones .icono                { color: #dbb993; }
 
+.btn-color                     { background-color: #004360 !important; color:#ffffff !important ;}
+.btn-color:hover               { background-color: #006c9b !important; border-color: #006c9b !important; color: #ffffff !important; }
+
 footer .footer-dark            { color: #ffffff; background-color: #212530; }
 footer .card                   { color: #ffffff; background-color: #212530; }
 footer h2                      { color: #a9b0c9; }
@@ -173,6 +176,13 @@ footer .footer-light a:hover   { color:#212530; }
 
 .dropdown-submenu                      { position: relative; }
 .dropdown-submenu .dropdown-menu       { top: 0; left: 100%; margin-top: -1px; }
+
+/* NAV MENU */
+.nav-link.active{
+    background-color: #004560 !important;
+    border-color: #dadada !important;
+    color: #e1e1e1 !important;
+}
 
 /* --------
  * Carrusel
