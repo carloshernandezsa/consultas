@@ -8,10 +8,10 @@
 let apiUrl;
 switch (window.location.hostname) {
   case "localhost":
-    apiUrl = "http://localhost:8001/v3";
+    apiUrl = "http://172.30.37.233:8001/v3";
     break;
   case "127.0.0.1":
-    apiUrl = "http://127.0.0.1:8001/v3";
+    apiUrl = "http://172.30.37.233:8001/v3";
     break;
   default:
     apiUrl = "https://api.justiciadigital.gob.mx/v3";

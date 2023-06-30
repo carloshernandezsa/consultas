@@ -92,7 +92,6 @@ document.addEventListener("DOMContentLoaded", function() {
   }
   // Recargar la pagina con los parametros del formulario
   function recargarConParametros() {
-    const actualUrl = window.location.href.split("?")[0];
     const elNombre = nombreInput.value;
     const elAnioDesde = anioDesdeInput.value;
     const elAnioHasta = anioHastaInput.value;
