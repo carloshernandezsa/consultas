@@ -65,14 +65,15 @@
               <form class="form-inline" onsubmit="return false;">
                 <div class="form-group">
                   <div id="rangoFechas" class="input-daterange">
-                    <span class="input-group-addon">De</span>
-                    <input type="text" class="form-control" name="fechaDesde" size="12" id="fechaDesde" />
-                    <span class="input-group-addon">a</span>
-                    <input type="text" class="form-control" name="fechaHasta" size="12" id="fechaHasta" />
-                    <button id="rangoFechasFiltrarButton" class="btn btn-primary btn-sm"><i class="fa fa-filter"></i> Filtrar</button>
-                    <button id="rangoFechasLimpiarButton" class="btn btn-warning btn-sm"><i class="fa fa-eraser"></i> Limpiar</button>
+                    <input type="text" class="form-control" name="fechaDesde" size="9" id="fechaDesde" placeholder="De" />
+                    <input type="text" class="form-control" name="fechaHasta" size="9" id="fechaHasta" placeholder="a" />
                   </div>
                 </div>
+                <div class="form-group">
+                  <input type="text" class="form-control" id="expediente" name="expediente" placeholder="N° Expediente" size="12" />
+                </div>
+                <button id="rangoFechasFiltrarButton" class="btn btn-primary btn-sm"><i class="fa fa-filter"></i> Filtrar</button>
+                <button id="rangoFechasLimpiarButton" class="btn btn-warning btn-sm"><i class="fa fa-eraser"></i> Limpiar</button>
               </form>
             </div>
           </div>
