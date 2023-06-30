@@ -80,10 +80,16 @@ document.addEventListener("DOMContentLoaded", function() {
 
   // Recargar la pagina con los parametros del formulario
   function recargarConParametros() {
-    const actualUrl = window.location.href.split("?")[0];
     const elNombre = nombreInput.value;
     const elDistrito = distritoSelect.value;
     window.location.href = actualUrl + "?distrito_clave=" + elDistrito + "&nombre=" + elNombre;
+  }
+
+  // Limpiar los valores del formulario y regresar a consultar
+  function regresarConsulta(){
+    nombreInput.value = "";
+
+    recargarSinParametros();
   }
 
   //
@@ -106,6 +112,7 @@ document.addEventListener("DOMContentLoaded", function() {
     peritosFormCard.style.display = "block";
     peritosFormSpinner.style.display = "none";
     peritosForm.style.display = "block";
+    consultarDistritos();
     consultarButton.addEventListener("click", (thisEvent) => {
       recargarConParametros();
     });
