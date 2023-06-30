@@ -173,8 +173,10 @@ footer .footer-light a:hover   { color:#212530; }
 .dropdown-toggle::after                { transition: transform 0.15s linear; }
 .show.dropdown .dropdown-toggle::after { transform: translateY(3px); }
 .navbar-dark .navbar-nav .nav-link     { color: rgba(255,255,255,.8); }
-.nav-tabs .nav-link{
+.nav-pills .nav-link{
     border: 1px solid #efefef !important;
+    background-color: #f9f9f9 !important;
+    margin: 2px;
 }
 
 .dropdown-submenu                      { position: relative; }
