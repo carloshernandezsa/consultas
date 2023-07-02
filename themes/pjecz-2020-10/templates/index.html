@@ -3,47 +3,50 @@
 {% block title %}{{ SITENAME }}{% endblock %}
 
 {% block meta_tags %}
-<meta name="description" content="{{ SITEDESCRIPTION }}">
-<meta name="author" content="{{ AUTHOR }}">
-<!-- Facebook open graph configuration -->
-<meta property="og:title" content="{{ SITENAME }}">
-<meta property="og:type" content="website">
-<meta property="og:url" content="{{ SITEURL }}/{{ output_file }}">
-<meta property="og:description" content="{{ SITEDESCRIPTION }}">
-<meta property="og:site_name" content="{{ SITENAME }}">
-<meta property="og:image" content="{{ SITEURL }}/{{ SITELOGO }}">
-<!-- Twitter card configuration -->
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:site" content="{{ SITETWITTER }}">
-<meta name="twitter:title" content="{{ SITENAME }}">
-<meta name="twitter:description" content="{{ SITEDESCRIPTION }}">
-<meta name="twitter:image" content="{{ SITEURL }}/{{ SITELOGO }}">
-<!-- Schema.org metadata -->
-<script type="application/ld+json">
-    {
-        "@context": "http://schema.org",
-        "@type": "WebSite",
-        "url": "{{ SITEURL }}",
-        "name": "{{ SITENAME }}",
-        "description": "{{ SITEDESCRIPTION }}"
-    }
-</script>
+  <meta name="description" content="{{ SITEDESCRIPTION }}">
+  <meta name="author" content="{{ AUTHOR }}">
+  <!-- Facebook open graph configuration -->
+  <meta property="og:title" content="{{ SITENAME }}">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="{{ SITEURL }}/{{ output_file }}">
+  <meta property="og:description" content="{{ SITEDESCRIPTION }}">
+  <meta property="og:site_name" content="{{ SITENAME }}">
+  <meta property="og:image" content="{{ SITEURL }}/{{ SITELOGO }}">
+  <!-- Twitter card configuration -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="{{ SITETWITTER }}">
+  <meta name="twitter:title" content="{{ SITENAME }}">
+  <meta name="twitter:description" content="{{ SITEDESCRIPTION }}">
+  <meta name="twitter:image" content="{{ SITEURL }}/{{ SITELOGO }}">
+  <!-- Schema.org metadata -->
+  <script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "WebSite",
+    "url": "{{ PRINCIPAL_URL }}",
+    "name": "{{ SITENAME }}",
+    "description": "{{ SITEDESCRIPTION }}"
+  }
+  </script>
 {% endblock %}
 
 {% block header %}
-<div class="container h-100 py-2">
-  <div class="row h-100 align-items-center">
-    <div class="col-lg-12">
-      <h1 class="display-4 mt-5 mb-2">{% block header_title %}{% endblock %}</h1>
+  <div class="container h-100 py-2">
+    <div class="row h-100 align-items-center">
+      <div class="col-lg-12">
+        <h1 class="display-4 mt-5 mb-2">{% block header_title %}{% endblock %}</h1>
+      </div>
     </div>
   </div>
-</div>
 {% endblock %}
 
 {% block content %}
-<div class="container pt-4 pb-2">
-  {% include 'bienvenida.html' %}
-  {% include 'menu.html' %}
-  {% include 'start.html' %}
-</div>
+  <div class="container pt-4 pb-2">
+    <!-- Bienvenida -->
+    {% include 'bienvenida.html' %}
+    <!-- Menu de consultas -->
+    {% include 'menu.html' %}
+    <!-- Start -->
+    {% include 'start.html' %}
+  </div>
 {% endblock %}

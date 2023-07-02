@@ -3,15 +3,29 @@ Pelican development configuration file
 """
 
 # Tema
-# THEME = "themes/bootstrap4.6"
 THEME = "themes/pjecz-2020-10"
 
-# Sitio
-SITENAME = "Consultas del PJECZ"
+# Nombre de esta rama hecha con Pelican que se usa en el title de la pagina
+SITENAME = "Consultas"
+
+# URL base que se usa para enlazar los archivos javascript, en DESARROLLO es localhost
 SITEURL = "http://localhost:8000"
 
+# URL base que se usa el menu principal y en los enlaces del pie de pagina
+PRINCIPAL_URL = "https://www.pjecz.gob.mx"
+
+# Metadatos de todo el sitio web
+SITENAME = "Poder Judicial del Estado de Coahuila de Zaragoza"
+SITELOGO = "theme/images/pjecz.png"
+SITEPREVIEW = "theme/images/generic.jpg"
+SITEDESCRIPTION = "Responsables de impartir justicia en el Estado, de dirimir diferencias entre particulares, de conciliar, y de promover con el ejemplo una cultura de la legalidad y justicia cotidiana."
+SITETWITTER = "@PJCoah"
+
 # Autor por defecto
-AUTHOR = "Direccion de Informatica"
+AUTHOR = "Direccion de Informatica del PJECZ"
+
+# NO usa articulos
+ARTICLE_PATHS = []
 
 # Paginas atemporales, que no son articulos
 PAGE_PATHS = ["consultas"]
@@ -32,13 +46,6 @@ FEED_ALL_ATOM = None
 CATEGORY_FEED_ATOM = None
 AUTHOR_FEED_ATOM = None
 AUTHOR_FEED_RSS = None
-
-# Mapa del sitio
-SITEMAP = {
-    "format": "xml",
-    "priorities": {"articles": 0.5, "indexes": 0.5, "pages": 0.5},
-    "changefreqs": {"articles": "monthly", "indexes": "daily", "pages": "monthly"},
-}
 
 # Plugins, se usa pelican_javascript para incluir archivos JavaScript en las consultas
 PLUGIN_PATHS = ["plugins"]
