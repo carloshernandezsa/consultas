@@ -1,7 +1,7 @@
 //
 // Consultas Autoridades
 //
-// Sirve para el Formulario Autoridad
+// Sirve para elegir una Autoridad con un select
 //
 // Cargar previemante
 // - consultas-api-url.js
@@ -47,7 +47,7 @@ function consultarAutoridades() {
   autoridadesSpinner.style.display = "block";
   autoridadesFormGroup.style.display = "none";
   autoridadesSelect.innerHTML = ""; // Eliminar todas las opciones
-  fetch(apiUrl + "/autoridades?es_creador_glosas=true&es_notaria=false&limit=100", { headers: { "X-Api-Key": apiKey } })
+  fetch(apiUrl + "/autoridades?es_creador_glosas=true&es_notaria=false", { headers: { "X-Api-Key": apiKey } })
     .then((response) => response.json())
     .then((data) => {
       // Si la respuesta es exitosa, agregarlos como opciones al select

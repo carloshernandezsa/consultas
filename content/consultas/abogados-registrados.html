@@ -9,8 +9,17 @@
   </head>
   <body>
     <!-- Cabecera -->
-    <div class="mt-3 mb-3"></div>
-    <p class="mb-5 border-bottom">Consultar las y los abogados registrados en el Poder Judicial del Estado de Coahuila de Zaragoza.</p>
+    <p class="mb-5 border-bottom">
+      Consultar las y los abogados registrados en el Poder Judicial del Estado de Coahuila de Zaragoza.
+    </p>
+    <!-- Instruciones -->
+    <h2 id="instrucciones">Instrucciones</h2>
+    <p class="mb-5 border-bottom">
+      Favor de escribir el nombre del abogado o abogada, o parte de él, en el campo <b>Nombre</b>.
+      Puede dejar el campo vacío para mostrar todos los abogados registrados.
+      De clic en el botón <b>Consultar</b> y espere a que se cargue el listado.
+      Para volver a consultar de clic en el botón <b>Regresar</b>.
+    </p>
     <!-- Formulario -->
     <div id="abogadosRegistradosFormCard" class="card">
       <div class="card-body">
@@ -19,7 +28,7 @@
             <span class="sr-only">Cargando...</span>
           </div>
         </div>
-        <form id="abogadosRegistradosForm" onsubmit="return false;" style="display: none">
+        <form id="abogadosRegistradosForm" onsubmit="return false;">
           <div class="form-group">
             <label for="nombreInput">Nombre</label>
             <input id="nombreInput" type="text" class="form-control" placeholder="Por lo menos cuatro caracteres" />
@@ -37,17 +46,12 @@
       </div>
     </div>
     <!-- Tabla -->
-    <div id="abogadosRegistradosTableCard" class="card" style="display: none">
+    <div id="abogadosRegistradosTableCard" class="card">
       <div class="card-header">
-        <h5 id="abogadosRegistradosTableTitle" class="card-title mb-0">Abogados registrados</h5>
-        <div class="row">
-          <!-- Titulo -->
-          <div class="col-12">
-            <div id="encabezadoDiv" style="display: block">
-              <button id="cambiarDatosButton" class="btn btn-warning btn-sm"><i class="fa fa-reply" aria-hidden="true"></i> Regresar</button>
-            </div>
-          </div>
-        </div>
+        <h5 id="abogadosRegistradosTableTitle" class="card-title mb-2">Abogados registrados</h5>
+        <button id="regresarConsultaButton" class="btn btn-warning btn-sm">
+          <i class="fa fa-reply" aria-hidden="true"></i> Regresar
+        </button>
       </div>
       <div class="card-body">
         <div id="abogadosRegistradosTableSpinner" class="text-center">

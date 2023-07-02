@@ -7,8 +7,7 @@
 //
 
 document.addEventListener("DOMContentLoaded", function() {
-  // Definir URL sin parámetros
-  const actualUrl = window.location.href.split("?")[0];
+
   // Definir elementos del DOM
   const redamFormCard = document.getElementById("redamFormCard");
   const redamFormSpinner = document.getElementById("redamFormSpinner");
@@ -19,7 +18,7 @@ document.addEventListener("DOMContentLoaded", function() {
   const redamTable = document.getElementById("redamTable");
   const nombreInput = document.getElementById("nombreInput");
   const consultarButton = document.getElementById("consultarButton");
-  const regresarButton = document.getElementById("regresarButton");
+  const regresarConsultaButton = document.getElementById("regresarConsultaButton");
 
   // Consultar el redam para llenar la tabla
   function consultarRedam(nombre, distritoClave) {
@@ -43,7 +42,7 @@ document.addEventListener("DOMContentLoaded", function() {
         type: "GET",
         data: {
           nombre: nombre,
-          distrito_clave:distritoClave,
+          distrito_clave: distritoClave,
         },
         dataType: "json",
       },
@@ -72,22 +71,24 @@ document.addEventListener("DOMContentLoaded", function() {
     redamTableSpinner.style.display = "none";
   }
 
+  // Definir URL sin parámetros
+  const actualUrl = window.location.href.split(/[?#]/)[0];
+
   // Recargar la pagina esta página sin parámetros
   function recargarSinParametros() {
-    window.location.href = actualUrl;
+    window.location.href = actualUrl + "#instrucciones";
   }
 
   // Recargar la pagina con los parametros del formulario
   function recargarConParametros() {
     const elNombre = nombreInput.value;
     const elDistrito = distritoSelect.value;
-    window.location.href = actualUrl + "?distrito_clave=" + elDistrito + "&nombre=" + elNombre;
+    window.location.href = actualUrl + "?distrito_clave=" + elDistrito + "&nombre=" + elNombre + "#instrucciones";
   }
 
   // Limpiar los valores del formulario y regresar a consultar
   function regresarConsulta(){
     nombreInput.value = "";
-
     recargarSinParametros();
   }
 
@@ -106,20 +107,19 @@ document.addEventListener("DOMContentLoaded", function() {
     redamFormCard.style.display = "none";
     redamTableCard.style.display = "block";
     consultarRedam(nombre, distrito_clave);
+    regresarConsultaButton.addEventListener("click", (thisEvent) => {
+      regresarConsulta();
+    });
   } else {
     // Mostrar el card con el formulario para consultar
     redamFormCard.style.display = "block";
     redamFormSpinner.style.display = "none";
     redamForm.style.display = "block";
+    redamTableCard.style.display = "none";
     consultarDistritos();
     consultarButton.addEventListener("click", (thisEvent) => {
       recargarConParametros();
     });
   }
-
-  // Realizar evento click para regresar y limpiar url
-  regresarButton.addEventListener("click", (thisEvent) => {
-    regresarConsulta();
-  });
 
 });
