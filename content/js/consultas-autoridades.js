@@ -42,6 +42,11 @@ function recargarConRangoFechas(autoridadClave, fechaDesde, fechaHasta) {
   window.location.href = actualUrl + "?autoridad_clave=" + autoridadClave + "&fecha_desde=" + fechaDesde + "&fecha_hasta=" + fechaHasta;
 }
 
+//REcargar la pagina con la clave de la autoridad y expediente
+function recargarConExpediente(autoridadClave, expediente) {
+  window.location.href = actualUrl + "?autoridad_clave=" + autoridadClave + "&expediente" + expediente
+}
+
 // Consultar las autoridades para llenar el select
 function consultarAutoridades() {
   autoridadesSpinner.style.display = "block";

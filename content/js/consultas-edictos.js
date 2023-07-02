@@ -12,7 +12,7 @@ const edictosTableCard = document.getElementById("edictosTableCard");
 const edictosTableSpinner = document.getElementById("edictosTableSpinner");
 
 // Consultar los edictos para llenar la tabla
-function consultarEdictos(autoridadClave, fechaDesde, fechaHasta) {
+function consultarEdictos(autoridadClave, fechaDesde, fechaHasta, numeroExpediente) {
   edictosTableSpinner.style.display = "block";
   $("#edictosTable").DataTable({
     lengthChange: false,
@@ -25,6 +25,7 @@ function consultarEdictos(autoridadClave, fechaDesde, fechaHasta) {
       headers: { "X-Api-Key": apiKey },
       data: {
         autoridad_clave: autoridadClave,
+        expediente: numeroExpediente != "",
         fecha_desde: fechaDesde != null ? fechaDesde : "1900-01-01",
         fecha_hasta: fechaHasta != null ? fechaHasta : "2100-01-01",
       },
@@ -96,3 +97,4 @@ if (autoridadClave != null) {
   edictosTableCard.style.display = "none";
   consultarDistritos(conNotarias = true);
 }
+

@@ -48,6 +48,15 @@ function recargarConRangoFechas(autoridadClave, fechaDesde, fechaHasta) {
   window.location.href = actualUrl + "?autoridad_clave=" + autoridadClave + "&fecha_desde=" + fechaDesde + "&fecha_hasta=" + fechaHasta;
 }
 
+// Recargar la pagina con la clave de la autoridad y el rango de fechas
+function recargarConRangoFechasExpediente(autoridadClave, fechaDesde, fechaHasta, expediente) {
+  window.location.href = actualUrl + "?autoridad_clave=" + autoridadClave + "&fecha_desde=" + fechaDesde + "&fecha_hasta=" + fechaHasta + "&expediente=" + expediente;
+}
+
+// Recargar la pagina con la clave de la autoridad y expediente
+function recargarConExpediente(autoridadClave, expediente) {
+  window.location.href = actualUrl + "?autoridad_clave=" + autoridadClave + "&expediente=" + expediente;
+}
 // Consultar los distritos para llenar el select
 function consultarDistritos(conNotarias = false) {
   distritosSpinner.style.display = "block";
