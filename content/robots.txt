@@ -1,2 +1,4 @@
 User-Agent: *
-Disallow: /author /beta /category /css /feeds /js /json /tag /theme
+Disallow: /consultas/css
+Disallow: /consultas/js
+Disallow: /consultas/theme
