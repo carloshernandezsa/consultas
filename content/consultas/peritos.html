@@ -9,15 +9,16 @@
   </head>
   <body>
     <!-- Cabecera -->
-    <div class="mt-3 mb-3"></div>
     <p>La lista de Peritos en los términos de la Ley Orgánica del Poder Judicial del Estado.</p>
-    <h2>Instrucciones</h2>
-    <ol class="mb-5 border-bottom">
-      <li value="1">Favor de seleccionar el <b>Distrito Judicial</b> (lista desplegable con los 8 distritos).</li>
-      <li>Puede dejar el campo del <b>nombre</b>  vacío para mostrar todos los peritos del distrito. O escribir parte del nombre, preferentemente los apellidos.</li>
-      <li>Luego presione el botón <b>Consultar</b> y espere a que se cargue el listado.</li>
-      <li>Para encontrar un dato en el listado puede escribir el tipo, nombre o notas en la opción <b>Filtrar</b></li>
-    </ol>
+    <!-- Instruciones -->
+    <h2 id="instrucciones">Instrucciones</h2>
+    <p class="mb-5 border-bottom">
+      Favor de seleccionar el <b>Distrito Judicial</b> (lista desplegable con los distritos).
+      Puede dejarlo en "Todos" para mostrar todos los peritos del distrito.
+      O escribir parte del nombre, preferentemente un apellido.
+      Luego presione el botón <b>Consultar</b> y espere a que se cargue el listado.
+      Para volver a consultar de clic en el botón <b>Regresar</b>.
+    </p>
     <!-- Formulario -->
     <div id="peritosFormCard" class="card">
       <div class="card-body">
@@ -26,7 +27,7 @@
             <span class="sr-only">Cargando...</span>
           </div>
         </div>
-        <form id="peritosForm" onsubmit="return false;" style="display: none">
+        <form id="peritosForm" onsubmit="return false;">
           <!-- Distrito -->
           <div class="row">
             <div class="col-sm-12">
@@ -50,17 +51,12 @@
       </div>
     </div>
     <!-- Tabla -->
-    <div id="peritosTableCard" class="card" style="display: none">
+    <div id="peritosTableCard" class="card">
       <div class="card-header">
-        <h5 id="peritosTableTitle" class="card-title mb-0">Peritos</h5>
-        <!-- Titulo -->
-        <div class="row">
-          <div class="col-6">
-            <div id="encabezadoDiv">
-              <button id="regresarButton" class="btn btn-warning btn-sm"><i class="fa fa-reply" aria-hidden="true"></i> Regresar</button>
-            </div>
-          </div>
-        </div>
+        <h5 id="peritosTableTitle" class="card-title mb-2">Peritos</h5>
+        <button id="regresarConsultaButton" class="btn btn-warning btn-sm">
+          <i class="fa fa-reply" aria-hidden="true"></i> Regresar
+        </button>
       </div>
       <div class="card-body">
         <div id="peritosTableSpinner" class="text-center">
@@ -108,10 +104,10 @@
     </ol>
     <h3>Auxiliares prácticos</h3>
     <p>
-      Quienes deseen desempeñar el cargo de auxiliares prácticos, 
-      además de los requisitos señalados en el punto número 1, señalarán en su solicitud, 
-      bajo protesta de decir verdad, las circunstancias por las que se adquirieron conocimientos sobre la ciencia, 
-      técnica o arte con la que se desea figurar en la lista, 
+      Quienes deseen desempeñar el cargo de auxiliares prácticos,
+      además de los requisitos señalados en el punto número 1, señalarán en su solicitud,
+      bajo protesta de decir verdad, las circunstancias por las que se adquirieron conocimientos sobre la ciencia,
+      técnica o arte con la que se desea figurar en la lista,
       y agregarán copias certificadas de las constancias que se tengan al respecto.
     </p>
   </body>

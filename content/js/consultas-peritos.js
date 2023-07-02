@@ -5,9 +5,8 @@
 // - consultas-api-url.js
 // - consultas-distritos.js
 //
+
 document.addEventListener("DOMContentLoaded", function() {
-  // Definir URL sin parámetros
-  const actualUrl = window.location.href.split("?")[0];
 
   // Definir elementos del DOM
   const peritosFormCard = document.getElementById("peritosFormCard");
@@ -19,8 +18,8 @@ document.addEventListener("DOMContentLoaded", function() {
   const peritosTable = document.getElementById("peritosTable");
   const nombreInput = document.getElementById("nombreInput");
   const consultarButton = document.getElementById("consultarButton");
-  const regresarButton = document.getElementById("regresarButton");
-  
+  const regresarConsultaButton = document.getElementById("regresarConsultaButton");
+
   // Consultar los peritos para llenar la tabla
   function consultarPeritos(nombre, distritoClave) {
     peritosTableSpinner.style.display = "block";
@@ -43,7 +42,7 @@ document.addEventListener("DOMContentLoaded", function() {
         type: "GET",
         data: {
           nombre: nombre,
-          distrito_clave:distritoClave,
+          distrito_clave: distritoClave,
         },
         dataType: "json",
       },
@@ -73,22 +72,24 @@ document.addEventListener("DOMContentLoaded", function() {
     peritosTableSpinner.style.display = "none";
   }
 
+  // Definir URL sin parámetros
+  const actualUrl = window.location.href.split(/[?#]/)[0];
+
   // Recargar la pagina esta página sin parámetros
   function recargarSinParametros() {
-    window.location.href = actualUrl;
+    window.location.href = actualUrl + "#instrucciones";
   }
 
   // Recargar la pagina con los parametros del formulario
   function recargarConParametros() {
     const elNombre = nombreInput.value;
     const elDistrito = distritoSelect.value;
-    window.location.href = actualUrl + "?distrito_clave=" + elDistrito + "&nombre=" + elNombre;
+    window.location.href = actualUrl + "?distrito_clave=" + elDistrito + "&nombre=" + elNombre + "#instrucciones";
   }
 
   // Limpiar los valores del formulario y regresar a consultar
   function regresarConsulta(){
     nombreInput.value = "";
-
     recargarSinParametros();
   }
 
@@ -107,18 +108,19 @@ document.addEventListener("DOMContentLoaded", function() {
     peritosFormCard.style.display = "none";
     peritosTableCard.style.display = "block";
     consultarPeritos(nombre, distrito_clave);
+    regresarConsultaButton.addEventListener("click", (thisEvent) => {
+      regresarConsulta();
+    });
   } else {
     // Mostrar el card con el formulario para consultar
     peritosFormCard.style.display = "block";
     peritosFormSpinner.style.display = "none";
     peritosForm.style.display = "block";
+    peritosTableCard.style.display = "none";
     consultarDistritos();
     consultarButton.addEventListener("click", (thisEvent) => {
       recargarConParametros();
     });
   }
-  // Realizar evento click para regresar y limpiar url
-  regresarButton.addEventListener("click", (thisEvent) => {
-    regresarConsulta();
-  });
+
 });
