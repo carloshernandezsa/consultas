@@ -12,8 +12,9 @@ const sentenciasTableCard = document.getElementById("sentenciasTableCard");
 const sentenciasTableSpinner = document.getElementById("sentenciasTableSpinner");
 
 // Consultar las sentencias para llenar la tabla
-function consultarSentencias(autoridadClave, fechaDesde, fechaHasta) {
+async function consultarSentencias(autoridadClave, fechaDesde, fechaHasta) {
   sentenciasTableSpinner.style.display = "block";
+  await esperar(1000); // Esperar 1 segundo
   $("#sentenciasTable").DataTable({
     lengthChange: false,
     ordering: false,

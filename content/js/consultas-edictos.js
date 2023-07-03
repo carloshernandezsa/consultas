@@ -12,8 +12,9 @@ const edictosTableCard = document.getElementById("edictosTableCard");
 const edictosTableSpinner = document.getElementById("edictosTableSpinner");
 
 // Consultar los edictos para llenar la tabla
-function consultarEdictos(autoridadClave, fechaDesde, fechaHasta) {
+async function consultarEdictos(autoridadClave, fechaDesde, fechaHasta) {
   edictosTableSpinner.style.display = "block";
+  await esperar(1000); // Esperar 1 segundo
   $("#edictosTable").DataTable({
     lengthChange: false,
     ordering: false,

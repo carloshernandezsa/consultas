@@ -21,8 +21,9 @@ document.addEventListener("DOMContentLoaded", function() {
   const regresarConsultaButton = document.getElementById("regresarConsultaButton");
 
   // Consultar los peritos para llenar la tabla
-  function consultarPeritos(nombre, distritoClave) {
+  async function consultarPeritos(nombre, distritoClave) {
     peritosTableSpinner.style.display = "block";
+    await esperar(1000); // Esperar 1 segundo
     if (nombre == null) {
       nombre = "";
     }

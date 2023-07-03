@@ -21,8 +21,9 @@ document.addEventListener("DOMContentLoaded", function() {
   const regresarConsultaButton = document.getElementById("regresarConsultaButton");
 
   // Consultar el repsvm para llenar la tabla
-  function consultarRepsvm(nombre, distritoClave) {
+  async function consultarRepsvm(nombre, distritoClave) {
     repsvmTableSpinner.style.display = "block";
+    await esperar(1000); // Esperar 1 segundo
     if (nombre == null) {
       nombre = "";
     }

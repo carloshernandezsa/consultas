@@ -21,8 +21,9 @@ document.addEventListener("DOMContentLoaded", function() {
   const regresarConsultaButton = document.getElementById("regresarConsultaButton");
 
   // Consultar el redam para llenar la tabla
-  function consultarRedam(nombre, distritoClave) {
+  async function consultarRedam(nombre, distritoClave) {
     redamTableSpinner.style.display = "block";
+    await esperar(1000); // Esperar 1 segundo
     if (nombre == null) {
       nombre = "";
     }

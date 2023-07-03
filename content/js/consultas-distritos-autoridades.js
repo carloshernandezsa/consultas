@@ -56,10 +56,11 @@ function cambiarEstiloAInactivoDistritos() {
 }
 
 // Consultar los distritos para llenar las opciones
-function consultarDistritos(conNotarias = false) {
+async function consultarDistritos(conNotarias = false) {
   distritosSpinner.style.display = "block";
   distritosFormGroup.style.display = "none";
   autoridadesSpinner.style.display = "none";
+  await esperar(1000); // Esperar 1 segundo
   fetch(apiUrl + "/distritos?es_jurisdiccional=true", { headers: { "X-Api-Key": apiKey } })
     .then((response) => response.json())
     .then((data) => {
@@ -87,7 +88,7 @@ function consultarDistritos(conNotarias = false) {
 }
 
 // Consultar las autoridades para llenar las opciones
-function consultarAutoridades(distritoClave, conNotarias = false) {
+async function consultarAutoridades(distritoClave, conNotarias = false) {
   if (distritoClave == null) {
     console.log("Falta la clave del distrito");
     return;
@@ -95,6 +96,7 @@ function consultarAutoridades(distritoClave, conNotarias = false) {
   autoridadesSpinner.style.display = "block";
   autoridadesFormGroup.style.display = "none";
   autoridadesOptions.innerHTML = ""; // Limpiar las opciones
+  await esperar(1000); // Esperar 1 segundo
   if (conNotarias) {
     fullApiUrl = apiUrl + "/autoridades?distrito_clave=" + distritoClave + "&es_jurisdiccional=true"
   } else {

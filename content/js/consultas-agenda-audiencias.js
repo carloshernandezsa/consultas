@@ -13,10 +13,9 @@ const audienciasTableCard = document.getElementById("audienciasTableCard");
 const audienciasTableSpinner = document.getElementById("audienciasTableSpinner");
 
 // Consultar las audiencias para llenar la tabla
-function consultarAudiencias(autoridadClave, fecha) {
+async function consultarAudiencias(autoridadClave, fecha) {
   audienciasTableSpinner.style.display = "block";
-  console.log("Clave de la autoridad: " + autoridadClave);
-  console.log("Fecha: " + fecha);
+  await esperar(1000); // Esperar 1 segundo
   $("#audienciasTable").DataTable({
     lengthChange: false,
     ordering: false,
