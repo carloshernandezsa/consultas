@@ -12,8 +12,9 @@ const listasDeAcuerdosTableCard = document.getElementById("listasDeAcuerdosTable
 const listasDeAcuerdosTableSpinner = document.getElementById("listasDeAcuerdosTableSpinner");
 
 // Consultar las listas de acuerdos para llenar la tabla
-function consultarListasDeAcuerdos(autoridadClave, fechaDesde, fechaHasta) {
+async function consultarListasDeAcuerdos(autoridadClave, fechaDesde, fechaHasta) {
   listasDeAcuerdosTableSpinner.style.display = "block";
+  await esperar(1000); // Esperar 1 segundo
   $("#listasDeAcuerdosTable").DataTable({
     lengthChange: false,
     ordering: false,

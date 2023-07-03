@@ -12,8 +12,9 @@ const glosasTableCard = document.getElementById("glosasTableCard");
 const glosasTableSpinner = document.getElementById("glosasTableSpinner");
 
 // Consultar las glosas para llenar la tabla
-function consultarGlosas(autoridadClave, fechaDesde, fechaHasta) {
+async function consultarGlosas(autoridadClave, fechaDesde, fechaHasta) {
   glosasTableSpinner.style.display = "block";
+  await esperar(1000); // Esperar 1 segundo
   $("#glosasTable").DataTable({
     lengthChange: false,
     ordering: false,

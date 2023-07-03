@@ -12,8 +12,9 @@ const tesisJurisprudenciasDetailCard = document.getElementById("tesisJurispruden
 const tesisJurisprudenciasDetailSpinner = document.getElementById("tesisJurisprudenciasDetailSpinner");
 
 // Consultar las Tesis y Jurisprudencias para llenar la tabla
-function consultarTesisJurisprudencias() {
+async function consultarTesisJurisprudencias() {
   tesisJurisprudenciasTableSpinner.style.display = "block";
+  await esperar(1000); // Esperar 1 segundo
   $("#tesisJurisprudenciasTable").DataTable({
     lengthChange: false,
     ordering: false,
@@ -60,8 +61,9 @@ function consultarTesisJurisprudencias() {
 }
 
 // Mostrar el detalle de una Tesis o Jurisprudencia
-function mostrarTesisJurisprudencia(tesisJurisprudenciaId) {
+async function mostrarTesisJurisprudencia(tesisJurisprudenciaId) {
   tesisJurisprudenciasDetailSpinner.style.display = "block";
+  await esperar(1000); // Esperar 1 segundo
   $.ajax({
     url: apiUrl + "/tesis_jurisprudencias/" + tesisJurisprudenciaId,
     headers: { "X-Api-Key": apiKey },

@@ -12,8 +12,9 @@ const ubicacionesExpedientesTableCard = document.getElementById("ubicacionesExpe
 const ubicacionesExpedientesTableSpinner = document.getElementById("ubicacionesExpedientesTableSpinner");
 
 // Consultar las ubicaciones de expedientes para llenar la tabla
-function consultarUbicacionesExpedientes(autoridadClave) {
+async function consultarUbicacionesExpedientes(autoridadClave) {
   ubicacionesExpedientesTableSpinner.style.display = "block";
+  await esperar(1000); // Esperar 1 segundo
   $("#ubicacionesExpedientesTable").DataTable({
     lengthChange: false,
     ordering: false,
