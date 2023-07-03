@@ -61,7 +61,7 @@ function consultarDistritos(conNotarias = false) {
           let thisOption = document.createElement("option");
           thisOption.value = item.clave;
           thisOption.text = item.nombre_corto;
-          thisOption.addEventListener("click", (thisEvent) => {
+          thisOption.addEventListener("change", (thisEvent) => {
             consultarAutoridades(thisEvent.target.value, conNotarias);
           });
           distritosSelect.appendChild(thisOption);
@@ -96,7 +96,7 @@ function consultarAutoridades(distritoClave, conNotarias = false) {
           let thisOption = document.createElement("option");
           thisOption.value = item.clave;
           thisOption.text = item.descripcion_corta;
-          thisOption.addEventListener("click", (thisEvent) => {
+          thisOption.addEventListener("change", (thisEvent) => {
             recargarConAutoridadClave(thisEvent.target.value);
           });
           autoridadesSelect.appendChild(thisOption);
