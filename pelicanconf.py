@@ -6,7 +6,7 @@ Pelican development configuration file
 THEME = "themes/pjecz-2020-10"
 
 # Nombre de esta rama hecha con Pelican que se usa en el title de la pagina
-SITENAME = "Consultas"
+SITENAME = "Consultas - Poder Judicial del Estado de Coahuila de Zaragoza"
 
 # URL base que se usa para enlazar los archivos javascript, en DESARROLLO es localhost
 SITEURL = "http://localhost:8000"
@@ -48,7 +48,7 @@ AUTHOR_FEED_ATOM = None
 AUTHOR_FEED_RSS = None
 
 # Tampoco se van a generar listas de autores, categorias y tags
-DIRECT_TEMPLATES = ['index']
+DIRECT_TEMPLATES = ["index"]
 
 # Plugins, se usa pelican_javascript para incluir archivos JavaScript en las consultas
 PLUGIN_PATHS = ["plugins"]

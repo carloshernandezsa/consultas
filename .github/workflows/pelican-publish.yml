@@ -7,7 +7,7 @@ on:
 
 jobs:
   pelican-publish:
-    if: github.repository == 'PJECZ/pjecz-justicia-digital-pelican'
+    if: github.repository == 'PJECZ/consultas'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
