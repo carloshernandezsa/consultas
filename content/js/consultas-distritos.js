@@ -1,6 +1,7 @@
 // Consultas Distritos
 //
-// Sirve para el Formulario Distrito
+// Sirve para elegir un Distrito con un select
+//
 // Cargar previemante
 // - consultas-api-url.js
 //
@@ -11,7 +12,6 @@ const actualUrl = window.location.href.split("?")[0];
 // Definir elementos del DOM del select distritos
 const distritoSpinner = document.getElementById("distritoSpinner");
 const distritoSelect = document.getElementById("distritoSelect");
-
 
 // Definir elementos del DOM del encabezado donde se muestra el distrito y la autoridad seleccionados
 const encabezadoSpinner = document.getElementById("encabezadoSpinner");
@@ -27,11 +27,17 @@ function recargarSinParametros() {
 // Consultar los distritos para llenar el select
 function consultarDistritos() {
   distritoSpinner.style.display = "block";
-  fetch(apiUrl + "/distritos?es_distrito=true&limit=100", { headers: { "X-Api-Key": apiKey } })
+  fetch(apiUrl + "/distritos?es_distrito=true", { headers: { "X-Api-Key": apiKey } })
     .then((response) => response.json())
     .then((data) => {
       // Si la respuesta es exitosa, agregarlos como opciones al select
       if (data.success === true) {
+        // Agregar la opción de "Todos los Distritos"
+        let allOption = document.createElement("option");
+        allOption.value = "";
+        allOption.text = "Todos los Distritos";
+        distritoSelect.appendChild(allOption);
+        // Agregar el resto de los distritos
         data.result.items.forEach((item) => {
           let thisOption = document.createElement("option");
           thisOption.value = item.clave;

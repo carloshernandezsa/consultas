@@ -8,17 +8,17 @@
 //
 
 // Definir URL sin parámetros
-const actualUrl = window.location.href.split("?")[0];
+const actualUrl = window.location.href.split(/[?#]/)[0];
 
 // Definir elementos del DOM del select distritos
 const distritosSpinner = document.getElementById("distritosSpinner");
 const distritosFormGroup = document.getElementById("distritosFormGroup");
-const distritosSelect = document.getElementById("distritosSelect");
+const distritosOptions = document.getElementById("distritosOptions");
 
 // Definir elementos del DOM del select autoridades
 const autoridadesSpinner = document.getElementById("autoridadesSpinner");
 const autoridadesFormGroup = document.getElementById("autoridadesFormGroup");
-const autoridadesSelect = document.getElementById("autoridadesSelect");
+const autoridadesOptions = document.getElementById("autoridadesOptions");
 
 // Definir elementos del DOM del encabezado donde se muestra el distrito y la autoridad seleccionados
 const encabezadoSpinner = document.getElementById("encabezadoSpinner");
@@ -30,50 +30,54 @@ const rangoFechasDiv = document.getElementById("rangoFechasDiv");
 
 // Recargar la pagina esta página sin parámetros
 function recargarSinParametros() {
-  window.location.href = actualUrl;
+  window.location.href = actualUrl + "#instrucciones";
 }
 
 // Recargar la pagina con la clave de la autoridad
 function recargarConAutoridadClave(autoridadClave) {
-  window.location.href = actualUrl + "?autoridad_clave=" + autoridadClave;
+  window.location.href = actualUrl + "?autoridad_clave=" + autoridadClave + "#instrucciones";
 }
 
 // Recargar la pagina con la clave de la autoridad y una fecha
 function recargarConFecha(autoridadClave, fecha) {
-  window.location.href = actualUrl + "?autoridad_clave=" + autoridadClave + "&fecha=" + fecha;
+  window.location.href = actualUrl + "?autoridad_clave=" + autoridadClave + "&fecha=" + fecha + "#instrucciones";
 }
 
 // Recargar la pagina con la clave de la autoridad y el rango de fechas
 function recargarConRangoFechas(autoridadClave, fechaDesde, fechaHasta) {
-  window.location.href = actualUrl + "?autoridad_clave=" + autoridadClave + "&fecha_desde=" + fechaDesde + "&fecha_hasta=" + fechaHasta;
+  window.location.href = actualUrl + "?autoridad_clave=" + autoridadClave + "&fecha_desde=" + fechaDesde + "&fecha_hasta=" + fechaHasta + "#instrucciones";
 }
 
-// Recargar la pagina con la clave de la autoridad y el rango de fechas
-function recargarConRangoFechasExpediente(autoridadClave, fechaDesde, fechaHasta, expediente) {
-  window.location.href = actualUrl + "?autoridad_clave=" + autoridadClave + "&fecha_desde=" + fechaDesde + "&fecha_hasta=" + fechaHasta + "&expediente=" + expediente;
+// Cambiar el estilo a INACTIVO de todas las opciones de distritos a nav-item
+function cambiarEstiloAInactivoDistritos() {
+  distritosOptions.querySelectorAll("a").forEach((item) => {
+    item.className = "nav-link";
+  });
 }
 
-// Recargar la pagina con la clave de la autoridad y expediente
-function recargarConExpediente(autoridadClave, expediente) {
-  window.location.href = actualUrl + "?autoridad_clave=" + autoridadClave + "&expediente=" + expediente;
-}
-// Consultar los distritos para llenar el select
+// Consultar los distritos para llenar las opciones
 function consultarDistritos(conNotarias = false) {
   distritosSpinner.style.display = "block";
   distritosFormGroup.style.display = "none";
-  fetch(apiUrl + "/distritos?es_jurisdiccional=true&limit=100", { headers: { "X-Api-Key": apiKey } })
+  autoridadesSpinner.style.display = "none";
+  fetch(apiUrl + "/distritos?es_jurisdiccional=true", { headers: { "X-Api-Key": apiKey } })
     .then((response) => response.json())
     .then((data) => {
-      // Si la respuesta es exitosa, agregarlos como opciones al select
+      // Si la respuesta es exitosa, agregarlos
       if (data.success === true) {
         data.result.items.forEach((item) => {
-          let thisOption = document.createElement("option");
-          thisOption.value = item.clave;
-          thisOption.text = item.nombre_corto;
-          thisOption.addEventListener("click", (thisEvent) => {
-            consultarAutoridades(thisEvent.target.value, conNotarias);
+          let thisLink = document.createElement("a");
+          thisLink.textContent = item.nombre_corto;
+          thisLink.addEventListener("click", (thisEvent) => {
+            cambiarEstiloAInactivoDistritos();
+            thisEvent.target.className = "nav-link active";
+            consultarAutoridades(item.clave, conNotarias);
+            thisEvent.preventDefault();
           });
-          distritosSelect.appendChild(thisOption);
+          let thisOption = document.createElement("li");
+          thisOption.className = "nav-item";
+          thisOption.appendChild(thisLink);
+          distritosOptions.appendChild(thisOption);
         });
         distritosSpinner.style.display = "none";
         distritosFormGroup.style.display = "block";
@@ -82,7 +86,7 @@ function consultarDistritos(conNotarias = false) {
     .catch((error) => console.log(error));
 }
 
-// Consultar las autoridades para llenar el select
+// Consultar las autoridades para llenar las opciones
 function consultarAutoridades(distritoClave, conNotarias = false) {
   if (distritoClave == null) {
     console.log("Falta la clave del distrito");
@@ -90,25 +94,28 @@ function consultarAutoridades(distritoClave, conNotarias = false) {
   }
   autoridadesSpinner.style.display = "block";
   autoridadesFormGroup.style.display = "none";
-  autoridadesSelect.innerHTML = ""; // Eliminar todas las opciones
+  autoridadesOptions.innerHTML = ""; // Limpiar las opciones
   if (conNotarias) {
-    fullApiUrl = apiUrl + "/autoridades?distrito_clave=" + distritoClave + "&es_jurisdiccional=true&limit=100"
+    fullApiUrl = apiUrl + "/autoridades?distrito_clave=" + distritoClave + "&es_jurisdiccional=true"
   } else {
-    fullApiUrl = apiUrl + "/autoridades?distrito_clave=" + distritoClave + "&es_jurisdiccional=true&es_notaria=false&limit=100"
+    fullApiUrl = apiUrl + "/autoridades?distrito_clave=" + distritoClave + "&es_jurisdiccional=true&es_notaria=false"
   }
   fetch(fullApiUrl, { headers: { "X-Api-Key": apiKey } })
     .then((response) => response.json())
     .then((data) => {
-      // Si la respuesta es exitosa, agregarlos como opciones al select
+      // Si la respuesta es exitosa, agregarlos
       if (data.success === true) {
         data.result.items.forEach((item) => {
-          let thisOption = document.createElement("option");
-          thisOption.value = item.clave;
-          thisOption.text = item.descripcion_corta;
-          thisOption.addEventListener("click", (thisEvent) => {
-            recargarConAutoridadClave(thisEvent.target.value);
+          let thisLink = document.createElement("a");
+          thisLink.textContent = item.descripcion_corta;
+          thisLink.addEventListener("click", (thisEvent) => {
+            recargarConAutoridadClave(item.clave);
+            thisEvent.preventDefault();
           });
-          autoridadesSelect.appendChild(thisOption);
+          let thisOption = document.createElement("li");
+          thisOption.className = "nav-item";
+          thisOption.appendChild(thisLink);
+          autoridadesOptions.appendChild(thisOption);
         });
         autoridadesSpinner.style.display = "none";
         autoridadesFormGroup.style.display = "block";

@@ -6,9 +6,6 @@
 //
 document.addEventListener("DOMContentLoaded", function() {
 
-  // Definir URL sin parámetros
-  const actualUrl = window.location.href.split("?")[0];
-
   // Definir elementos del DOM
   const abogadosRegistradosFormCard = document.getElementById("abogadosRegistradosFormCard");
   const abogadosRegistradosFormSpinner = document.getElementById("abogadosRegistradosFormSpinner");
@@ -21,7 +18,7 @@ document.addEventListener("DOMContentLoaded", function() {
   const anioDesdeInput = document.getElementById("anioDesdeInput");
   const anioHastaInput = document.getElementById("anioHastaInput");
   const consultarButton = document.getElementById("consultarButton");
-  const cambiarDatosButton = document.getElementById("cambiarDatosButton");
+  const regresarConsultaButton = document.getElementById("regresarConsultaButton");
 
   // Consultar los abogados registrados para llenar la tabla
   function consultarAbogadosRegistrados(nombre, anioDesde, anioHasta) {
@@ -86,26 +83,30 @@ document.addEventListener("DOMContentLoaded", function() {
     abogadosRegistradosTableSpinner.style.display = "none";
   }
 
+  // Definir URL sin parámetros
+  const actualUrl = window.location.href.split(/[?#]/)[0];
+
   // Recargar la pagina esta página sin parámetros
   function recargarSinParametros() {
-    window.location.href = actualUrl;
+    window.location.href = actualUrl + "#instrucciones";
   }
+
   // Recargar la pagina con los parametros del formulario
   function recargarConParametros() {
     const elNombre = nombreInput.value;
     const elAnioDesde = anioDesdeInput.value;
     const elAnioHasta = anioHastaInput.value;
-    window.location.href = actualUrl + "?nombre=" + elNombre + "&anio_desde=" + elAnioDesde + "&anio_hasta=" + elAnioHasta;
+    window.location.href = actualUrl + "?nombre=" + elNombre + "&anio_desde=" + elAnioDesde + "&anio_hasta=" + elAnioHasta + "#instrucciones";
   }
 
   // Limpiar los valores del formulario y regresar a consultar
-  function replyConsulta(){
+  function regresarConsulta() {
     nombreInput.value = "";
     anioDesdeInput.value = "";
     anioHastaInput.value = "";
-
     recargarSinParametros();
   }
+
   //
   // Proceso inicial
   //
@@ -122,18 +123,18 @@ document.addEventListener("DOMContentLoaded", function() {
     abogadosRegistradosFormCard.style.display = "none";
     abogadosRegistradosTableCard.style.display = "block";
     consultarAbogadosRegistrados(nombre, anioDesde, anioHasta);
+    regresarConsultaButton.addEventListener("click", (thisEvent) => {
+      regresarConsulta();
+    });
   } else {
     // Mostrar el card con el formulario para consultar
     abogadosRegistradosFormCard.style.display = "block";
     abogadosRegistradosFormSpinner.style.display = "none";
     abogadosRegistradosForm.style.display = "block";
+    abogadosRegistradosTableCard.style.display = "none";
     consultarButton.addEventListener("click", (thisEvent) => {
       recargarConParametros();
     });
   }
 
-  cambiarDatosButton.addEventListener("click", (thisEvent) => {
-    encabezadoDiv.style.display = "block";
-    replyConsulta();
-  });
 });

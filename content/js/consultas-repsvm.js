@@ -7,8 +7,6 @@
 //
 
 document.addEventListener("DOMContentLoaded", function() {
-  // Definir URL sin parámetros
-  const actualUrl = window.location.href.split("?")[0];
 
   // Definir elementos del DOM
   const repsvmFormCard = document.getElementById("repsvmFormCard");
@@ -20,7 +18,7 @@ document.addEventListener("DOMContentLoaded", function() {
   const repsvmTable = document.getElementById("repsvmTable");
   const nombreInput = document.getElementById("nombreInput");
   const consultarButton = document.getElementById("consultarButton");
-  const regresarButton = document.getElementById("regresarButton");
+  const regresarConsultaButton = document.getElementById("regresarConsultaButton");
 
   // Consultar el repsvm para llenar la tabla
   function consultarRepsvm(nombre, distritoClave) {
@@ -44,7 +42,7 @@ document.addEventListener("DOMContentLoaded", function() {
         type: "GET",
         data: {
           nombre: nombre,
-          distrito_clave:distritoClave,
+          distrito_clave: distritoClave,
         },
         dataType: "json",
       },
@@ -76,24 +74,26 @@ document.addEventListener("DOMContentLoaded", function() {
     });
     repsvmTableSpinner.style.display = "none";
   }
-  
+
+  // Definir URL sin parámetros
+  const actualUrl = window.location.href.split(/[?#]/)[0];
+
   // Recargar la pagina esta página sin parámetros
   function recargarSinParametros() {
-    window.location.href = actualUrl;
+    window.location.href = actualUrl + "#instrucciones";
   }
 
   // Recargar la pagina con los parametros del formulario
   function recargarConParametros() {
     const elNombre = nombreInput.value;
     const elDistrito = distritoSelect.value;
-    window.location.href = actualUrl + "?distrito_clave=" + elDistrito + "&nombre=" + elNombre;
+    window.location.href = actualUrl + "?distrito_clave=" + elDistrito + "&nombre=" + elNombre + "#instrucciones";
   }
 
-  // Limpiar los valores del formulario y regresar a consultar  
+  // Limpiar los valores del formulario y regresar a consultar
   function regresarConsulta(){
     nombreInput.value = "";
-
-    recargarSinParametros();  
+    recargarSinParametros();
   }
 
   //
@@ -111,19 +111,19 @@ document.addEventListener("DOMContentLoaded", function() {
     repsvmFormCard.style.display = "none";
     repsvmTableCard.style.display = "block";
     consultarRepsvm(nombre, distrito_clave);
+    regresarConsultaButton.addEventListener("click", (thisEvent) => {
+      regresarConsulta();
+    });
   } else {
     // Mostrar el card con el formulario para consultar
     repsvmFormCard.style.display = "block";
     repsvmFormSpinner.style.display = "none";
     repsvmForm.style.display = "block";
+    repsvmTableCard.style.display = "none";
     consultarDistritos();
     consultarButton.addEventListener("click", (thisEvent) => {
       recargarConParametros();
     });
   }
-  
-  // Realizar evento click para regresar y limpiar url
-  regresarButton.addEventListener("click", (thisEvent) => {
-    regresarConsulta();
-  });
+
 });
