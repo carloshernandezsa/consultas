@@ -56,6 +56,9 @@ function consultarAutoridades() {
           let thisOption = document.createElement("option");
           thisOption.value = item.clave;
           thisOption.text = item.descripcion_corta;
+          thisOption.addEventListener("touchstart", (thisEvent) => {
+            recargarConAutoridadClave(thisEvent.target.value);
+          });
           thisOption.addEventListener("click", (thisEvent) => {
             recargarConAutoridadClave(thisEvent.target.value);
           });
