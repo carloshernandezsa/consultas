@@ -52,6 +52,7 @@ function recargarConRangoFechas(autoridadClave, fechaDesde, fechaHasta) {
 function consultarDistritos(conNotarias = false) {
   distritosSpinner.style.display = "block";
   distritosFormGroup.style.display = "none";
+  autoridadesSpinner.style.display = "none";
   fetch(apiUrl + "/distritos?es_jurisdiccional=true", { headers: { "X-Api-Key": apiKey } })
     .then((response) => response.json())
     .then((data) => {
@@ -61,7 +62,10 @@ function consultarDistritos(conNotarias = false) {
           let thisOption = document.createElement("option");
           thisOption.value = item.clave;
           thisOption.text = item.nombre_corto;
-          thisOption.addEventListener("change", (thisEvent) => {
+          thisOption.addEventListener("touchstart", (thisEvent) => {
+            consultarAutoridades(thisEvent.target.value, conNotarias);
+          });
+          thisOption.addEventListener("click", (thisEvent) => {
             consultarAutoridades(thisEvent.target.value, conNotarias);
           });
           distritosSelect.appendChild(thisOption);
@@ -96,7 +100,10 @@ function consultarAutoridades(distritoClave, conNotarias = false) {
           let thisOption = document.createElement("option");
           thisOption.value = item.clave;
           thisOption.text = item.descripcion_corta;
-          thisOption.addEventListener("change", (thisEvent) => {
+          thisOption.addEventListener("touchstart", (thisEvent) => {
+            recargarConAutoridadClave(thisEvent.target.value);
+          });
+          thisOption.addEventListener("click", (thisEvent) => {
             recargarConAutoridadClave(thisEvent.target.value);
           });
           autoridadesSelect.appendChild(thisOption);
