@@ -9,6 +9,11 @@
   </head>
   <body>
     <!-- Cabecera -->
+    <!-- Instruciones -->
+    <h2 id="instrucciones">Instrucciones</h2>
+    <p class="mb-5 border-bottom">
+      Elija el Distrito o Grupo. Después el Juzgado o Autoridad. Puede filtrar por fechas. Para regresar de clic en Cambiar.
+    </p>
     <!-- Formulario Distrito-Autoridad -->
     <div id="sentenciasFormCard" class="card">
       <div class="card-body">
@@ -20,9 +25,9 @@
                   <span class="sr-only">Cargando...</span>
                 </div>
               </div>
-              <div id="distritosFormGroup" class="form-group">
-                <label for="distritosSelect">Elija el Distrito/Grupo</label>
-                <select id="distritosSelect" name="distritoId" class="form-control" size="20"></select>
+              <div id="distritosFormGroup">
+                <span class="text-muted">Elija el Distrito/Grupo</span>
+                <ul id="distritosOptions" class="nav flex-column"></ul>
               </div>
             </div>
             <div class="col-sm-6">
@@ -31,9 +36,9 @@
                   <span class="sr-only">Cargando...</span>
                 </div>
               </div>
-              <div id="autoridadesFormGroup" class="form-group">
-                <label for="autoridadesSelect">Elija el Juzgado/Autoridad</label>
-                <select id="autoridadesSelect" name="autoridadClave" class="form-control" size="20"></select>
+              <div id="autoridadesFormGroup">
+                <span class="text-muted">Elija el Juzgado/Autoridad</span>
+                <ul id="autoridadesOptions" class="nav flex-column"></ul>
               </div>
             </div>
           </div>
