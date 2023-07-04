@@ -4,7 +4,7 @@
     <title>Edictos</title>
     <meta name="slug" content="consultas-edictos" />
     <meta name="summary" content="" />
-    <meta name="javascripts" content="consultas-api-url.js,consultas-distritos-autoridades.js,consultas-rangos-fechas.js,consultas-edictos.js" />
+    <meta name="javascripts" content="consultas-api-url.js,consultas-distritos-autoridades.js,consultas-rangos-fechas-expedientes.js,consultas-edictos.js" />
     <meta name="save_as" content="edictos/index.html" />
   </head>
   <body>
@@ -65,21 +65,21 @@
               <button id="cambiarDistritoAutoridadButton" class="btn btn-warning btn-sm"><i class="fa fa-list"></i> Cambiar</button>
             </div>
           </div>
-          <!-- Rango de Fechas -->
+          <!-- Rango de Fechas y expedientes -->
           <div class="col-8">
             <div id="rangoFechasDiv" class="float-right">
               <form class="form-inline" onsubmit="return false;">
                 <div class="form-group">
                   <div id="rangoFechas" class="input-daterange">
                     <input type="text" class="form-control" name="fechaDesde" size="9" id="fechaDesde" placeholder="De" />
-                    <input type="text" class="form-control" name="fechaHasta" size="9" id="fechaHasta" placeholder="a" />
+                    <input type="text" class="form-control mr-1" name="fechaHasta" size="9" id="fechaHasta" placeholder="a" />
                   </div>
                 </div>
                 <div class="form-group">
-                  <input type="text" class="form-control" id="expediente" name="expediente" placeholder="N° Expediente" size="12" />
+                  <input type="text" class="form-control mr-1" id="expediente" name="expediente" placeholder="N° Expediente" size="12" />
                 </div>
-                <button id="rangoFechasFiltrarButton" class="btn btn-primary btn-sm"><i class="fa fa-filter"></i> Filtrar</button>
-                <button id="rangoFechasLimpiarButton" class="btn btn-warning btn-sm"><i class="fa fa-eraser"></i> Limpiar</button>
+                <button id="rangoFechasExpedienteFiltrarButton" class="btn btn-primary btn-sm mr-1"><i class="fa fa-filter"></i> Filtrar</button>
+                <button id="rangoFechasExpedienteLimpiarButton" class="btn btn-warning btn-sm"><i class="fa fa-eraser"></i> Limpiar</button>
               </form>
             </div>
           </div>

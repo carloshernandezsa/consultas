@@ -4,7 +4,7 @@
     <title>Ubicaciones de Expedientes</title>
     <meta name="slug" content="consultas-ubicaciones-expedientes" />
     <meta name="summary" content="" />
-    <meta name="javascripts" content="consultas-api-url.js,consultas-distritos-autoridades.js,consultas-ubicaciones-expedientes.js" />
+    <meta name="javascripts" content="consultas-api-url.js,consultas-distritos-autoridades.js,consultas-expedientes.js,consultas-ubicaciones-expedientes.js" />
     <meta name="save_as" content="ubicaciones-expedientes/index.html" />
   </head>
   <body>
@@ -59,15 +59,31 @@
     <div id="ubicacionesExpedientesTableCard" class="card">
       <div class="card-header">
         <!-- Titulo -->
-        <div id="encabezadoSpinner" class="text-center">
-          <div class="spinner-border" role="status">
-            <span class="sr-only">Cargando...</span>
+        <div class="row">
+          <div class="col-6">
+            <div id="encabezadoSpinner" class="text-center">
+              <div class="spinner-border" role="status">
+                <span class="sr-only">Cargando...</span>
+              </div>
+            </div>
+            <div id="encabezadoDiv" style="display: none">
+              <p id="distritoTitle" class="mb-1"></p>
+              <h5 id="autoridadTitle" class="mb-2"></h5>
+              <button id="cambiarDistritoAutoridadButton" class="btn btn-warning btn-sm"><i class="fa fa-list"></i> Cambiar</button>
+            </div>
           </div>
-        </div>
-        <div id="encabezadoDiv" style="display: none">
-          <p id="distritoTitle" class="mb-1"></p>
-          <h5 id="autoridadTitle" class="mb-2"></h5>
-          <button id="cambiarDistritoAutoridadButton" class="btn btn-warning btn-sm"><i class="fa fa-list"></i> Cambiar</button>
+          <!-- Rango de Fechas y expedientes -->
+          <div class="col-6">
+            <div id="expedienteDiv" class="float-right">
+              <form class="form-inline" onsubmit="return false;">
+                <div class="form-group mr-1">
+                  <input type="text" class="form-control" id="expediente" name="expediente" placeholder="N° Expediente" size="20" />
+                </div>
+                <button id="expedienteFiltrarButton" class="btn btn-primary btn-sm mr-1"><i class="fa fa-filter"></i> Filtrar</button>
+                <button id="expedienteLimpiarButton" class="btn btn-warning btn-sm"><i class="fa fa-eraser"></i> Limpiar</button>
+              </form>
+            </div>
+          </div>
         </div>
       </div>
       <div class="card-body">

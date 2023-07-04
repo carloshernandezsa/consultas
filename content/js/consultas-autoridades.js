@@ -32,17 +32,6 @@ function recargarConAutoridadClave(autoridadClave) {
   window.location.href = actualUrl + "?autoridad_clave=" + autoridadClave + "#instrucciones";
 }
 
-// Recargar la pagina con la clave de la autoridad y una fecha
-function recargarConFecha(autoridadClave, fecha) {
-  window.location.href = actualUrl + "?autoridad_clave=" + autoridadClave + "&fecha=" + fecha + "#instrucciones";
-}
-
-// Recargar la pagina con la clave de la autoridad y el rango de fechas
-function recargarConRangoFechas(autoridadClave, fechaDesde, fechaHasta) {
-  window.location.href = actualUrl + "?autoridad_clave=" + autoridadClave + "&fecha_desde=" + fechaDesde + "&fecha_hasta=" + fechaHasta + "#instrucciones";
-}
-
-
 // Consultar las autoridades para llenar el select
 async function consultarAutoridades() {
   autoridadesSpinner.style.display = "block";

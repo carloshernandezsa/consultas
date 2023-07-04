@@ -12,9 +12,7 @@ const edictosTableCard = document.getElementById("edictosTableCard");
 const edictosTableSpinner = document.getElementById("edictosTableSpinner");
 
 // Consultar los edictos para llenar la tabla
-// function consultarEdictos(autoridadClave, fechaDesde, fechaHasta, expediente) {
-async function consultarEdictos(autoridadClave, fechaDesde, fechaHasta) {
-  edictosTableSpinner.style.display = "block";
+async function consultarEdictos(autoridadClave, fechaDesde, fechaHasta, expediente) {
   let parametros = {
     autoridad_clave: autoridadClave,
     fecha_desde: fechaDesde != null ? fechaDesde : "1900-01-01",
@@ -96,7 +94,7 @@ if (autoridadClave != null) {
   edictosFormCard.style.display = "none";
   edictosTableCard.style.display = "block";
   consultarAutoridad(autoridadClave);
-  inicializarRangoFechas(autoridadClave, fechaDesde, fechaHasta, expediente);
+  inicializarRangoFechasExpedientes(autoridadClave, fechaDesde, fechaHasta);
   consultarEdictos(autoridadClave, fechaDesde, fechaHasta, expediente);
 } else {
   // Mostrar el card con el formulario para elegir el distrito y la autoridad
