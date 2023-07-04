@@ -8,12 +8,12 @@
 //
 
 // Definir URL sin parámetros
-const actualUrl = window.location.href.split("?")[0];
+const actualUrl = window.location.href.split(/[?#]/)[0];
 
 // Definir elementos del DOM del select autoridades
 const autoridadesSpinner = document.getElementById("autoridadesSpinner");
 const autoridadesFormGroup = document.getElementById("autoridadesFormGroup");
-const autoridadesSelect = document.getElementById("autoridadesSelect");
+const autoridadesOptions = document.getElementById("autoridadesOptions");
 
 // Definir elementos del DOM del encabezado donde se muestra la autoridad seleccionada
 const encabezadoSpinner = document.getElementById("encabezadoSpinner");
@@ -24,50 +24,45 @@ const rangoFechasDiv = document.getElementById("rangoFechasDiv");
 
 // Recargar la pagina esta página sin parámetros
 function recargarSinParametros() {
-  window.location.href = actualUrl;
+  window.location.href = actualUrl + "#instrucciones";
 }
 
 // Recargar la pagina con la clave de la autoridad
 function recargarConAutoridadClave(autoridadClave) {
-  window.location.href = actualUrl + "?autoridad_clave=" + autoridadClave;
+  window.location.href = actualUrl + "?autoridad_clave=" + autoridadClave + "#instrucciones";
 }
 
 // Recargar la pagina con la clave de la autoridad y una fecha
 function recargarConFecha(autoridadClave, fecha) {
-  window.location.href = actualUrl + "?autoridad_clave=" + autoridadClave + "&fecha=" + fecha;
+  window.location.href = actualUrl + "?autoridad_clave=" + autoridadClave + "&fecha=" + fecha + "#instrucciones";
 }
 
 // Recargar la pagina con la clave de la autoridad y el rango de fechas
 function recargarConRangoFechas(autoridadClave, fechaDesde, fechaHasta) {
-  window.location.href = actualUrl + "?autoridad_clave=" + autoridadClave + "&fecha_desde=" + fechaDesde + "&fecha_hasta=" + fechaHasta;
+  window.location.href = actualUrl + "?autoridad_clave=" + autoridadClave + "&fecha_desde=" + fechaDesde + "&fecha_hasta=" + fechaHasta + "#instrucciones";
 }
 
-//REcargar la pagina con la clave de la autoridad y expediente
-function recargarConExpediente(autoridadClave, expediente) {
-  window.location.href = actualUrl + "?autoridad_clave=" + autoridadClave + "&expediente" + expediente
-}
 
 // Consultar las autoridades para llenar el select
 function consultarAutoridades() {
   autoridadesSpinner.style.display = "block";
   autoridadesFormGroup.style.display = "none";
-  autoridadesSelect.innerHTML = ""; // Eliminar todas las opciones
   fetch(apiUrl + "/autoridades?es_creador_glosas=true&es_notaria=false", { headers: { "X-Api-Key": apiKey } })
     .then((response) => response.json())
     .then((data) => {
       // Si la respuesta es exitosa, agregarlos como opciones al select
       if (data.success === true) {
         data.result.items.forEach((item) => {
-          let thisOption = document.createElement("option");
-          thisOption.value = item.clave;
-          thisOption.text = item.descripcion_corta;
-          thisOption.addEventListener("touchstart", (thisEvent) => {
-            recargarConAutoridadClave(thisEvent.target.value);
+          let thisLink = document.createElement("a");
+          thisLink.textContent = item.descripcion_corta;
+          thisLink.addEventListener("click", (thisEvent) => {
+            recargarConAutoridadClave(item.clave);
+            thisEvent.preventDefault();
           });
-          thisOption.addEventListener("click", (thisEvent) => {
-            recargarConAutoridadClave(thisEvent.target.value);
-          });
-          autoridadesSelect.appendChild(thisOption);
+          let thisOption = document.createElement("li");
+          thisOption.className = "nav-item";
+          thisOption.appendChild(thisLink);
+          autoridadesOptions.appendChild(thisOption);
         });
         autoridadesSpinner.style.display = "none";
         autoridadesFormGroup.style.display = "block";

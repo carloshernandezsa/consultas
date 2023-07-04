@@ -12,8 +12,16 @@ const edictosTableCard = document.getElementById("edictosTableCard");
 const edictosTableSpinner = document.getElementById("edictosTableSpinner");
 
 // Consultar los edictos para llenar la tabla
-function consultarEdictos(autoridadClave, fechaDesde, fechaHasta, numeroExpediente) {
+function consultarEdictos(autoridadClave, fechaDesde, fechaHasta, expediente) {
   edictosTableSpinner.style.display = "block";
+  let parametros = {
+    autoridad_clave: autoridadClave,
+    fecha_desde: fechaDesde != null ? fechaDesde : "1900-01-01",
+    fecha_hasta: fechaHasta != null ? fechaHasta : "2100-01-01",
+  };
+  if(expediente != null && expediente != ""){
+    parametros = { ...parametros, expediente}
+  }
   $("#edictosTable").DataTable({
     lengthChange: false,
     ordering: false,
@@ -23,12 +31,7 @@ function consultarEdictos(autoridadClave, fechaDesde, fechaHasta, numeroExpedien
     ajax: {
       url: apiUrl + "/edictos/datatable",
       headers: { "X-Api-Key": apiKey },
-      data: {
-        autoridad_clave: autoridadClave,
-        expediente: numeroExpediente != "",
-        fecha_desde: fechaDesde != null ? fechaDesde : "1900-01-01",
-        fecha_hasta: fechaHasta != null ? fechaHasta : "2100-01-01",
-      },
+      data: parametros,
       type: "GET",
       dataType: "json",
     },
@@ -82,6 +85,7 @@ const urlParams = new URLSearchParams(window.location.search);
 const autoridadClave = urlParams.get("autoridad_clave");
 const fechaDesde = urlParams.get("fecha_desde");
 const fechaHasta = urlParams.get("fecha_hasta");
+const expediente = urlParams.get("expediente");
 
 // Si viene la clave de la autoridad
 if (autoridadClave != null) {
@@ -89,8 +93,8 @@ if (autoridadClave != null) {
   edictosFormCard.style.display = "none";
   edictosTableCard.style.display = "block";
   consultarAutoridad(autoridadClave);
-  inicializarRangoFechas(autoridadClave, fechaDesde, fechaHasta);
-  consultarEdictos(autoridadClave, fechaDesde, fechaHasta);
+  inicializarRangoFechas(autoridadClave, fechaDesde, fechaHasta, expediente);
+  consultarEdictos(autoridadClave, fechaDesde, fechaHasta, expediente);
 } else {
   // Mostrar el card con el formulario para elegir el distrito y la autoridad
   edictosFormCard.style.display = "block";

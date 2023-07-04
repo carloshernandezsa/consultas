@@ -28,6 +28,7 @@ function inicializarRangoFechas(autoridadClave, fechaDesde, fechaHasta) {
     $("#fechaHasta").datepicker("setDate", fechaHasta);
   }
 
+
   // Al dar click en el botón de filtrar se recarga la página con los parámetros
   rangoFechasFiltrarButton.addEventListener("click", (thisEvent) => {
     let fechaDesde = $("#fechaDesde").datepicker("getDate");
@@ -40,13 +41,17 @@ function inicializarRangoFechas(autoridadClave, fechaDesde, fechaHasta) {
     if (fechaHasta != null) {
       fechaHasta = fechaHasta.toISOString().split("T")[0];
     }
-    // recargarConRangoFechas(autoridadClave, fechaDesde, fechaHasta);
-    // recargarConExpediente(autoridadClave, expediente);
-    recargarConRangoFechasExpediente(autoridadClave, fechaDesde, fechaHasta, expediente); // Llamar a la función de búsqueda
+    // Guardar el valor del expediente en el almacenamiento local
+    // localStorage.setItem("expediente", expediente);
+    
+    recargarFiltro(autoridadClave, fechaDesde, fechaHasta, expediente); // Llamar a la función de búsqueda
+    
   });
 
   // Al dar click en el botón de limpiar se recarga la página solo con la clave de la autoridad
   rangoFechasLimpiarButton.addEventListener("click", (thisEvent) => {
+    // Eliminar el valor del expediente del almacenamiento local al limpiar
+    // localStorage.removeItem("expediente");
     recargarConAutoridadClave(autoridadClave);
   });
 }

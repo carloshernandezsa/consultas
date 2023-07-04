@@ -48,6 +48,15 @@ function recargarConRangoFechas(autoridadClave, fechaDesde, fechaHasta) {
   window.location.href = actualUrl + "?autoridad_clave=" + autoridadClave + "&fecha_desde=" + fechaDesde + "&fecha_hasta=" + fechaHasta + "#instrucciones";
 }
 
+// Recargar la pagina validando los parámetros a enviar
+function recargarFiltro(autoridadClave, fechaDesde, fechaHasta, expediente) {
+  let url = actualUrl + "?autoridad_clave=" + autoridadClave;
+  if(fechaDesde != null){ url = url + "&fecha_desde=" + fechaDesde; }
+  if(fechaHasta != null){ url = url + "&fecha_hasta=" + fechaHasta; }
+  if(expediente != null || expediente != ""){ url = url + "&expediente=" + expediente; }
+  window.location.href = url + "#instrucciones";
+}
+
 // Cambiar el estilo a INACTIVO de todas las opciones de distritos a nav-item
 function cambiarEstiloAInactivoDistritos() {
   distritosOptions.querySelectorAll("a").forEach((item) => {
