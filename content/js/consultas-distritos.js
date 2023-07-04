@@ -25,8 +25,9 @@ function recargarSinParametros() {
 }
 
 // Consultar los distritos para llenar el select
-function consultarDistritos() {
+async function consultarDistritos() {
   distritoSpinner.style.display = "block";
+  await esperar(1000); // Esperar 1 segundo
   fetch(apiUrl + "/distritos?es_distrito=true", { headers: { "X-Api-Key": apiKey } })
     .then((response) => response.json())
     .then((data) => {

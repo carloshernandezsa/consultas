@@ -44,9 +44,10 @@ function recargarConRangoFechas(autoridadClave, fechaDesde, fechaHasta) {
 
 
 // Consultar las autoridades para llenar el select
-function consultarAutoridades() {
+async function consultarAutoridades() {
   autoridadesSpinner.style.display = "block";
   autoridadesFormGroup.style.display = "none";
+  await esperar(1000); // Esperar 1 segundo
   fetch(apiUrl + "/autoridades?es_creador_glosas=true&es_notaria=false", { headers: { "X-Api-Key": apiKey } })
     .then((response) => response.json())
     .then((data) => {

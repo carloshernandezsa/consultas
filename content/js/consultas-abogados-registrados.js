@@ -21,8 +21,9 @@ document.addEventListener("DOMContentLoaded", function() {
   const regresarConsultaButton = document.getElementById("regresarConsultaButton");
 
   // Consultar los abogados registrados para llenar la tabla
-  function consultarAbogadosRegistrados(nombre, anioDesde, anioHasta) {
+  async function consultarAbogadosRegistrados(nombre, anioDesde, anioHasta) {
     abogadosRegistradosTableSpinner.style.display = "block";
+    await esperar(1000); // Esperar 1 segundo
     if (nombre == null) {
       nombre = "";
     }

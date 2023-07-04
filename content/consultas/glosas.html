@@ -14,7 +14,7 @@
       para la resolución de los asuntos que se substancian ante ellos. Esto se hará treinta días naturales
       después a aquél en que causa ejecutoria la resolución respectiva.
     </p>
-    <p class="mb-5 border-bottom">
+    <p>
       Consulte el
       <strong>
         <a href="https://storage.googleapis.com/pjecz-gob-mx/Acuerdos%20del%20Consejo/2015/2015-08-10%201200%20Acuerdo%20C-191%20Protocolo%20para%20la%20elaboraci%C3%B3n%20de%20la%20Glosa%20de%20Debate%20en%20los%20%C3%93rganos%20Jurisdiccionales/2015-08-10-acuerdoC-191.pdf">
@@ -22,18 +22,23 @@
         </a>
       </strong>
     </p>
+    <!-- Instruciones -->
+    <h2 id="instrucciones">Instrucciones</h2>
+    <p class="mb-5 border-bottom">
+      Elija la Autoridad y espere a que se cargue el listado. Puede filtrar por fechas. Para regresar de clic en Cambiar.
+    </p>
     <!-- Formulario Autoridad -->
     <div id="glosasFormCard" class="card">
       <div class="card-body">
         <form id="glosasForm" onsubmit="return false;">
-          <div id="autoridadesSpinner" class="text-center" style="display: none">
+          <div id="autoridadesSpinner" class="text-center">
             <div class="spinner-border" role="status">
               <span class="sr-only">Cargando...</span>
             </div>
           </div>
-          <div id="autoridadesFormGroup" class="form-group" style="display: none">
-            <label for="autoridadesSelect">Elija el Juzgado/Autoridad</label>
-            <select id="autoridadesSelect" name="autoridadClave" class="form-control" size="20"></select>
+          <div id="autoridadesFormGroup">
+            <span class="text-muted">Elija la Autoridad</span>
+            <ul id="autoridadesOptions" class="nav flex-column"></ul>
           </div>
         </form>
       </div>
@@ -49,7 +54,7 @@
                 <span class="sr-only">Cargando...</span>
               </div>
             </div>
-            <div id="encabezadoDiv" style="display: none">
+            <div id="encabezadoDiv">
               <h5 id="autoridadTitle" class="mb-2"></h5>
               <button id="cambiarDistritoAutoridadButton" class="btn btn-warning btn-sm"><i class="fa fa-list"></i> Cambiar</button>
             </div>
