@@ -17,6 +17,7 @@ function recargarConRangoFechaExpediente(autoridadClave, fechaDesde, fechaHasta,
   if(expediente != null || expediente != ""){ url = url + "&expediente=" + expediente; }
   window.location.href = url + "#instrucciones";
 }
+
 // Inicializar el formulario de rango de fechas
 function inicializarRangoFechasExpedientes(autoridadClave, fechaDesde, fechaHasta) {
   // Formulario con bootstrap-datepicker
@@ -35,7 +36,6 @@ function inicializarRangoFechasExpedientes(autoridadClave, fechaDesde, fechaHast
   if (fechaHasta != null) {
     $("#fechaHasta").datepicker("setDate", fechaHasta);
   }
-
 
   // Al dar click en el botón de filtrar se recarga la página con los parámetros
   rangoFechasExpedienteFiltrarButton.addEventListener("click", (thisEvent) => {
