@@ -18,7 +18,7 @@ const encabezadoDiv = document.getElementById("encabezadoDiv");
 async function consultarTiposDePeritos() {
   tipoDePeritoSpinner.style.display = "block";
   await esperar(1000); // Esperar 1 segundo
-  fetch(apiUrl + "/distritos?es_distrito=true", { headers: { "X-Api-Key": apiKey } })
+  fetch(apiUrl + "/peritos_tipos", { headers: { "X-Api-Key": apiKey } })
     .then((response) => response.json())
     .then((data) => {
       // Si la respuesta es exitosa, agregarlos como opciones al select
@@ -26,16 +26,16 @@ async function consultarTiposDePeritos() {
         // Agregar la opción de "Todos los Distritos"
         let allOption = document.createElement("option");
         allOption.value = "";
-        allOption.text = "Todos los Distritos";
-        distritoSelect.appendChild(allOption);
+        allOption.text = "Todos los Tipos de Peritos";
+        tipoDePeritoSelect.appendChild(allOption);
         // Agregar el resto de los distritos
         data.result.items.forEach((item) => {
           let thisOption = document.createElement("option");
-          thisOption.value = item.clave;
-          thisOption.text = item.nombre_corto;
-          distritoSelect.appendChild(thisOption);
+          thisOption.value = item.id;
+          thisOption.text = item.nombre;
+          tipoDePeritoSelect.appendChild(thisOption);
         });
-        distritoSpinner.style.display = "none";
+        tipoDePeritoSpinner.style.display = "none";
       }
     })
     .catch((error) => console.log(error));

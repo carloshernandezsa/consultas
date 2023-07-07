@@ -4,6 +4,7 @@
 // Cargar previemante
 // - consultas-api-url.js
 // - consultas-distritos.js
+// - consultas-peritos-tipos.js
 //
 
 document.addEventListener("DOMContentLoaded", function() {
@@ -21,16 +22,14 @@ document.addEventListener("DOMContentLoaded", function() {
   const regresarConsultaButton = document.getElementById("regresarConsultaButton");
 
   // Consultar los peritos para llenar la tabla
-  async function consultarPeritos(nombre, distritoClave) {
+  async function consultarPeritos(nombre, distritoClave, tipoDePeritoId) {
     peritosTableSpinner.style.display = "block";
     await esperar(1000); // Esperar 1 segundo
-    if (nombre == null) {
-      nombre = "";
-    }
-    if (distritoClave == null) {
-      distritoClave = "";
-    }
-    peritosTableTitle.innerHTML = "Con nombre " + nombre + " con clave del distrtito " + distritoClave;;
+    params = {}
+    if (nombre != null && nombre != "") { params["nombre"] = nombre; }
+    if (distritoClave != null && distritoClave != "") { params["distrito_clave"] = distritoClave; }
+    if (tipoDePeritoId != null && tipoDePeritoId != "") { params["perito_tipo_id"] = tipoDePeritoId; }
+    //peritosTableTitle.innerHTML = "Con nombre " + nombre + " con clave del distrtito " + distritoClave;
     $("#peritosTable").DataTable({
       lengthChange: false,
       ordering: false,
@@ -41,10 +40,7 @@ document.addEventListener("DOMContentLoaded", function() {
         url: apiUrl + "/peritos/datatable",
         headers: { "X-Api-Key": apiKey },
         type: "GET",
-        data: {
-          nombre: nombre,
-          distrito_clave: distritoClave,
-        },
+        data: params,
         dataType: "json",
       },
       columns: [
@@ -85,7 +81,12 @@ document.addEventListener("DOMContentLoaded", function() {
   function recargarConParametros() {
     const elNombre = nombreInput.value;
     const elDistrito = distritoSelect.value;
-    window.location.href = actualUrl + "?distrito_clave=" + elDistrito + "&nombre=" + elNombre + "#instrucciones";
+    const elTipoDePerito = tipoDePeritoSelect.value;
+    url = actualUrl
+    if (elNombre != null && elNombre != "") { url = url + "?nombre=" + elNombre; }
+    if (elDistrito != null && elDistrito != "") { url = url + "?distrito_clave=" + elDistrito; }
+    if (elTipoDePerito != null && elTipoDePerito != "") { url = url + "?perito_tipo_id=" + elTipoDePerito; }
+    window.location.href = url + "#instrucciones";
   }
 
   // Limpiar los valores del formulario y regresar a consultar
@@ -102,13 +103,14 @@ document.addEventListener("DOMContentLoaded", function() {
   const urlParams = new URLSearchParams(window.location.search);
   var nombre = urlParams.get("nombre");
   var distrito_clave = urlParams.get("distrito_clave");
+  var tipo_de_perito = urlParams.get("tipo_de_perito");
 
-  // Si se recibio el nombre
-  if (nombre != null) {
+  // Si se recibio el distrito o el tipo de perito o el nombre
+  if (nombre != null || distrito_clave != null || tipo_de_perito != null) {
     // Mostrar el card con la tabla DataTable
     peritosFormCard.style.display = "none";
     peritosTableCard.style.display = "block";
-    consultarPeritos(nombre, distrito_clave);
+    consultarPeritos(nombre, distrito_clave, tipo_de_perito);
     regresarConsultaButton.addEventListener("click", (thisEvent) => {
       regresarConsulta();
     });
