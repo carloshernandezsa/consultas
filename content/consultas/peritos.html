@@ -28,7 +28,7 @@
           </div>
         </div>
         <form id="peritosForm" onsubmit="return false;">
-          <!-- Distrito -->
+          <!-- Elija el distrito -->
           <div class="row">
             <div class="col-sm-12">
               <div id="distritoSpinner" class="text-center">
@@ -37,11 +37,26 @@
                 </div>
               </div>
               <div class="form-group">
-                <label for="distritoSelect">Elija el Distrito</label>
+                <label for="distritoSelect">Elija el Distrito Judicial</label>
                 <select id="distritoSelect" name="distritoClave" class="form-control"></select>
               </div>
             </div>
           </div>
+          <!-- Elija el tipo de perito -->
+          <div class="row">
+            <div class="col-sm-12">
+              <div id="tipoDePeritoSpinner" class="text-center">
+                <div class="spinner-border" role="status">
+                  <span class="sr-only">Cargando...</span>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="tipoDePeritoSelect">Elija el tipo de perito</label>
+                <select id="tipoDePeritoSelect" name="tipoDePeritoId" class="form-control"></select>
+              </div>
+            </div>
+          </div>
+          <!-- Escriba el nombre -->
           <div class="form-group">
             <label for="nombreInput">Nombre</label>
             <input id="nombreInput" type="text" class="form-control" placeholder="Por lo menos cuatro caracteres" />
