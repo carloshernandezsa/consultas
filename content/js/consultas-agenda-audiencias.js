@@ -14,10 +14,6 @@ const audienciasTableSpinner = document.getElementById("audienciasTableSpinner")
 
 // Consultar las audiencias para llenar la tabla
 async function consultarAudiencias(autoridadClave, fecha) {
-  let parametros = {
-    autoridad_clave: autoridadClave,
-    fecha: fecha != null ? fecha : "1900-01-01",
-  }
   audienciasTableSpinner.style.display = "block";
   await esperar(1000); // Esperar 1 segundo
   $("#audienciasTable").DataTable({
@@ -29,7 +25,10 @@ async function consultarAudiencias(autoridadClave, fecha) {
     ajax: {
       url: apiUrl + "/audiencias/datatable",
       headers: { "X-Api-Key": apiKey },
-      data: parametros,
+      data:{
+        autoridad_clave: autoridadClave,
+        fecha: fecha,
+      },
       type: "GET",
       dataType: "json",
     },

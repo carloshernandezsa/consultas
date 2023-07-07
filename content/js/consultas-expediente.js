@@ -15,9 +15,9 @@ function recargarConExpediente(autoridadClave, expediente) {
   if(expediente != null || expediente != ""){ url = url + "&expediente=" + expediente; }
   window.location.href = url + "#instrucciones";
 }
+
 // Inicializar el formulario de filtrar expediente
 function inicializarExpedientes(autoridadClave) {
- 
   // Al dar click en el botón de filtrar se recarga la página con los parámetros
   expedienteFiltrarButton.addEventListener("click", (thisEvent) => {
     let expediente = document.getElementById("expediente").value.trim(); // Obtener el valor del expediente
