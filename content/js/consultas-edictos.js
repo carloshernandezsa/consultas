@@ -14,13 +14,20 @@ const edictosTableSpinner = document.getElementById("edictosTableSpinner");
 // Consultar los edictos para llenar la tabla
 async function consultarEdictos(autoridadClave, fechaDesde, fechaHasta, expediente) {
   let parametros = {
-    autoridad_clave: autoridadClave,
-    fecha_desde: fechaDesde != null ? fechaDesde : "1900-01-01",
-    fecha_hasta: fechaHasta != null ? fechaHasta : "2100-01-01",
+    autoridad_clave: autoridadClave
   };
+
+  if(fechaDesde != null || fechaDesde != undefined){
+    parametros = { ...parametros, fecha_desde:fechaDesde }
+  }
+  if(fechaHasta != null || fechaHasta != undefined){
+    parametros = { ...parametros, fecha_hasta:fechaHasta }
+  }
+
   if(expediente != null && expediente != ""){
     parametros = { ...parametros, expediente}
   }
+  console.log(parametros)
   edictosTableSpinner.style.display = "block";
   await esperar(1000); // Esperar 1 segundo
   $("#edictosTable").DataTable({
