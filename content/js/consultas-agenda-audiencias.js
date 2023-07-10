@@ -25,7 +25,7 @@ async function consultarAudiencias(autoridadClave, fecha) {
     ajax: {
       url: apiUrl + "/audiencias/datatable",
       headers: { "X-Api-Key": apiKey },
-      data: {
+      data:{
         autoridad_clave: autoridadClave,
         fecha: fecha,
       },
