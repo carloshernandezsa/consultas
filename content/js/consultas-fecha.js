@@ -8,6 +8,13 @@
 // Definir elementos del DOM
 const fechaFiltrarButton = document.getElementById("fechaFiltrarButton");
 
+// Recargar la pagina validando los parámetros a enviar
+function recargarConFecha(autoridadClave, fecha) {
+  let url = actualUrl + "?autoridad_clave=" + autoridadClave;
+  if(fecha != null){ url = url + "&fecha=" + fecha; }
+  window.location.href = url + "#instrucciones";
+}
+
 // Inicializar el formulario para elegir una fecha
 function inicializarFecha(autoridadClave, fecha) {
   // Formulario con bootstrap-datepicker

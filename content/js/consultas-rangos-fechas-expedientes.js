@@ -6,19 +6,20 @@
 //
 
 // Definir elementos del DOM
-const rangoFechasFiltrarButton = document.getElementById("rangoFechasFiltrarButton");
-const rangoFechasLimpiarButton = document.getElementById("rangoFechasLimpiarButton");
+const rangoFechasExpedienteFiltrarButton = document.getElementById("rangoFechasExpedienteFiltrarButton");
+const rangoFechasExpedienteLimpiarButton = document.getElementById("rangoFechasExpedienteLimpiarButton");
 
 // Recargar la pagina validando los parámetros a enviar
-function recargarConRangoFechas(autoridadClave, fechaDesde, fechaHasta) {
+function recargarConRangoFechaExpediente(autoridadClave, fechaDesde, fechaHasta, expediente) {
   let url = actualUrl + "?autoridad_clave=" + autoridadClave;
   if(fechaDesde != null){ url = url + "&fecha_desde=" + fechaDesde; }
   if(fechaHasta != null){ url = url + "&fecha_hasta=" + fechaHasta; }
+  if(expediente != null || expediente != ""){ url = url + "&expediente=" + expediente; }
   window.location.href = url + "#instrucciones";
 }
 
 // Inicializar el formulario de rango de fechas
-function inicializarRangoFechas(autoridadClave, fechaDesde, fechaHasta) {
+function inicializarRangoFechasExpedientes(autoridadClave, fechaDesde, fechaHasta) {
   // Formulario con bootstrap-datepicker
   $("#rangoFechas").datepicker({
     format: "yyyy-mm-dd",
@@ -37,9 +38,10 @@ function inicializarRangoFechas(autoridadClave, fechaDesde, fechaHasta) {
   }
 
   // Al dar click en el botón de filtrar se recarga la página con los parámetros
-  rangoFechasFiltrarButton.addEventListener("click", (thisEvent) => {
+  rangoFechasExpedienteFiltrarButton.addEventListener("click", (thisEvent) => {
     let fechaDesde = $("#fechaDesde").datepicker("getDate");
     let fechaHasta = $("#fechaHasta").datepicker("getDate");
+    let expediente = document.getElementById("expediente").value.trim(); // Obtener el valor del expediente
 
     if (fechaDesde != null) {
       fechaDesde = fechaDesde.toISOString().split("T")[0];
@@ -47,12 +49,12 @@ function inicializarRangoFechas(autoridadClave, fechaDesde, fechaHasta) {
     if (fechaHasta != null) {
       fechaHasta = fechaHasta.toISOString().split("T")[0];
     }
-
-    recargarConRangoFechas(autoridadClave, fechaDesde, fechaHasta); // Llamar a la función de búsqueda
+    
+    recargarConRangoFechaExpediente(autoridadClave, fechaDesde, fechaHasta, expediente); // Llamar a la función de búsqueda
   });
 
   // Al dar click en el botón de limpiar se recarga la página solo con la clave de la autoridad
-  rangoFechasLimpiarButton.addEventListener("click", (thisEvent) => {
+  rangoFechasExpedienteLimpiarButton.addEventListener("click", (thisEvent) => {
     recargarConAutoridadClave(autoridadClave);
   });
 }

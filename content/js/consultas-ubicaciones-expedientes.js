@@ -12,9 +12,15 @@ const ubicacionesExpedientesTableCard = document.getElementById("ubicacionesExpe
 const ubicacionesExpedientesTableSpinner = document.getElementById("ubicacionesExpedientesTableSpinner");
 
 // Consultar las ubicaciones de expedientes para llenar la tabla
-async function consultarUbicacionesExpedientes(autoridadClave) {
+async function consultarUbicacionesExpedientes(autoridadClave, expediente) {
   ubicacionesExpedientesTableSpinner.style.display = "block";
   await esperar(1000); // Esperar 1 segundo
+  let parametros = {
+    autoridad_clave: autoridadClave,
+  };
+  if(expediente != null && expediente != ""){
+    parametros = { ...parametros, expediente}
+  }
   $("#ubicacionesExpedientesTable").DataTable({
     lengthChange: false,
     ordering: false,
@@ -24,7 +30,7 @@ async function consultarUbicacionesExpedientes(autoridadClave) {
     ajax: {
       url: apiUrl + "/ubicaciones_expedientes/datatable",
       headers: { "X-Api-Key": apiKey },
-      data: { autoridad_clave: autoridadClave },
+      data: parametros,
       type: "GET",
       dataType: "json",
     },
@@ -59,6 +65,7 @@ async function consultarUbicacionesExpedientes(autoridadClave) {
 // Obtener los parametros de la URL
 const urlParams = new URLSearchParams(window.location.search);
 const autoridadClave = urlParams.get("autoridad_clave");
+const expediente = urlParams.get("expediente");
 
 // Si viene la clave de la autoridad
 if (autoridadClave != null) {
@@ -66,7 +73,8 @@ if (autoridadClave != null) {
   ubicacionesExpedientesFormCard.style.display = "none";
   ubicacionesExpedientesTableCard.style.display = "block";
   consultarAutoridad(autoridadClave);
-  consultarUbicacionesExpedientes(autoridadClave);
+  inicializarExpedientes(autoridadClave);
+  consultarUbicacionesExpedientes(autoridadClave, expediente);
 } else {
   // Mostrar el card con el formulario para elegir el distrito y la autoridad
   ubicacionesExpedientesFormCard.style.display = "block";
