@@ -10,10 +10,6 @@
 const tipoDePeritoSpinner = document.getElementById("tipoDePeritoSpinner");
 const tipoDePeritoSelect = document.getElementById("tipoDePeritoSelect");
 
-// Definir elementos del DOM del encabezado
-const encabezadoSpinner = document.getElementById("encabezadoSpinner");
-const encabezadoDiv = document.getElementById("encabezadoDiv");
-
 // Consultar los tipos de peritos para llenar el select
 async function consultarTiposDePeritos() {
   tipoDePeritoSpinner.style.display = "block";
@@ -39,4 +35,15 @@ async function consultarTiposDePeritos() {
       }
     })
     .catch((error) => console.log(error));
+}
+
+// Consultar un tipo de perito por su id
+async function consultarTipoDePerito(id) {
+  const response = await fetch(apiUrl + "/peritos_tipos/" + id, { headers: { "X-Api-Key": apiKey } });
+  const data = await response.json();
+  if (data.success === true) {
+    return data.nombre;
+  } else {
+    return "ERROR: No se encontró el tipo de perito";
+  }
 }

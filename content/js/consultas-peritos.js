@@ -22,14 +22,26 @@ document.addEventListener("DOMContentLoaded", function() {
   const regresarConsultaButton = document.getElementById("regresarConsultaButton");
 
   // Consultar los peritos para llenar la tabla
-  async function consultarPeritos(nombre, distritoClave, tipoDePeritoId) {
+  async function consultarPeritos(nombre, distritoClave, peritoTipoId) {
     peritosTableSpinner.style.display = "block";
     await esperar(1000); // Esperar 1 segundo
     params = {}
-    if (nombre != null && nombre != "") { params["nombre"] = nombre; }
-    if (distritoClave != null && distritoClave != "") { params["distrito_clave"] = distritoClave; }
-    if (tipoDePeritoId != null && tipoDePeritoId != "") { params["perito_tipo_id"] = tipoDePeritoId; }
-    //peritosTableTitle.innerHTML = "Con nombre " + nombre + " con clave del distrtito " + distritoClave;
+    titulo = "Peritos";
+    if (nombre != null && nombre != "") {
+      params["nombre"] = nombre;
+      titulo += " con nombre '" + nombre + "'";
+    }
+    if (distritoClave != null && distritoClave != "") {
+      params["distrito_clave"] = distritoClave;
+      titulo += " con clave del distrito " + distritoClave;
+    }
+    if (peritoTipoId != null && peritoTipoId != "") {
+      params["perito_tipo_id"] = peritoTipoId;
+      const peritoTipoNombre = await consultarTipoDePerito(peritoTipoId);
+      console.log(peritoTipoNombre);
+      titulo += " con tipo de perito " + peritoTipoNombre;
+    }
+    peritosTableTitle.innerHTML = titulo;
     $("#peritosTable").DataTable({
       lengthChange: false,
       ordering: false,
@@ -44,12 +56,13 @@ document.addEventListener("DOMContentLoaded", function() {
         dataType: "json",
       },
       columns: [
-        { data: "perito_tipo_nombre", width: "20%" },
-        { data: "nombre", width: "20%" },
-        { data: "domicilio", width: "20%" },
-        { data: "telefono_fijo", width: "10%" },
-        { data: "telefono_celular", width: "10%" },
-        { data: "email", width: "20%" },
+        { data: "distrito_nombre_corto", width: "auto" },
+        { data: "perito_tipo_nombre", width: "auto" },
+        { data: "nombre", width: "auto" },
+        { data: "domicilio", width: "auto" },
+        { data: "telefono_fijo", width: "auto" },
+        { data: "telefono_celular", width: "auto" },
+        { data: "email", width: "auto" },
       ],
       language: {
         lengthMenu: "Mostrar _MENU_",
@@ -82,11 +95,14 @@ document.addEventListener("DOMContentLoaded", function() {
     const elNombre = nombreInput.value;
     const elDistrito = distritoSelect.value;
     const elTipoDePerito = tipoDePeritoSelect.value;
-    url = actualUrl
-    if (elNombre != null && elNombre != "") { url = url + "?nombre=" + elNombre; }
-    if (elDistrito != null && elDistrito != "") { url = url + "?distrito_clave=" + elDistrito; }
-    if (elTipoDePerito != null && elTipoDePerito != "") { url = url + "?perito_tipo_id=" + elTipoDePerito; }
-    window.location.href = url + "#instrucciones";
+    if (elNombre == null) { elNombre = ""; }
+    if (elDistrito == null) { elDistrito = ""; }
+    if (elTipoDePerito == null) { elTipoDePerito = ""; }
+    window.location.href = actualUrl +
+      "?nombre=" + elNombre +
+      "&distrito_clave=" + elDistrito +
+      "&perito_tipo_id=" + elTipoDePerito +
+      "#instrucciones";
   }
 
   // Limpiar los valores del formulario y regresar a consultar
@@ -103,14 +119,14 @@ document.addEventListener("DOMContentLoaded", function() {
   const urlParams = new URLSearchParams(window.location.search);
   var nombre = urlParams.get("nombre");
   var distrito_clave = urlParams.get("distrito_clave");
-  var tipo_de_perito = urlParams.get("tipo_de_perito");
+  var perito_tipo_id = urlParams.get("perito_tipo_id");
 
   // Si se recibio el distrito o el tipo de perito o el nombre
-  if (nombre != null || distrito_clave != null || tipo_de_perito != null) {
+  if (nombre != null || distrito_clave != null || perito_tipo_id != null) {
     // Mostrar el card con la tabla DataTable
     peritosFormCard.style.display = "none";
     peritosTableCard.style.display = "block";
-    consultarPeritos(nombre, distrito_clave, tipo_de_perito);
+    consultarPeritos(nombre, distrito_clave, perito_tipo_id);
     regresarConsultaButton.addEventListener("click", (thisEvent) => {
       regresarConsulta();
     });
@@ -121,6 +137,7 @@ document.addEventListener("DOMContentLoaded", function() {
     peritosForm.style.display = "block";
     peritosTableCard.style.display = "none";
     consultarDistritos();
+    consultarTiposDePeritos();
     consultarButton.addEventListener("click", (thisEvent) => {
       recargarConParametros();
     });
