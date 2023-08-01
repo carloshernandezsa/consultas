@@ -36,7 +36,7 @@ async function consultarGlosas(autoridadClave, fechaDesde, fechaHasta) {
       { data: "fecha", width: "20%" },
       { data: "expediente", width: "20%" },
       { data: "tipo_juicio", width: "40%" },
-      { data: "url", width: "20%" },
+      { data: "id", width: "20%" },
     ],
     columnDefs: [
       {
@@ -50,7 +50,7 @@ async function consultarGlosas(autoridadClave, fechaDesde, fechaHasta) {
         targets: 3,
         data: null,
         render: function (data, type, row) {
-          return '<a href="' + data + '" target="_blank"><i class="fa fa-file"></i> PDF</a>';
+          return '<a href="javascript:void(0)" onClick="lanzarModal(\'' + data + '\' , \'glosas\')"><i class="fa fa-file"></i> PDF</a>';
         },
       },
     ],

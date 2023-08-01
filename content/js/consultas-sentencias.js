@@ -45,7 +45,7 @@ async function consultarSentencias(autoridadClave, fechaDesde, fechaHasta) {
       { data: "expediente", width: "15%" },
       { data: "materia_tipo_juicio_descripcion", width: "35%" },
       { data: "es_perspectiva_genero", width: "10%" },
-      { data: "url", width: "10%" },
+      { data: "id", width: "10%" },
     ],
     columnDefs: [
       {
@@ -70,7 +70,7 @@ async function consultarSentencias(autoridadClave, fechaDesde, fechaHasta) {
         targets: 5,
         data: null,
         render: function (data, type, row) {
-          return '<a href="' + data + '" target="_blank"><i class="fa fa-file"></i> PDF</a>';
+          return '<a href="javascript:void(0)" onClick="lanzarModal(\'' + data + '\' , \'sentencias\')"><i class="fa fa-file"></i> PDF</a>';
         },
       },
     ],

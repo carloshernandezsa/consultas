@@ -234,6 +234,15 @@ footer .footer-light a:hover   { color:#212530; }
 .badge-votos-disidentes                        { background-color: #ddd1c1; color: black; }
 .badge-votos-particulares                      { background-color: #ddd1c1; color: black; }
 
+
+/*--------
+* Modal de descarga
+/*---------
+*/ 
+.boton-descarga         { background-color: #004360; color: #fff;}
+.boton-descarga:hover   { background-color:#004560  ; color: #fff;}
+.text-label             { color: #333 ; font-size: .8em; padding-top: 10px; padding-bottom: 0px;}
+
 /* ----------
  * Responsivo
  * ----------
