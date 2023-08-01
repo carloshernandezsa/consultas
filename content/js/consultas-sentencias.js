@@ -13,17 +13,6 @@ const sentenciasTableSpinner = document.getElementById("sentenciasTableSpinner")
 
 // Consultar las sentencias para llenar la tabla
 async function consultarSentencias(autoridadClave, fechaDesde, fechaHasta) {
-  let parametros = {
-    autoridad_clave: autoridadClave
-  };
-
-  if(fechaDesde != null || fechaDesde != undefined){
-    parametros = { ...parametros, fecha_desde:fechaDesde }
-  }
-  if(fechaHasta != null || fechaHasta != undefined){
-    parametros = { ...parametros, fecha_hasta:fechaHasta }
-  }
-
   sentenciasTableSpinner.style.display = "block";
   await esperar(1000); // Esperar 1 segundo
   $("#sentenciasTable").DataTable({
@@ -35,7 +24,11 @@ async function consultarSentencias(autoridadClave, fechaDesde, fechaHasta) {
     ajax: {
       url: apiUrl + "/sentencias/datatable",
       headers: { "X-Api-Key": apiKey },
-      data: parametros,
+      data: {
+        autoridad_clave: autoridadClave,
+        fecha_desde: fechaDesde != null ? fechaDesde : "1900-01-01",
+        fecha_hasta: fechaHasta != null ? fechaHasta : "2100-01-01",
+      },
       type: "GET",
       dataType: "json",
     },
@@ -45,7 +38,7 @@ async function consultarSentencias(autoridadClave, fechaDesde, fechaHasta) {
       { data: "expediente", width: "15%" },
       { data: "materia_tipo_juicio_descripcion", width: "35%" },
       { data: "es_perspectiva_genero", width: "10%" },
-      { data: "url", width: "10%" },
+      { data: "id", width: "10%" },
     ],
     columnDefs: [
       {
@@ -70,7 +63,7 @@ async function consultarSentencias(autoridadClave, fechaDesde, fechaHasta) {
         targets: 5,
         data: null,
         render: function (data, type, row) {
-          return '<a href="' + data + '" target="_blank"><i class="fa fa-file"></i> PDF</a>';
+          return '<a href="javascript:void(0)" onClick="lanzarModal(\'' + data + '\' , \'sentencias\')"><i class="fa fa-file"></i> PDF</a>';
         },
       },
     ],

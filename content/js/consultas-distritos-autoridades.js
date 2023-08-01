@@ -27,7 +27,6 @@ const distritoTitle = document.getElementById("distritoTitle");
 const autoridadTitle = document.getElementById("autoridadTitle");
 const cambiarDistritoAutoridadButton = document.getElementById("cambiarDistritoAutoridadButton");
 const rangoFechasDiv = document.getElementById("rangoFechasDiv");
-const expedienteDiv = document.getElementById("expedienteDiv");
 
 // Recargar la pagina esta página sin parámetros
 function recargarSinParametros() {
@@ -39,10 +38,21 @@ function recargarConAutoridadClave(autoridadClave) {
   window.location.href = actualUrl + "?autoridad_clave=" + autoridadClave + "#instrucciones";
 }
 
+// Recargar la pagina con la clave de la autoridad y una fecha
+function recargarConFecha(autoridadClave, fecha) {
+  window.location.href = actualUrl + "?autoridad_clave=" + autoridadClave + "&fecha=" + fecha + "#instrucciones";
+}
+
+// Recargar la pagina con la clave de la autoridad y el rango de fechas
+function recargarConRangoFechas(autoridadClave, fechaDesde, fechaHasta) {
+  window.location.href = actualUrl + "?autoridad_clave=" + autoridadClave + "&fecha_desde=" + fechaDesde + "&fecha_hasta=" + fechaHasta + "#instrucciones";
+}
+
 // Cambiar el estilo a INACTIVO de todas las opciones de distritos a nav-item
 function cambiarEstiloAInactivoDistritos() {
   distritosOptions.querySelectorAll("a").forEach((item) => {
-    item.className = "nav-link";
+    //item.className = "nav-link";
+    item.classList.remove('nav-link');
   });
 }
 

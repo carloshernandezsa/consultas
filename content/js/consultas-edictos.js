@@ -12,22 +12,7 @@ const edictosTableCard = document.getElementById("edictosTableCard");
 const edictosTableSpinner = document.getElementById("edictosTableSpinner");
 
 // Consultar los edictos para llenar la tabla
-async function consultarEdictos(autoridadClave, fechaDesde, fechaHasta, expediente) {
-  let parametros = {
-    autoridad_clave: autoridadClave
-  };
-
-  if(fechaDesde != null || fechaDesde != undefined){
-    parametros = { ...parametros, fecha_desde:fechaDesde }
-  }
-  if(fechaHasta != null || fechaHasta != undefined){
-    parametros = { ...parametros, fecha_hasta:fechaHasta }
-  }
-
-  if(expediente != null && expediente != ""){
-    parametros = { ...parametros, expediente}
-  }
-  console.log(parametros)
+async function consultarEdictos(autoridadClave, fechaDesde, fechaHasta) {
   edictosTableSpinner.style.display = "block";
   await esperar(1000); // Esperar 1 segundo
   $("#edictosTable").DataTable({
@@ -39,7 +24,11 @@ async function consultarEdictos(autoridadClave, fechaDesde, fechaHasta, expedien
     ajax: {
       url: apiUrl + "/edictos/datatable",
       headers: { "X-Api-Key": apiKey },
-      data: parametros,
+      data: {
+        autoridad_clave: autoridadClave,
+        fecha_desde: fechaDesde != null ? fechaDesde : "1900-01-01",
+        fecha_hasta: fechaHasta != null ? fechaHasta : "2100-01-01",
+      },
       type: "GET",
       dataType: "json",
     },
@@ -48,7 +37,7 @@ async function consultarEdictos(autoridadClave, fechaDesde, fechaHasta, expedien
       { data: "descripcion", width: "60%" },
       { data: "expediente", width: "10%" },
       { data: "numero_publicacion", width: "10%" },
-      { data: "url", width: "10%" },
+      { data: "id", width: "10%" },
     ],
     columnDefs: [
       {
@@ -62,7 +51,7 @@ async function consultarEdictos(autoridadClave, fechaDesde, fechaHasta, expedien
         targets: 4,
         data: null,
         render: function (data, type, row) {
-          return '<a href="' + data + '" target="_blank"><i class="fa fa-file"></i> PDF</a>';
+          return '<a href="javascript:void(0)" onClick="lanzarModal(\'' + data + '\' , \'edictos\')"><i class="fa fa-file"></i> PDF</a>';
         },
       },
     ],
@@ -93,7 +82,6 @@ const urlParams = new URLSearchParams(window.location.search);
 const autoridadClave = urlParams.get("autoridad_clave");
 const fechaDesde = urlParams.get("fecha_desde");
 const fechaHasta = urlParams.get("fecha_hasta");
-const expediente = urlParams.get("expediente");
 
 // Si viene la clave de la autoridad
 if (autoridadClave != null) {
@@ -101,8 +89,8 @@ if (autoridadClave != null) {
   edictosFormCard.style.display = "none";
   edictosTableCard.style.display = "block";
   consultarAutoridad(autoridadClave);
-  inicializarRangoFechasExpedientes(autoridadClave, fechaDesde, fechaHasta);
-  consultarEdictos(autoridadClave, fechaDesde, fechaHasta, expediente);
+  inicializarRangoFechas(autoridadClave, fechaDesde, fechaHasta);
+  consultarEdictos(autoridadClave, fechaDesde, fechaHasta);
 } else {
   // Mostrar el card con el formulario para elegir el distrito y la autoridad
   edictosFormCard.style.display = "block";

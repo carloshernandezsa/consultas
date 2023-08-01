@@ -9,7 +9,7 @@ THEME = "themes/pjecz-2020-10"
 SITENAME = "Consultas - Poder Judicial del Estado de Coahuila de Zaragoza"
 
 # URL base que se usa para enlazar los archivos javascript, en DESARROLLO es localhost
-SITEURL = "http://localhost:8000"
+SITEURL = "http://localhost:5000"
 
 # URL base que se usa el menu principal y en los enlaces del pie de pagina
 PRINCIPAL_URL = "https://www.pjecz.gob.mx"
@@ -53,3 +53,9 @@ DIRECT_TEMPLATES = ["index"]
 # Plugins, se usa pelican_javascript para incluir archivos JavaScript en las consultas
 PLUGIN_PATHS = ["plugins"]
 PLUGINS = ["pelican_javascript"]
+
+# Llaves para reCAPTCHA v3
+RECAPTCHA_SITE_KEY = "6LcT4_8mAAAAADIDs1QSFkdTjVMNv3a_F_AEDaCR"
+
+# puerto para accesar a las API 
+PORT = 5000

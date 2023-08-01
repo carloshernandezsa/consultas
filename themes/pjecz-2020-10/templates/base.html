@@ -28,6 +28,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;0,900;1,300;1,700;1,900&family=Saira+Condensed:wght@400;700&family=Saira:wght@400;700&display=swap" rel="stylesheet">
   <!-- Font Awesome -->
   <script src="https://use.fontawesome.com/af111b85f5.js"></script>
+  <!-- inicializar Google reCaptcha Enterprise -->
+  <script src="https://www.google.com/recaptcha/enterprise.js?render=6LdkahonAAAAAE0kJPG1f8ZUwueLrRfVx0y5mZkK"></script>
+
   <!-- Stylesheets del tema -->
   <link rel="stylesheet" href="{{ SITEURL }}/theme/css/pjecz-2020-10.css">
   <!-- Stylesheets individuales -->
@@ -50,6 +53,45 @@
   <main>
     {% block content %}{% endblock %}
   </main>
+  
+    <!-- Modal para solicitud de archivos -->
+    <div class="modal fade" id="solicitudDeArchivosModal" tabindex="-1" aria-labelledby="solicitudDeArchivosModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="solicitudDeArchivosModalLabel">Solicitud de archivo</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <label class="text-label">Distrito</label>
+            <h5 name="distrito" id="distrito"></h5>
+            <label class="text-label">Autoridad</label>
+            <h5 name="autoridad" id="autoridad"></h5>
+            <label class="text-label">Descripción del archivo</label>
+            <h5 name="descripcion" id="descripcion"></h5>
+            <label class="text-label">Fecha</label>
+            <h5 name="fecha" id="fecha"></h5>
+
+            <input type="hidden" name="archivo" id="archivo" class="form-control">
+            <input type="hidden" name="nombre_archivo" id="nombre_archivo" class="form-control">
+            <input type="hidden" name="modulo" id="modulo" class="form-control">
+          </div>
+
+          <div class="modal-footer d-flex justify-content-center pt-3">
+            <button type="button" class="btn boton-descarga" id="botonDescarga" onclick="validarInformacion()">Iniciar Descarga</button>
+
+            <button class="btn boton-descarga" id="botonDescargando" type="button" disabled style="display:none;">
+              <span class="spinner-border spinner-border-sm"  role="status" aria-hidden="true"></span>
+              Descargando...
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
   {% include 'footer-collapse.html' %}
   <!-- JQuery -->
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>

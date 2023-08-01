@@ -13,17 +13,6 @@ const listasDeAcuerdosTableSpinner = document.getElementById("listasDeAcuerdosTa
 
 // Consultar las listas de acuerdos para llenar la tabla
 async function consultarListasDeAcuerdos(autoridadClave, fechaDesde, fechaHasta) {
-  let parametros = {
-    autoridad_clave: autoridadClave
-  };
-
-  if(fechaDesde != null || fechaDesde != undefined){
-    parametros = { ...parametros, fecha_desde:fechaDesde }
-  }
-  if(fechaHasta != null || fechaHasta != undefined){
-    parametros = { ...parametros, fecha_hasta:fechaHasta }
-  }
-
   listasDeAcuerdosTableSpinner.style.display = "block";
   await esperar(1000); // Esperar 1 segundo
   $("#listasDeAcuerdosTable").DataTable({
@@ -35,14 +24,18 @@ async function consultarListasDeAcuerdos(autoridadClave, fechaDesde, fechaHasta)
     ajax: {
       url: apiUrl + "/listas_de_acuerdos/datatable",
       headers: { "X-Api-Key": apiKey },
-      data: parametros,
+      data: {
+        autoridad_clave: autoridadClave,
+        fecha_desde: fechaDesde != null ? fechaDesde : "1900-01-01",
+        fecha_hasta: fechaHasta != null ? fechaHasta : "2100-01-01",
+      },
       type: "GET",
       dataType: "json",
     },
     columns: [
       { data: "fecha", width: "20%" },
       { data: "descripcion", width: "60%" },
-      { data: "url", width: "20%" },
+      { data: "id", width: "20%" },
     ],
     columnDefs: [
       {
@@ -56,7 +49,7 @@ async function consultarListasDeAcuerdos(autoridadClave, fechaDesde, fechaHasta)
         targets: 2,
         data: null,
         render: function (data, type, row) {
-          return '<a href="' + data + '" target="_blank"><i class="fa fa-file"></i> PDF</a>';
+          return '<a href="javascript:void(0)" onClick="lanzarModal(\'' + data + '\' , \'listas_de_acuerdos\')"><i class="fa fa-file"></i> PDF</a>';
         },
       },
     ],

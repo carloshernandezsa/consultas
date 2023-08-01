@@ -4,7 +4,7 @@
     <title>Listas de Acuerdos</title>
     <meta name="slug" content="consultas-listas-de-acuerdos" />
     <meta name="summary" content="" />
-    <meta name="javascripts" content="consultas-api-url.js,consultas-distritos-autoridades.js,consultas-rangos-fechas.js,consultas-listas-de-acuerdos.js" />
+    <meta name="javascripts" content="consultas-solicitud-de-archivos.js,consultas-api-url.js,consultas-distritos-autoridades.js,consultas-rangos-fechas.js,consultas-listas-de-acuerdos.js" />
     <meta name="save_as" content="listas-de-acuerdos/index.html" />
   </head>
   <body>
@@ -32,10 +32,10 @@
               </div>
               <div id="distritosFormGroup">
                 <span class="text-muted">Elija el Distrito/Grupo</span>
-                <ul id="distritosOptions" class="nav flex-column ul-style"></ul>
+                <ul id="distritosOptions" class="nav flex-column"></ul>
               </div>
             </div>
-            <div class="col-sm-6" style="overflow-y: visible;">
+            <div class="col-sm-6">
               <div id="autoridadesSpinner" class="text-center">
                 <div class="spinner-border" role="status">
                   <span class="sr-only">Cargando...</span>
@@ -43,7 +43,7 @@
               </div>
               <div id="autoridadesFormGroup">
                 <span class="text-muted">Elija el Juzgado/Autoridad</span>
-                <ul id="autoridadesOptions" class="nav flex-column ul-style"></ul>
+                <ul id="autoridadesOptions" class="nav flex-column"></ul>
               </div>
             </div>
           </div>
@@ -76,8 +76,8 @@
                     <span class="input-group-addon">De</span>
                     <input type="text" class="form-control" name="fechaDesde" size="12" id="fechaDesde" />
                     <span class="input-group-addon">a</span>
-                    <input type="text" class="form-control mr-1" name="fechaHasta" size="12" id="fechaHasta" />
-                    <button id="rangoFechasFiltrarButton" class="btn btn-primary btn-sm mr-1"><i class="fa fa-filter"></i> Filtrar</button>
+                    <input type="text" class="form-control" name="fechaHasta" size="12" id="fechaHasta" />
+                    <button id="rangoFechasFiltrarButton" class="btn btn-primary btn-sm"><i class="fa fa-filter"></i> Filtrar</button>
                     <button id="rangoFechasLimpiarButton" class="btn btn-warning btn-sm"><i class="fa fa-eraser"></i> Limpiar</button>
                   </div>
                 </div>
@@ -106,3 +106,9 @@
     </div>
   </body>
 </html>
+
+
+
+
+
+

@@ -178,25 +178,16 @@ footer .footer-light a:hover   { color:#212530; }
     background-color: #f9f9f9 !important;
     margin: 2px;
 }
-.nav-pills .nav-link:hover {
-    background-color: #f9f9f9 !important;
-    color: #333 !important;
-}
 
 .dropdown-submenu                      { position: relative; }
 .dropdown-submenu .dropdown-menu       { top: 0; left: 100%; margin-top: -1px; }
 
-
 /* NAV MENU */
 .nav-link.active{
-    background-color: #004360 !important;
+    background-color: #004560 !important;
+    border-color: #dadada !important;
     color: #e1e1e1 !important;
 }
-
-.nav-pills .nav-link.active:hover {
-    background-color: #004360 !important;
-    color: #e1e1e1 !important;
-  }
 
 /* --------
  * Carrusel
@@ -233,6 +224,12 @@ footer .footer-light a:hover   { color:#212530; }
 .badge-tribunal-constitucional                 { background-color: #6c7b95; }
 .badge-votos-disidentes                        { background-color: #ddd1c1; color: black; }
 .badge-votos-particulares                      { background-color: #ddd1c1; color: black; }
+
+.boton-descarga         { background-color: #004360; color: #fff;}
+.boton-descarga:hover   { background-color:#004560  ; color: #fff;}
+.text-label             { color: #333 ; font-size: .8em; padding-top: 10px; padding-bottom: 0px;}
+h5                      { padding-top: -10px;}
+
 
 /* ----------
  * Responsivo
@@ -293,10 +290,4 @@ footer .footer-light a:hover   { color:#212530; }
     #accesos p   { font-size: 0.7em; line-height: 1.0em; }
     .breadcrumb  { font-size: 0.8em; }
     footer       { font-size: 0.7em; line-height: 1.0em; }
-}
-
-.ul-style{
-    color: #004360;
-    cursor: pointer;
-    padding:5px;
 }
