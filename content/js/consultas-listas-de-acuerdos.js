@@ -42,7 +42,7 @@ async function consultarListasDeAcuerdos(autoridadClave, fechaDesde, fechaHasta)
     columns: [
       { data: "fecha", width: "20%" },
       { data: "descripcion", width: "60%" },
-      { data: "url", width: "20%" },
+      { data: "id", width: "20%" },
     ],
     columnDefs: [
       {
@@ -56,7 +56,7 @@ async function consultarListasDeAcuerdos(autoridadClave, fechaDesde, fechaHasta)
         targets: 2,
         data: null,
         render: function (data, type, row) {
-          return '<a href="' + data + '" target="_blank"><i class="fa fa-file"></i> PDF</a>';
+          return '<a href="javascript:void(0)" onClick="lanzarModal(\'' + data + '\' , \'listas_de_acuerdos\')"><i class="fa fa-file"></i> PDF</a>';
         },
       },
     ],

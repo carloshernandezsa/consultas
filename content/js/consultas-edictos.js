@@ -48,7 +48,7 @@ async function consultarEdictos(autoridadClave, fechaDesde, fechaHasta, expedien
       { data: "descripcion", width: "60%" },
       { data: "expediente", width: "10%" },
       { data: "numero_publicacion", width: "10%" },
-      { data: "url", width: "10%" },
+      { data: "id", width: "10%" },
     ],
     columnDefs: [
       {
@@ -62,7 +62,7 @@ async function consultarEdictos(autoridadClave, fechaDesde, fechaHasta, expedien
         targets: 4,
         data: null,
         render: function (data, type, row) {
-          return '<a href="' + data + '" target="_blank"><i class="fa fa-file"></i> PDF</a>';
+          return '<a href="javascript:void(0)" onClick="lanzarModal(\'' + data + '\' , \'edictos\')"><i class="fa fa-file"></i> PDF</a>';
         },
       },
     ],
