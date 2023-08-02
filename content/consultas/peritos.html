@@ -4,20 +4,28 @@
     <title>Peritos</title>
     <meta name="slug" content="consultas-peritos" />
     <meta name="summary" content="" />
-    <meta name="javascripts" content="consultas-api-url.js,consultas-distritos.js,consultas-peritos.js" />
+    <meta name="javascripts" content="consultas-api-url.js,consultas-distritos.js,consultas-peritos-tipos.js,consultas-peritos.js" />
     <meta name="save_as" content="peritos/index.html" />
   </head>
   <body>
     <!-- Cabecera -->
     <p>La lista de Peritos en los términos de la Ley Orgánica del Poder Judicial del Estado.</p>
+    <!-- Aviso -->
+    <div class="alert alert-info">
+      Como consecuencia del abuso en el uso de los datos publicados en este sitio web
+      se han establecido límites en la cantidad de consultas que se pueden realizar.
+      Si aparece un mensaje de error, es probable que se haya alcanzado ese limite,
+      solo espere unos minutos e intente de nuevo.
+      Gracias por hacer un uso responsable del sistema de consultas y de la información que brinda.
+    </div>
     <!-- Instruciones -->
     <h2 id="instrucciones">Instrucciones</h2>
     <p class="mb-5 border-bottom">
-      Favor de seleccionar el <b>Distrito Judicial</b> (lista desplegable con los distritos).
-      Puede dejarlo en "Todos" para mostrar todos los peritos del distrito.
-      O escribir parte del nombre, preferentemente un apellido.
+      Favor de seleccionar el <b>Distrito Judicial</b> (lista desplegable con los distritos)
+      y el tipo de perito (lista desplegable con los tipos de peritos).
+      Puede escribir parte del nombre, preferentemente un apellido. No use acentos ni caracteres especiales.
       Luego presione el botón <b>Consultar</b> y espere a que se cargue el listado.
-      Para volver a consultar de clic en el botón <b>Regresar</b>.
+      Para volver a buscar de clic en el botón <b>Regresar</b>.
     </p>
     <!-- Formulario -->
     <div id="peritosFormCard" class="card">
@@ -28,7 +36,7 @@
           </div>
         </div>
         <form id="peritosForm" onsubmit="return false;">
-          <!-- Distrito -->
+          <!-- Elija el distrito -->
           <div class="row">
             <div class="col-sm-12">
               <div id="distritoSpinner" class="text-center">
@@ -37,11 +45,26 @@
                 </div>
               </div>
               <div class="form-group">
-                <label for="distritoSelect">Elija el Distrito</label>
+                <label for="distritoSelect">Elija el Distrito Judicial</label>
                 <select id="distritoSelect" name="distritoClave" class="form-control"></select>
               </div>
             </div>
           </div>
+          <!-- Elija el tipo de perito -->
+          <div class="row">
+            <div class="col-sm-12">
+              <div id="tipoDePeritoSpinner" class="text-center">
+                <div class="spinner-border" role="status">
+                  <span class="sr-only">Cargando...</span>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="tipoDePeritoSelect">Elija el tipo de perito</label>
+                <select id="tipoDePeritoSelect" name="tipoDePeritoId" class="form-control"></select>
+              </div>
+            </div>
+          </div>
+          <!-- Escriba el nombre -->
           <div class="form-group">
             <label for="nombreInput">Nombre</label>
             <input id="nombreInput" type="text" class="form-control" placeholder="Por lo menos cuatro caracteres" />
@@ -67,6 +90,7 @@
         <table id="peritosTable" class="table table-striped" style="width: 100%">
           <thead>
             <tr>
+              <th>Distrito</th>
               <th>Tipo de perito</th>
               <th>Nombre</th>
               <th>Domicilio</th>
