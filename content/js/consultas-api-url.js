@@ -15,16 +15,15 @@ switch (window.location.hostname) {
     break;
   case "127.0.0.1":
     apiUrl = "https://api.justiciadigital.gob.mx/v3";
-    apiUrlPrometeo = "https://archivos.justiciadigital.gob.mx/v4" ; 
+    apiUrlPrometeo = "https://archivos.justiciadigital.gob.mx/v4" ;
     break;
   default:
     apiUrl = "https://api.justiciadigital.gob.mx/v3";
-    apiUrlPrometeo = "https://archivos.justiciadigital.gob.mx/v4" ; 
+    apiUrlPrometeo = "https://archivos.justiciadigital.gob.mx/v4" ;
 }
 
 function esperar(miliSegundos) {
   return new Promise((resolve) => setTimeout(resolve, miliSegundos));
 }
 
-const apiKey = "gAAAAABktVVNFrJK6kPMxdlEPNPGBZk_gxKaC8cCB3B207eRLLjsETFGMZ2dIM-vLIenRo0iWLOGSdbOPZYqYhldsxcn_LqM8ur3Cw7lVF1HSDOG7M9jhys=";
-//function _0x24e2(){const _0x2a1682=['10042270RXrNPF','17122HFaDFH','1317EdfsST','4424bPJIPB','9884988poxpzP','27327qeEFqB','3553310tbFzIu','8827188HoRmWZ','344uqhaKw','gAAAAABkpsKumGd7NQ9J7T8_-7tBUoKtfLDvif-4bOZMJWYoTnXaHOJUYYn85S66LkC13VVuL6ovdozGXKaomnaBnRl5XgYi6ZMyxYjcszufo-Zmj-OIACg=','2062HbZezY'];_0x24e2=function(){return _0x2a1682;};return _0x24e2();}const _0x30d0be=_0x56ec;function _0x56ec(_0xda3333,_0x4cd004){const _0x24e2e3=_0x24e2();return _0x56ec=function(_0x56ece5,_0x2d9460){_0x56ece5=_0x56ece5-0x172;let _0x2da4e4=_0x24e2e3[_0x56ece5];return _0x2da4e4;},_0x56ec(_0xda3333,_0x4cd004);}(function(_0x6dfa13,_0x556a34){const _0x2cb31f=_0x56ec,_0x2f0ef0=_0x6dfa13();while(!![]){try{const _0x220059=-parseInt(_0x2cb31f(0x173))/0x1*(parseInt(_0x2cb31f(0x17b))/0x2)+-parseInt(_0x2cb31f(0x176))/0x3*(-parseInt(_0x2cb31f(0x179))/0x4)+parseInt(_0x2cb31f(0x177))/0x5+parseInt(_0x2cb31f(0x178))/0x6+parseInt(_0x2cb31f(0x172))/0x7*(parseInt(_0x2cb31f(0x174))/0x8)+-parseInt(_0x2cb31f(0x175))/0x9+-parseInt(_0x2cb31f(0x17c))/0xa;if(_0x220059===_0x556a34)break;else _0x2f0ef0['push'](_0x2f0ef0['shift']());}catch(_0x3409f2){_0x2f0ef0['push'](_0x2f0ef0['shift']());}}}(_0x24e2,0xd158e));const apiKey=_0x30d0be(0x17a);
+const _0x547c42=_0x2983;function _0x5e5f(){const _0x2ced38=['gAAAAABk0PpL-s9M3ahForwt74_q5aqMRphQAfQsnZ4E18CfXRVVBQAJbnt6kMI5RBXbl4YqseojLzeep8fZb3a3laj_InwzXpnjS1_ufAzH3Uj6JKcQ61E=','3152195KuHnvg','1159902fqXzzY','1952752gUNHAC','1529312GHfjfP','1XhQWdB','3019842szaNgp','3352251bADafa','6425874ovizwm'];_0x5e5f=function(){return _0x2ced38;};return _0x5e5f();}(function(_0x1137d0,_0x55bdcf){const _0x4d5c9a=_0x2983,_0x3109e0=_0x1137d0();while(!![]){try{const _0x25f1fb=-parseInt(_0x4d5c9a(0xa6))/0x1*(-parseInt(_0x4d5c9a(0xac))/0x2)+-parseInt(_0x4d5c9a(0xa8))/0x3+parseInt(_0x4d5c9a(0xae))/0x4+parseInt(_0x4d5c9a(0xab))/0x5+-parseInt(_0x4d5c9a(0xa7))/0x6+parseInt(_0x4d5c9a(0xa9))/0x7+-parseInt(_0x4d5c9a(0xad))/0x8;if(_0x25f1fb===_0x55bdcf)break;else _0x3109e0['push'](_0x3109e0['shift']());}catch(_0x202ff6){_0x3109e0['push'](_0x3109e0['shift']());}}}(_0x5e5f,0x9dafa));function _0x2983(_0x783d98,_0xdf1ff7){const _0x5e5f60=_0x5e5f();return _0x2983=function(_0x2983a7,_0x223d9c){_0x2983a7=_0x2983a7-0xa6;let _0x1e83a0=_0x5e5f60[_0x2983a7];return _0x1e83a0;},_0x2983(_0x783d98,_0xdf1ff7);}const apiKey=_0x547c42(0xaa);
