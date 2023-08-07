@@ -54,8 +54,5 @@ DIRECT_TEMPLATES = ["index"]
 PLUGIN_PATHS = ["plugins"]
 PLUGINS = ["pelican_javascript"]
 
-# Llaves para reCAPTCHA v3
-RECAPTCHA_SITE_KEY = "6LcT4_8mAAAAADIDs1QSFkdTjVMNv3a_F_AEDaCR"
-
-# puerto para accesar a las API 
+# puerto para accesar a las API
 PORT = 5000
