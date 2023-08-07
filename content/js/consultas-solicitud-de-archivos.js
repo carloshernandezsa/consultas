@@ -48,7 +48,7 @@ function validarInformacion() {
         var blob = new Blob([data]);
         var link = document.createElement("a");
         link.href = window.URL.createObjectURL(blob);
-        link.download = "<" + nombre_archivo + ".pdf>";
+        link.download = nombre_archivo;
         link.click();
         $("#solicitudDeArchivosModal").modal("hide");
       },
