@@ -30,7 +30,7 @@ function validarInformacion() {
   document.getElementById("botonDescargando").style.display = "block";
 
   grecaptcha.enterprise.ready(async () => {
-    const token = await grecaptcha.enterprise.execute("6LfCO3MnAAAAAM1pBm_AeHMugExVqg5vE7U02F_3", { action: "LOGIN" });
+    const token = await grecaptcha.enterprise.execute("6LdBVYYnAAAAADxeQUvhC82bgLHw3IPLdiuvydxU", { action: "DOWNLOAD" });
 
     const archivo = $("#archivo").val();
     const nombre_archivo = $("#nombre_archivo").val();
