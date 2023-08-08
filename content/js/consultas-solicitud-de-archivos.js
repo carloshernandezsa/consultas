@@ -11,7 +11,6 @@ function lanzarModal(archivo, modulo) {
     headers: { "X-Api-Key": apiKey },
     dataTyp: "json",
     success: function (data) {
-      console.log(data);
       $("#distrito").text(data.distrito_nombre);
       $("#autoridad").text(data.autoridad_descripcion);
       $("#descripcion").text(data.descripcion);
