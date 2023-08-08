@@ -31,7 +31,7 @@
   <!-- Stylesheets del tema -->
   <link rel="stylesheet" href="{{ SITEURL }}/theme/css/pjecz-2020-10.css">
   <!-- Google reCaptcha Enterprise -->
-  <script src="https://www.google.com/recaptcha/enterprise.js?render=6LfCO3MnAAAAAM1pBm_AeHMugExVqg5vE7U02F_3"></script>
+  <script src="https://www.google.com/recaptcha/enterprise.js?render=explicit" async defer></script>
   <!-- Stylesheets individuales -->
   {% if USE_REMOTE_SERVICES %}{% include 'google-analytics.html' %}{% endif %}
   {% if page %}
@@ -74,6 +74,7 @@
           <input type="hidden" name="archivo" id="archivo" class="form-control">
           <input type="hidden" name="nombre_archivo" id="nombre_archivo" class="form-control">
           <input type="hidden" name="modulo" id="modulo" class="form-control">
+          <div id="recaptchaTest"></div>
         </div>
         <div class="modal-footer d-flex justify-content-center pt-3">
           <button type="button" class="btn boton-descarga" id="botonDescarga" onclick="validarInformacion()">Iniciar Descarga</button>
