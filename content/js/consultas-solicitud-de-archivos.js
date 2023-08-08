@@ -2,6 +2,10 @@
 // Solicitud de Archivos
 //
 
+const iAmNotARobot = document.getElementById('recaptchaTest');
+const recaptchaSiteKey = "6LdBVYYnAAAAADxeQUvhC82bgLHw3IPLdiuvydxU";
+var grecaptchaId;
+
 function lanzarModal(archivo, modulo) {
   document.getElementById("botonDescarga").style.display = "block";
   document.getElementById("botonDescargando").style.display = "none";
@@ -22,35 +26,40 @@ function lanzarModal(archivo, modulo) {
   $("#solicitudDeArchivosModal").modal("show");
   $("#archivo").val(archivo);
   $("#modulo").val(modulo);
+
+  grecaptchaId = grecaptcha.enterprise.render(iAmNotARobot, {
+    "sitekey" : recaptchaSiteKey,
+    "action": "LOGIN",
+  });
+
 }
 
 function validarInformacion() {
   document.getElementById("botonDescarga").style.display = "none";
   document.getElementById("botonDescargando").style.display = "block";
 
-  grecaptcha.enterprise.ready(async () => {
-    const token = await grecaptcha.enterprise.execute('6LfCO3MnAAAAAM1pBm_AeHMugExVqg5vE7U02F_3', {action: 'LOGIN'});
+  const token = grecaptcha.enterprise.getResponse(grecaptchaId);
 
-    const archivo = $("#archivo").val();
-    const nombre_archivo = $("#nombre_archivo").val();
-    const modulo = $("#modulo").val();
+  const archivo = $("#archivo").val();
+  const nombre_archivo = $("#nombre_archivo").val();
+  const modulo = $("#modulo").val();
 
-    $.ajax({
-      url: apiUrlPrometeo + "/" + modulo + "/recaptcha/" + archivo,
-      method: "get",
-      headers: { "X-Api-Key": apiKey },
-      data: { token: token },
-      xhrFields: {
-        responseType: "blob",
-      },
-      success: function (data) {
-        var blob = new Blob([data]);
-        var link = document.createElement("a");
-        link.href = window.URL.createObjectURL(blob);
-        link.download = nombre_archivo;
-        link.click();
-        $("#solicitudDeArchivosModal").modal("hide");
-      },
-    });
+  $.ajax({
+    url: apiUrlPrometeo + "/" + modulo + "/recaptcha/" + archivo,
+    method: "get",
+    headers: { "X-Api-Key": apiKey },
+    data: { token: token },
+    xhrFields: {
+      responseType: "blob",
+    },
+    success: function (data) {
+      var blob = new Blob([data]);
+      var link = document.createElement("a");
+      link.href = window.URL.createObjectURL(blob);
+      link.download = nombre_archivo;
+      link.click();
+      $("#solicitudDeArchivosModal").modal("hide");
+    },
   });
+
 }

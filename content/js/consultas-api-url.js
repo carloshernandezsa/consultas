@@ -10,12 +10,12 @@ let apiUrlPrometeo;
 
 switch (window.location.hostname) {
   case "localhost":
-    apiUrl = "https://api.justiciadigital.gob.mx/v3";
-    apiUrlPrometeo = "https://archivos.justiciadigital.gob.mx/v4";
+    apiUrl = "http://localhost:8001/v3";
+    apiUrlPrometeo = "http://localhost:8004/v4";
     break;
   case "127.0.0.1":
-    apiUrl = "https://api.justiciadigital.gob.mx/v3";
-    apiUrlPrometeo = "https://archivos.justiciadigital.gob.mx/v4" ;
+    apiUrl = "http://127.0.0.1:8001/v3";
+    apiUrlPrometeo = "http://127.0.0.1:8004/v4" ;
     break;
   default:
     apiUrl = "https://api.justiciadigital.gob.mx/v3";
