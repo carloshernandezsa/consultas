@@ -22,7 +22,9 @@
 
 {% block header %}
   <!-- Menu de consultas -->
+  {% if page.slug[:8] != "descarga" %}
   {% include 'menu.html' %}
+  {% endif %}
   <!-- Encabezado -->
   <div class="py-2">
     <div class="container h-100">

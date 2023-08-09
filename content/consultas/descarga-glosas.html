@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Descarga de Listas de Acuerdos</title>
+    <meta name="slug" content="descargar-glosas" />
+    <meta name="summary" content="" />
+    <meta name="javascripts" content="consultas-api-url.js,consultas-descargar-archivos.js" />
+    <meta name="save_as" content="glosas/descarga/index.html" />
+  </head>
+  <body>
+
+    <!-- Datos -->
+    <div id="glosasCard" class="card">
+      <div class="card-header">
+        <div class="row">
+          <!-- Titulo -->
+          <div class="col-12">
+            <div id="encabezadoDiv">
+              <label>Distrito</label>
+              <h5 id="distritoTitle" class="mb-2"></h5>
+              <label>Autoridad</label>
+              <h5 id="autoridadTitle" class="mb-2"></h5>
+              <label>Fecha</label>
+              <h5 id="fechaTitle" class="mb-2"></h5>
+              <label>Descipción</label>
+              <h5 id="descripcionTitle" class="mb-2"></h5>
+              <input type="hidden" name="nombreArchivo" id="nombreArchivo" class="form-control">
+              <div id="divRecaptcha"></div>
+
+              <button type="button" class="btn boton-descarga" id="botonDescarga" onclick="descargarArchivo('listas_de_acuerdos')">Iniciar Descarga</button>
+
+              <button class="btn boton-descarga" id="botonDescargando" type="button" disabled style="display:none;">
+                <span class="spinner-border spinner-border-sm"  role="status" aria-hidden="true"></span>
+                Descargando...
+              </button>
+
+            
+            </div>
+          </div>
+          
+        </div>
+      </div>
+      
+    </div>
+  </body>
+</html>

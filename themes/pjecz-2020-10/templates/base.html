@@ -30,8 +30,10 @@
   <script src="https://use.fontawesome.com/af111b85f5.js"></script>
   <!-- Stylesheets del tema -->
   <link rel="stylesheet" href="{{ SITEURL }}/theme/css/pjecz-2020-10.css">
+  <!-- Stylesheets del Modulo de Consultas  -->
+  <link rel="stylesheet" href="{{ SITEURL }}/theme/css/consultas.css">  
   <!-- Google reCaptcha Enterprise -->
-  <script src="https://www.google.com/recaptcha/enterprise.js?render=explicit" async defer></script>
+  <script src="https://www.google.com/recaptcha/enterprise.js?onload=onloadCallback&render=explicit" async defer></script>
   <!-- Stylesheets individuales -->
   {% if USE_REMOTE_SERVICES %}{% include 'google-analytics.html' %}{% endif %}
   {% if page %}
