@@ -3,7 +3,7 @@
 //
 
 const iAmNotARobot = document.getElementById('recaptchaTest');
-const recaptchaSiteKey = "6Leb9o4nAAAAAP97MAcMc2KTWhpzGrIZ8_BVLRMb";
+const recaptchaSiteKey = "6LdBVYYnAAAAADxeQUvhC82bgLHw3IPLdiuvydxU";
 var grecaptchaId;
 
 function lanzarModal(archivo, modulo) {
