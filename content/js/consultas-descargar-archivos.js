@@ -8,7 +8,7 @@ modulo = parts[ parts.length - 3].replaceAll("-","_") ;
 
 var onloadCallback = function() {
         grecaptcha.enterprise.render('divRecaptcha', {
-          'sitekey' : '6Leb9o4nAAAAAP97MAcMc2KTWhpzGrIZ8_BVLRMb',
+          'sitekey' : '6LdBVYYnAAAAADxeQUvhC82bgLHw3IPLdiuvydxU',
         });
   
 };
