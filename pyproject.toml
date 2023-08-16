@@ -1,8 +1,8 @@
 [tool.poetry]
-name = "pjecz-justicia-digital-bootstrap"
-version = "0.1.0"
+name = "consultas"
+version = "1.0.0"
 description = "Sitio web para consultar información hecho con bootstrap y datatables."
-authors = ["Guillermo Valdes <guillermo.valdes@pjecz.gob.mx>"]
+authors = ["Guillermo Valdes <guillermo@movimientolibre.com>"]
 license = "AGPL3"
 
 [tool.poetry.dependencies]
@@ -19,3 +19,6 @@ black = "^23.3.0"
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.black]
+line-length = 256

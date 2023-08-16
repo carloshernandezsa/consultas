@@ -1,5 +1,3 @@
-# pjecz-justicia-digital-bootstrap
+# Consultas
 
-Este es el sucesor de la rama consultas del sitio web.
-
-Usa las mismas dependencias del sitio que son bootstrap y datatables.
+Rama consultas del sitio web www.pjecz.gob.mx
