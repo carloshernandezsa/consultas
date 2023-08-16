@@ -42,7 +42,7 @@ function recargarConAutoridadClave(autoridadClave) {
 // Cambiar el estilo a INACTIVO de todas las opciones de distritos a nav-item
 function cambiarEstiloAInactivoDistritos() {
   distritosOptions.querySelectorAll("a").forEach((item) => {
-    item.className = "nav-link";
+    item.className = "nav-link-distrito";
   });
 }
 
@@ -62,12 +62,12 @@ async function consultarDistritos(conNotarias = false) {
           thisLink.textContent = item.nombre_corto;
           thisLink.addEventListener("click", (thisEvent) => {
             cambiarEstiloAInactivoDistritos();
-            thisEvent.target.className = "nav-link active";
+            thisEvent.target.className = "nav-link-distrito active";
             consultarAutoridades(item.clave, conNotarias);
             thisEvent.preventDefault();
           });
           let thisOption = document.createElement("li");
-          thisOption.className = "nav-item";
+          thisOption.className = "nav-li-distrito";
           thisOption.appendChild(thisLink);
           distritosOptions.appendChild(thisOption);
         });
