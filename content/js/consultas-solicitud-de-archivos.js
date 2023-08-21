@@ -2,9 +2,15 @@
 // Solicitud de Archivos
 //
 
-const iAmNotARobot = document.getElementById('recaptchaTest');
-const recaptchaSiteKey = "6LdBVYYnAAAAADxeQUvhC82bgLHw3IPLdiuvydxU";
 var grecaptchaId;
+const recaptchaSiteKey ="6Leb9o4nAAAAAP97MAcMc2KTWhpzGrIZ8_BVLRMb"; // "6LdBVYYnAAAAADxeQUvhC82bgLHw3IPLdiuvydxU";
+  
+var onloadCallback =  function(){
+  grecaptchaId = grecaptcha.enterprise.render('recaptchaTest', {
+      "sitekey" : recaptchaSiteKey,
+     "action": "LOGIN",
+    });
+} 
 
 function lanzarModal(archivo, modulo) {
   document.getElementById("botonDescarga").style.display = "block";
@@ -25,20 +31,14 @@ function lanzarModal(archivo, modulo) {
 
   $("#solicitudDeArchivosModal").modal("show");
   $("#archivo").val(archivo);
-  $("#modulo").val(modulo);
-
-  grecaptchaId = grecaptcha.enterprise.render(iAmNotARobot, {
-    "sitekey" : recaptchaSiteKey,
-    "action": "LOGIN",
-  });
-
+  $("#modulo").val(modulo); 
 }
 
 function validarInformacion() {
   document.getElementById("botonDescarga").style.display = "none";
   document.getElementById("botonDescargando").style.display = "block";
 
-  const token = grecaptcha.enterprise.getResponse(grecaptchaId);
+  const token = grecaptcha.enterprise.getResponse(grecaptchaId); 
 
   const archivo = $("#archivo").val();
   const nombre_archivo = $("#nombre_archivo").val();
@@ -60,6 +60,13 @@ function validarInformacion() {
       link.click();
       $("#solicitudDeArchivosModal").modal("hide");
     },
+    error: function(xhr, status, error){
+          document.getElementById("botonDescarga").style.display = "none";
+          document.getElementById("botonDescargando").style.display = "block";
+          $("#solicitudDeArchivosModal").modal("hide");
+          alert("Error al descargar el archivo, intente nuevamente");
+    }
   });
+  grecaptcha.enterprise.reset() ;
 
 }
