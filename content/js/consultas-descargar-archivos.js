@@ -9,7 +9,7 @@ const url = window.location.href;
 const parts = url.split("/");
 modulo = parts[parts.length - 3].replaceAll("-", "_");
 
-const recaptchaSiteKey = "6Leb9o4nAAAAAP97MAcMc2KTWhpzGrIZ8_BVLRMb" ; //"6LdBVYYnAAAAADxeQUvhC82bgLHw3IPLdiuvydxU";
+const recaptchaSiteKey = "6LdBVYYnAAAAADxeQUvhC82bgLHw3IPLdiuvydxU";
 
 var onloadCallback = function () {
   grecaptcha.enterprise.render("divRecaptcha", {
