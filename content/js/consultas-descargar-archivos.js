@@ -9,14 +9,15 @@ const url = window.location.href;
 const parts = url.split("/");
 modulo = parts[parts.length - 3].replaceAll("-", "_");
 
+const recaptchaSiteKey = "6LdBVYYnAAAAADxeQUvhC82bgLHw3IPLdiuvydxU";
+
 var onloadCallback = function () {
   grecaptcha.enterprise.render("divRecaptcha", {
-    sitekey: "6LdBVYYnAAAAADxeQUvhC82bgLHw3IPLdiuvydxU",
+    sitekey: recaptchaSiteKey,
   });
 };
 
 const iAmNotARobot = document.getElementById("divRecaptcha");
-const recaptchaSiteKey = "6LdBVYYnAAAAADxeQUvhC82bgLHw3IPLdiuvydxU";
 var grecaptchaId;
 
 $.ajax({
@@ -25,11 +26,24 @@ $.ajax({
   headers: { "X-Api-Key": apiKey },
   dataTyp: "json",
   success: function (data) {
-    $("#distritoTitle").text(data.distrito_nombre);
-    $("#autoridadTitle").text(data.autoridad_descripcion);
-    $("#descripcionTitle").text(data.descripcion);
-    $("#fechaTitle").text(data.fecha);
-    $("#nombreArchivo").val(data.archivo);
+    if(data.success == true){
+      $("#distritoLabel").text("Distrito");
+      $("#distritoTitle").text(data.distrito_nombre);
+      $("#autoridadLabel").text("Autoridad");
+      $("#autoridadTitle").text(data.autoridad_descripcion);
+      $("#descripcionLabel").text("Descripción");
+      $("#descripcionTitle").text(data.descripcion);
+      $("#fechaLabel").text("Fecha");
+      $("#fechaTitle").text(data.fecha);
+      $("#nombreArchivo").val(data.archivo);
+    }
+    else{
+      document.getElementById("mensaje").style.display="block" ;
+      $("#mensaje").text("El Id del archivo a descargar no existe , revise que sea correcto");
+      document.getElementById("divRecaptcha").style.display="none" ;
+      document.getElementById("botonDescarga").style.display = "none";
+    }
+    
   },
 });
 
