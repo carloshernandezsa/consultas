@@ -1,3 +1,3 @@
 # Consultas
 
-Rama consultas del sitio web www.pjecz.gob.mx
+Rama consultas del sitio web www.pjecz.gob.mx.
