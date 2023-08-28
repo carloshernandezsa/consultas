@@ -9,16 +9,20 @@ const url = window.location.href;
 const parts = url.split("/");
 modulo = parts[parts.length - 3].replaceAll("-", "_");
 
-const recaptchaSiteKey = "6LdBVYYnAAAAADxeQUvhC82bgLHw3IPLdiuvydxU";
+const recaptchaSiteKey = "6LdrwtYnAAAAADqz-cUpRkC8JE0bGDAeNSbCr7L3";
 
+//  Variable para capturar el token generado en el checkbox 'No soy robot' 
+var grecaptchaId;
+
+// Funcion que se ejecuta al cargar la pagina por primera vez , genera el checkbox 'No soy robot'
 var onloadCallback = function () {
-  grecaptcha.enterprise.render("divRecaptcha", {
+  grecaptchaId = grecaptcha.enterprise.render("divRecaptcha", {
     sitekey: recaptchaSiteKey,
   });
 };
 
 const iAmNotARobot = document.getElementById("divRecaptcha");
-var grecaptchaId;
+
 
 $.ajax({
   url: apiUrl + "/" + modulo + "/" + idArchivo,
