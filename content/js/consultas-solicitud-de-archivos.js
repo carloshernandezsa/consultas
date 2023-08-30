@@ -14,12 +14,10 @@ var onloadCallback =  function(){
 
 function lanzarModal(archivo, modulo) {
 
-  //const url =    "descargar/" + "?id=" + archivo ;
-  //console.log(url) ;
-  //const url = "https://www.pjecz.gob.mx/consultas/" + modulo.replaceAll("_", "-") + "/descargar/" + "?id=" + archivo ;
-  //window.open(url, '_blank');
+  const url =    "descargar/" + "?id=" + archivo ;
+  window.open(url, '_blank');
 
-  document.getElementById("botonDescarga").style.display = "block";
+  /*document.getElementById("botonDescarga").style.display = "block";
   document.getElementById("botonDescargando").style.display = "none";
   $.ajax({
     url: apiUrl + "/" + modulo + "/" + archivo,
@@ -37,7 +35,7 @@ function lanzarModal(archivo, modulo) {
 
   $("#solicitudDeArchivosModal").modal("show");
   $("#archivo").val(archivo);
-  $("#modulo").val(modulo); 
+  $("#modulo").val(modulo); */
 }
 
 function validarInformacion() {
